@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Mr. Lee Travel | Premium motorbike rental, Jeep sand dune tours, and minibus transfers in Mui Ne & Phan Thiet, Vietnam.">
+    <title>Mr. Lee Travel | Premium Travel & Transport Services</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/logo/favicon.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="assets/images/logo/logo.webp" alt="Mr. Lee Rental & Lodging" class="logo-img">
+            </a>
+
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active" data-translate="nav_home">Home</a></li>
+                    <li><a href="#services" data-translate="nav_services">Services</a></li>
+                    <li><a href="#locations" data-translate="nav_locations">Locations</a></li>
+                    <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
+                </ul>
+
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <button class="lang-btn" id="langBtn">
+                        <img src="assets/images/languages/en.png" alt="Language" onerror="this.style.display='none'">
+                        <span>EN</span>
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option" data-lang="vi">
+                            <img src="assets/images/languages/vi.png" alt="VI" onerror="this.style.display='none'">
+                            Tiếng Việt
+                        </button>
+                        <button class="lang-option" data-lang="en">
+                            <img src="assets/images/languages/en.png" alt="EN" onerror="this.style.display='none'">
+                            English
+                        </button>
+                        <button class="lang-option" data-lang="ru">
+                            <img src="assets/images/languages/ru.png" alt="RU" onerror="this.style.display='none'">
+                            Русский
+                        </button>
+                        <button class="lang-option" data-lang="zh">
+                            <img src="assets/images/languages/zh.png" alt="ZH" onerror="this.style.display='none'"> 中文
+                        </button>
+                        <button class="lang-option" data-lang="kr">
+                            <img src="assets/images/languages/kr.png" alt="KR" onerror="this.style.display='none'"> 한국어
+                        </button>
+                        <button class="lang-option" data-lang="de">
+                            <img src="assets/images/languages/de.png" alt="DE" onerror="this.style.display='none'">
+                            Deutsch
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Panel -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#hero" data-translate="nav_home">Home</a>
+        <a href="#services" data-translate="nav_services">Services</a>
+        <a href="#locations" data-translate="nav_locations">Locations</a>
+        <a href="#contact" data-translate="nav_contact">Contact</a>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge" data-translate="hero_badge">Premium Travel & Transport Service</div>
+            <h1>
+                <span data-translate="hero_title_1">Explore</span><br>
+                <em data-translate="hero_title_2">Mui Ne</em><br>
+                <span data-translate="hero_title_3">Your Way</span>
+            </h1>
+            <p data-translate="hero_desc">
+                Rent motorbikes, book private Jeep dune tours, or charter minibuses for family transfers. Premium travel
+                experiences in Mui Ne & Phan Thiet.
+            </p>
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-white" data-translate="hero_cta">Explore Services</a>
+                <a href="#contact" class="btn btn-outline-light" data-translate="hero_cta2">Contact Us</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span data-translate="scroll_text">Scroll down</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- ========== STATS BAR ========== -->
+    <div class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p data-translate="stat_vehicles">Vehicles</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2,000+</h3>
+                    <p data-translate="stat_clients">Happy Clients</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p data-translate="stat_tours">Tours Completed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <p data-translate="stat_years">Years Experience</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SERVICES / TABS ========== -->
+    <section class="section services" id="services">
+        <div class="container">
+            <h2 class="section-title" data-translate="services_title">Our Services</h2>
+            <p class="section-subtitle" data-translate="services_subtitle">
+                From flexible motorbikes to sand dune Jeep tours and airport transfers — we cover all your travel needs.
+            </p>
+
+            <!-- Tabs -->
+            <div class="tabs-wrapper">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="motorbikes"
+                        data-translate="tab_motorbikes">Motorbikes</button>
+                    <button class="tab-btn" data-tab="jeeps" data-translate="tab_jeeps">Jeeps</button>
+                    <button class="tab-btn" data-tab="minibuses" data-translate="tab_minibuses">Minibuses</button>
+                </div>
+            </div>
+
+            <!-- Vehicle Grid (rendered by JS) -->
+            <div class="vehicle-grid" id="vehicleGrid"></div>
+        </div>
+    </section>
+
+    <!-- ========== LOCATIONS ========== -->
+    <section class="section" id="locations">
+        <div class="container">
+            <h2 class="section-title" data-translate="locations_title">Explore Destinations</h2>
+            <p class="section-subtitle" data-translate="locations_subtitle">
+                Beautiful destinations awaiting your discovery in Binh Thuan province.
+            </p>
+
+            <div class="locations-grid">
+                <div class="location-card fade-in">
+                    <img src="https://placehold.co/600x450/222/444?text=Mui+Ne" alt="Mui Ne" loading="lazy">
+                    <div class="location-card-overlay">
+                        <div>
+                            <h3 data-translate="loc_muine">Mui Ne</h3>
+                            <p data-translate="loc_muine_desc">Blue sea & golden dunes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="location-card fade-in">
+                    <img src="https://placehold.co/600x450/222/444?text=Phan+Thiet" alt="Phan Thiet" loading="lazy">
+                    <div class="location-card-overlay">
+                        <div>
+                            <h3 data-translate="loc_phanthiet">Phan Thiet</h3>
+                            <p data-translate="loc_phanthiet_desc">Vibrant coastal city</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="location-card fade-in">
+                    <img src="https://placehold.co/600x450/222/444?text=White+Dunes" alt="White Dunes" loading="lazy">
+                    <div class="location-card-overlay">
+                        <div>
+                            <h3 data-translate="loc_whitedunes">White Dunes</h3>
+                            <p data-translate="loc_whitedunes_desc">Majestic white sand dunes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="location-card fade-in">
+                    <img src="https://placehold.co/600x450/222/444?text=Ke+Ga" alt="Ke Ga" loading="lazy">
+                    <div class="location-card-overlay">
+                        <div>
+                            <h3 data-translate="loc_keGA">Ke Ga</h3>
+                            <p data-translate="loc_keGA_desc">Historic lighthouse</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA BANNER ========== -->
+    <section class="cta-banner" id="contact">
+        <div class="container">
+            <h2 data-translate="cta_title">Ready For Your Journey?</h2>
+            <p data-translate="cta_desc">Contact us via WhatsApp or Zalo for the fastest booking experience.
+            </p>
+            <a href="#services" class="btn btn-white" data-translate="cta_btn">Book a Service Now</a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="assets/images/logo/logo.webp" alt="Mr. Lee Rental & Lodging" class="logo-img">
+                    </div>
+                    <p data-translate="footer_desc">Premium travel & transport services in Mui Ne, Phan Thiet. Trusted —
+                        Quality — Dedicated.</p>
+                    <div class="footer-social">
+                        <a href="https://api.whatsapp.com/send/?phone=84913690974&text&type=phone_number&app_absent=0"
+                            aria-label="WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://zalo.me/84338311432" aria-label="Zalo" title="Zalo"><span
+                                class="zalo-icon">Z</span></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 data-translate="footer_services">Services</h4>
+                    <ul>
+                        <li><a href="#" data-translate="tab_motorbikes">Motorbikes</a></li>
+                        <li><a href="#" data-translate="tab_jeeps">Jeeps</a></li>
+                        <li><a href="#" data-translate="tab_minibuses">Minibuses</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 data-translate="footer_contact">Contact</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+84338311432">+84 338 311 432</a>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <a href="https://www.google.com/maps/place/50+Nguy%E1%BB%85n+T%E1%BA%A5n+%C4%90%E1%BB%8Bnh,+Ph%C6%B0%E1%BB%9Dng+H%C3%A0m+Ti%E1%BA%BFn,+Th%C3%A0nh+ph%E1%BB%91+Phan+Thi%E1%BA%BFt,+B%C3%ACnh+Thu%E1%BA%ADn,+Vi%E1%BB%87t+Nam/@10.9551034,108.2126836,17z"
+                                target="_blank" rel="noopener noreferrer">50B Nguyễn Tấn Định, Khu phố 1, Mũi Né, Lâm
+                                Đồng</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span data-translate="footer_copyright">© 2026 Mr. Lee Travel. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== PRODUCT DETAIL MODAL ========== -->
+    <div class="product-overlay" id="productOverlay">
+        <div class="product-modal">
+            <button class="product-modal-close" id="productCloseBtn" aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="product-modal-img">
+                <img id="productImg" src="" alt="">
+            </div>
+            <div class="product-modal-body">
+                <h2 class="product-modal-title" id="productTitle"></h2>
+                <div class="product-modal-price" id="productPrice"></div>
+                <div class="product-modal-features" id="productFeatures"></div>
+                <button class="btn btn-primary product-modal-book" id="productBookBtn">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span data-translate="book_now">Book Now</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BOOKING MODAL ========== -->
+    <div class="modal-overlay" id="bookingOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle" data-translate="modal_title">Book Service</h2>
+                <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label data-translate="label_name">Full Name</label>
+                    <input type="text" class="form-control" id="bookingName" data-translate="placeholder_name"
+                        placeholder="Enter your full name">
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label data-translate="label_phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="bookingPhone" data-translate="placeholder_phone"
+                        placeholder="Enter your phone number">
+                </div>
+
+                <!-- Delivery Method -->
+                <div class="form-group">
+                    <label data-translate="label_delivery_method">Delivery Method</label>
+                    <div class="delivery-toggle" id="deliveryToggle">
+                        <div class="delivery-option selected" data-method="pickup">
+                            <i class="fa-solid fa-store"></i>
+                            <span data-translate="delivery_pickup">Pick up at shop</span>
+                        </div>
+                        <div class="delivery-option" data-method="delivery">
+                            <i class="fa-solid fa-truck"></i>
+                            <span data-translate="delivery_deliver">Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Address (hidden by default) -->
+                <div class="delivery-fields" id="deliveryFields" style="display:none">
+                    <div class="form-group">
+                        <label data-translate="label_recipient_name">Recipient Name</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="form-control" id="deliveryName"
+                                data-translate="placeholder_recipient_name" placeholder="Enter recipient name"
+                                autocomplete="off">
+                            <div class="autocomplete-list" id="hotelAutocomplete"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="label_delivery_address">Delivery Address</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="form-control" id="deliveryAddress"
+                                data-translate="placeholder_delivery_address"
+                                placeholder="Enter address in Phan Thiet - Mui Ne" autocomplete="off">
+                            <div class="autocomplete-list" id="addressAutocomplete"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date & Time -->
+                <div class="form-group">
+                    <label data-translate="label_date_time">Date & Time</label>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button class="calendar-nav" id="calPrev" aria-label="Previous month">‹</button>
+                            <h3 id="calendarMonth">February 2026</h3>
+                            <button class="calendar-nav" id="calNext" aria-label="Next month">›</button>
+                        </div>
+                        <div class="calendar-weekdays" id="calendarWeekdays"></div>
+                        <div class="calendar-days" id="calendarDays"></div>
+                    </div>
+
+                    <!-- Analog Clock Picker -->
+                    <div class="clock-picker" id="clockPicker">
+                        <div class="clock-display" id="clockDisplay">
+                            <span class="clock-display-hour active" id="clockHourDisplay">08</span>
+                            <span class="clock-display-sep">:</span>
+                            <span class="clock-display-min" id="clockMinDisplay">00</span>
+                        </div>
+                        <svg class="clock-face" viewBox="0 0 200 200" id="clockSvg">
+                            <circle cx="100" cy="100" r="90" class="clock-ring" />
+                            <circle cx="100" cy="100" r="80" class="clock-inner" />
+                            <g id="clockNumbers"></g>
+                            <g id="clockTicks"></g>
+                            <line id="clockHand" x1="100" y1="100" x2="100" y2="30" class="clock-hand" />
+                            <circle cx="100" cy="100" r="4" class="clock-center" />
+                            <circle id="clockKnob" cx="100" cy="30" r="12" class="clock-knob" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Tour Time (Jeep-specific) -->
+                <div class="tour-time-selector" id="tourTimeSelector">
+                    <div class="tour-time-option" data-time="sunrise">
+                        <div class="icon"><i class="fa-solid fa-sun"></i></div>
+                        <div class="label" data-translate="tour_sunrise">Sunrise</div>
+                    </div>
+                    <div class="tour-time-option" data-time="sunset">
+                        <div class="icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                        <div class="label" data-translate="tour_sunset">Sunset</div>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="form-group">
+                    <label data-translate="label_notes">Notes</label>
+                    <textarea class="form-control" id="bookingNotes" rows="3" data-translate="placeholder_notes"
+                        placeholder="Special requests..."></textarea>
+                </div>
+
+                <!-- Submit Channels -->
+                <div class="submit-channels">
+                    <button class="btn btn-primary" id="sendWhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i> <span data-translate="send_whatsapp">WhatsApp</span>
+                    </button>
+                    <button class="btn btn-outline" id="sendZalo">
+                        <i class="fa-solid fa-comment-dots"></i> <span data-translate="send_zalo">Zalo</span>
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ========== SCROLL TO TOP ========== -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top"><i
+            class="fa-solid fa-chevron-up"></i></button>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="js/translations.js"></script>
+    <script src="js/vehicleData.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
