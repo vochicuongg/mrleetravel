@@ -45,6 +45,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -1496,6 +1497,143 @@ select.form-control {
 .submit-channels .btn {
     flex: 1;
     min-width: 140px;
+}
+
+/* ---------- Rental Duration ---------- */
+.rental-duration-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.rental-days-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rental-days-btn:hover {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+}
+
+.rental-days-input {
+    width: 70px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.rental-days-input::-webkit-inner-spin-button,
+.rental-days-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.rental-price-display {
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.rental-discount-badge {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.rental-price-line {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.rental-price-original {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.rental-price-new {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.rental-total {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ---------- Promo Banner ---------- */
+.promo-banner {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.03));
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.promo-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #22c55e;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.promo-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.promo-list li {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.promo-bullet {
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.promo-item-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.promo-price {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.promo-save {
+    color: #22c55e;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
 /* ---------- Toast Notification ---------- */

@@ -305,6 +305,10 @@
             </div>
             <div class="modal-body">
 
+                <!-- Discount Promo Banner (motorbikes only, dynamic content) -->
+                <div class="promo-banner" id="promoBanner" style="display:none"></div>
+
+
                 <!-- Name -->
                 <div class="form-group">
                     <label data-translate="label_name">Full Name</label>
@@ -354,6 +358,18 @@
                             <div class="autocomplete-list" id="addressAutocomplete"></div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Rental Duration (motorbikes only) -->
+                <div class="form-group rental-duration-group" id="rentalDurationGroup" style="display:none">
+                    <label data-translate="label_rental_days">Số Ngày Thuê</label>
+                    <div class="rental-duration-row">
+                        <button class="rental-days-btn" id="daysDecrease" onclick="app.adjustDays(-1)">−</button>
+                        <input type="number" class="form-control rental-days-input" id="rentalDays" value="1" min="1"
+                            max="90" onchange="app.updateRentalPrice()">
+                        <button class="rental-days-btn" id="daysIncrease" onclick="app.adjustDays(1)">+</button>
+                    </div>
+                    <div class="rental-price-display" id="rentalPriceDisplay"></div>
                 </div>
 
                 <!-- Date & Time -->

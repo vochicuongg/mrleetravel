@@ -269,6 +269,22 @@
         switchClockMode('hour');
         $('#bookingNotes').value = '';
 
+        // Show/hide rental duration & promo for motorbikes
+        const rentalGroup = $('#rentalDurationGroup');
+        const promoBanner = $('#promoBanner');
+        if (bookingVehicle._category === 'motorbikes') {
+            if (rentalGroup) {
+                rentalGroup.style.display = '';
+                const daysInput = $('#rentalDays');
+                if (daysInput) daysInput.value = 1;
+                updateRentalPrice();
+            }
+            if (promoBanner) renderPromoBanner();
+        } else {
+            if (rentalGroup) rentalGroup.style.display = 'none';
+            if (promoBanner) promoBanner.style.display = 'none';
+        }
+
         // Open modal
         const overlay = $('#bookingOverlay');
         overlay.classList.add('open');
@@ -348,6 +364,112 @@
     function selectDate(day) {
         selectedDate = new Date(calendarYear, calendarMonth, day);
         renderCalendar();
+    }
+
+    /* ---------- Rental duration discount ---------- */
+    function getDiscountedPrice(vehicle, days) {
+        if (!vehicle || vehicle._category !== 'motorbikes') return vehicle ? vehicle.price : 0;
+
+        const name = vehicle.nameKey.toLowerCase();
+        const isPremium = name.includes('pcx') || name.includes('nvx');
+        const isStandard = name.includes('vision') || name.includes('air blade') || name.includes('lead');
+
+        if (days >= 25) {
+            return isPremium ? 150000 : 100000;
+        } else if (days >= 5 && isStandard) {
+            return 130000;
+        }
+        return vehicle.price;
+    }
+
+    function renderPromoBanner() {
+        const banner = $('#promoBanner');
+        if (!banner || !bookingVehicle || bookingVehicle._category !== 'motorbikes') {
+            if (banner) banner.style.display = 'none';
+            return;
+        }
+
+        const name = bookingVehicle.nameKey.toLowerCase();
+        const isPremium = name.includes('pcx') || name.includes('nvx');
+        const isStandard = name.includes('vision') || name.includes('air blade') || name.includes('lead');
+        const basePrice = bookingVehicle.price;
+
+        let items = [];
+
+        // Tier 1: 5+ days (only for standard bikes)
+        if (isStandard) {
+            items.push({ days: 5, price: 130000 });
+        }
+
+        // Tier 2: 25+ days (all bikes)
+        if (isPremium) {
+            items.push({ days: 25, price: 150000 });
+        } else {
+            items.push({ days: 25, price: 100000 });
+        }
+
+        // Filter out tiers that don't actually save money
+        items = items.filter(it => it.price < basePrice);
+
+        if (items.length === 0) {
+            banner.style.display = 'none';
+            return;
+        }
+
+        const vehicleLabel = bookingVehicle.nameKey;
+        const listHtml = items.map(it =>
+            `<li>` +
+            `<span class="promo-bullet">🏷️</span>` +
+            `<div class="promo-item-text">` +
+            `<span class="promo-price">${t('promo_from')} ${it.days} ${t('days_unit')}: <strong>${formatPrice(it.price)}đ/${t('per_day')}</strong></span>` +
+            `<span class="promo-save">${t('promo_save')} ${formatPrice(basePrice - it.price)}đ/${t('per_day')}</span>` +
+            `</div>` +
+            `</li>`
+        ).join('');
+
+        banner.innerHTML =
+            `<div class="promo-title">🎉 ${t('promo_title')} — ${vehicleLabel}</div>` +
+            `<ul class="promo-list">${listHtml}</ul>`;
+        banner.style.display = '';
+    }
+
+    function updateRentalPrice() {
+        const display = $('#rentalPriceDisplay');
+        if (!display || !bookingVehicle) return;
+
+        const daysInput = $('#rentalDays');
+        let days = parseInt(daysInput ? daysInput.value : 1) || 1;
+        if (days < 1) days = 1;
+        if (days > 90) days = 90;
+        if (daysInput) daysInput.value = days;
+
+        const originalPrice = bookingVehicle.price;
+        const discountPrice = getDiscountedPrice(bookingVehicle, days);
+        const total = discountPrice * days;
+
+        if (discountPrice < originalPrice) {
+            display.innerHTML =
+                `<div class="rental-discount-badge">🎉 ${t('discount_label')}</div>` +
+                `<div class="rental-price-line">` +
+                `<span class="rental-price-original">${formatPrice(originalPrice)}đ</span> → ` +
+                `<span class="rental-price-new">${formatPrice(discountPrice)}đ/${t('per_day')}</span>` +
+                `</div>` +
+                `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}đ</strong> (${days} ${t('days_unit')})</div>`;
+        } else {
+            display.innerHTML =
+                `<div class="rental-price-line">${formatPrice(originalPrice)}đ/${t('per_day')}</div>` +
+                `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}đ</strong> (${days} ${t('days_unit')})</div>`;
+        }
+    }
+
+    function adjustDays(delta) {
+        const input = $('#rentalDays');
+        if (!input) return;
+        let val = (parseInt(input.value) || 1) + delta;
+        if (val < 1) val = 1;
+        if (val > 90) val = 90;
+        input.value = val;
+        updateRentalPrice();
     }
 
     function prevMonth() {
@@ -699,6 +821,19 @@
             ? `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`
             : '';
 
+        // Rental days & pricing for motorbikes
+        let rentalDays = 1;
+        let priceStr = bookingVehicle ? `${formatPrice(bookingVehicle.price)}đ` : '';
+        if (bookingVehicle && bookingVehicle._category === 'motorbikes') {
+            const daysInput = $('#rentalDays');
+            rentalDays = parseInt(daysInput ? daysInput.value : 1) || 1;
+            const discounted = getDiscountedPrice(bookingVehicle, rentalDays);
+            const total = discounted * rentalDays;
+            priceStr = discounted < bookingVehicle.price
+                ? `${formatPrice(discounted)}đ/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}đ (${t('discount_label')})`
+                : `${formatPrice(bookingVehicle.price)}đ/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}đ`;
+        }
+
         return {
             vehicle: bookingVehicle ? bookingVehicle.nameKey : '',
             category: bookingVehicle ? bookingVehicle._category : '',
@@ -709,7 +844,8 @@
             time: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
                 ? t('tour_' + selectedTourTime) : clockTime,
             notes,
-            price: bookingVehicle ? `${formatPrice(bookingVehicle.price)} ${bookingVehicle.currency}` : ''
+            price: priceStr,
+            rentalDays
         };
     }
 
@@ -965,6 +1101,8 @@
         openProduct,
         selectDate,
         selectHotel,
+        adjustDays,
+        updateRentalPrice,
         setLanguage
     };
 
