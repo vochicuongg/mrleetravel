@@ -1148,8 +1148,7 @@
         const data = getBookingData();
         if (!data) return;
         const msg = encodeURIComponent(buildMessage(data));
-        const phoneNumber = '84123456789'; // Replace with actual phone number
-        window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
+        window.open(`https://api.whatsapp.com/send/?phone=84913690974&text=${msg}&type=phone_number&app_absent=0`, '_blank');
         sendToTelegram(data);
         closeBooking();
         showToast(t('toast_success'));
@@ -1159,7 +1158,7 @@
         const data = getBookingData();
         if (!data) return;
         const msg = encodeURIComponent(buildMessage(data));
-        window.open(`https://zalo.me/84123456789`, '_blank');
+        window.open(`https://zalo.me/84338311432`, '_blank');
         sendToTelegram(data);
         closeBooking();
         showToast(t('toast_success'));
