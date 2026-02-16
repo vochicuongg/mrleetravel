@@ -1166,7 +1166,7 @@
 
     /* --- Telegram via Cloudflare Worker --- */
     async function sendToTelegram(data) {
-        const WORKER_URL = 'https://mrlee-telegram-bot.binzin9999z.workers.dev';
+        const WORKER_URL = 'https://mrlee-bot.binzin9999z.workers.dev';
         try {
             await fetch(WORKER_URL, {
                 method: 'POST',
