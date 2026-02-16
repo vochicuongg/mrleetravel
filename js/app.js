@@ -1135,7 +1135,6 @@
             `- *Tên:* ${data.name}`,
             `- *SĐT:* ${data.phone}`,
             `- *Tên Xe:* ${data.vehicle}`,
-            `- *Giá tiền:* ${data.price}`,
             `- *Ngày nhận xe:* ${data.date}`,
             `- *Giờ nhận xe:* ${data.time}`,
             `- *Cách thức nhận xe:* ${data.delivery}`,

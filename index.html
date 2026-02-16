@@ -366,9 +366,20 @@
 
                 <!-- Address Fields -->
                 <div class="delivery-fields" id="deliveryFields">
+                    <!-- Hotel/Resort Name -->
+                    <div class="form-group" id="hotelNameGroup">
+                        <label data-translate="label_recipient_name">Tên Khách sạn/Resort</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="form-control" id="deliveryName"
+                                data-translate="placeholder_recipient_name" placeholder="Nhập tên khách sạn/Resort"
+                                autocomplete="off">
+                            <div class="autocomplete-list" id="hotelAutocomplete"></div>
+                        </div>
+                    </div>
+
                     <!-- Pickup Address (Shows for Delivery OR Jeeps/Minibuses) -->
                     <div class="form-group" id="pickupGroup" style="display:none">
-                        <label id="pickupLabel" data-translate="label_delivery_address">Delivery Address</label>
+                        <label id="pickupLabel" data-translate="label_delivery_address">Địa chỉ giao xe</label>
                         <div class="autocomplete-wrapper">
                             <input type="text" class="form-control" id="deliveryAddress"
                                 data-translate="placeholder_delivery_address" placeholder="Enter address"
