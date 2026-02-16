@@ -132,7 +132,7 @@
           </div>
           <div class="vehicle-card-footer">
             <div class="vehicle-card-price">
-              ${formatPrice(v.price)} <small>${v.currency} ${t(v.priceUnit)}</small>
+              ${v.price > 0 ? `${formatPrice(v.price)} <small>${v.currency}/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
             </div>
             <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); app.openBooking('${v.id}')">
               ${t('book_now')}
@@ -182,7 +182,9 @@
 
         if (img) { img.src = vehicle.image; img.alt = vehicle.nameKey; }
         if (title) title.textContent = vehicle.nameKey;
-        if (price) price.innerHTML = `${formatPrice(vehicle.price)} <small>${vehicle.currency} ${t(vehicle.priceUnit)}</small>`;
+        if (price) {
+            price.innerHTML = vehicle.price > 0 ? `${formatPrice(vehicle.price)} <small>${vehicle.currency}/${t(vehicle.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`;
+        }
         if (features) {
             features.innerHTML = vehicle.features.map(f => {
                 const icon = featureIcons[f] || 'fa-solid fa-check';

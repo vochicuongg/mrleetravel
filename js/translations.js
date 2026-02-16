@@ -37,9 +37,9 @@ const translations = {
 
     // Vehicle card
     book_now: 'Đặt Ngay',
-    per_day: '/ ngày',
-    per_trip: '/ chuyến',
-    per_tour: '/ tour',
+    per_day: 'ngày',
+    per_trip: 'chuyến',
+    per_tour: 'tour',
 
     // Features
     feat_automatic: 'Số tự động',
@@ -115,6 +115,7 @@ const translations = {
     promo_title: 'Ưu đãi thuê xe',
     promo_from: 'Từ',
     promo_save: 'tiết kiệm',
+    contact_us: 'Liên hệ',
 
     // Calendar
     cal_mon: 'T2',
@@ -165,9 +166,9 @@ const translations = {
     services_subtitle: 'From flexible motorbikes to sand dune Jeep tours and airport transfers — we cover all your travel needs.',
 
     book_now: 'Book Now',
-    per_day: '/ day',
-    per_trip: '/ trip',
-    per_tour: '/ tour',
+    per_day: 'day',
+    per_trip: 'trip',
+    per_tour: 'tour',
 
     feat_automatic: 'Automatic',
     feat_manual: 'Manual',
@@ -238,6 +239,7 @@ const translations = {
     promo_title: 'Rental Discounts',
     promo_from: 'From',
     promo_save: 'save',
+    contact_us: 'Contact Us',
 
     cal_mon: 'Mon', cal_tue: 'Tue', cal_wed: 'Wed',
     cal_thu: 'Thu', cal_fri: 'Fri', cal_sat: 'Sat', cal_sun: 'Sun',
@@ -279,9 +281,9 @@ const translations = {
     services_subtitle: 'От мотобайков до джип-туров по дюнам и трансферов в аэропорт — мы покрываем все ваши потребности.',
 
     book_now: 'Забронировать',
-    per_day: '/ день',
-    per_trip: '/ поездка',
-    per_tour: '/ тур',
+    per_day: 'день',
+    per_trip: 'поездка',
+    per_tour: 'тур',
 
     feat_automatic: 'Автомат',
     feat_manual: 'Механика',
@@ -352,6 +354,7 @@ const translations = {
     promo_title: 'Скидки на аренду',
     promo_from: 'От',
     promo_save: 'экономия',
+    contact_us: 'Свяжитесь с нами',
 
     cal_mon: 'Пн', cal_tue: 'Вт', cal_wed: 'Ср',
     cal_thu: 'Чт', cal_fri: 'Пт', cal_sat: 'Сб', cal_sun: 'Вс',
@@ -393,9 +396,9 @@ const translations = {
     services_subtitle: '从灵活的摩托车到沙丘吉普之旅和机场接送——我们满足您的所有出行需求。',
 
     book_now: '立即预订',
-    per_day: '/ 天',
-    per_trip: '/ 趟',
-    per_tour: '/ 行程',
+    per_day: '天',
+    per_trip: '行程',
+    per_tour: '次',
 
     feat_automatic: '自动挡',
     feat_manual: '手动挡',
@@ -466,6 +469,7 @@ const translations = {
     promo_title: '租车优惠',
     promo_from: '从',
     promo_save: '节省',
+    contact_us: '联系我们',
 
     cal_mon: '一', cal_tue: '二', cal_wed: '三',
     cal_thu: '四', cal_fri: '五', cal_sat: '六', cal_sun: '日',
@@ -507,9 +511,9 @@ const translations = {
     services_subtitle: '유연한 오토바이부터 모래언덕 지프 투어, 공항 이동까지 — 모든 여행 필요를 충족합니다.',
 
     book_now: '예약하기',
-    per_day: '/ 일',
-    per_trip: '/ 편도',
-    per_tour: '/ 투어',
+    per_day: '일',
+    per_trip: '편도',
+    per_tour: '투어',
 
     feat_automatic: '자동',
     feat_manual: '수동',
@@ -580,6 +584,7 @@ const translations = {
     promo_title: '렌트 할인',
     promo_from: '',
     promo_save: '절약',
+    contact_us: '문의하기',
 
     cal_mon: '월', cal_tue: '화', cal_wed: '수',
     cal_thu: '목', cal_fri: '금', cal_sat: '토', cal_sun: '일',
@@ -621,9 +626,9 @@ const translations = {
     services_subtitle: 'Von flexiblen Motorrädern über Jeep-Dünentouren bis hin zu Flughafentransfers — wir decken alle Ihre Reisebedürfnisse ab.',
 
     book_now: 'Jetzt Buchen',
-    per_day: '/ Tag',
-    per_trip: '/ Fahrt',
-    per_tour: '/ Tour',
+    per_day: 'Tag',
+    per_trip: 'Fahrt',
+    per_tour: 'Tour',
 
     feat_automatic: 'Automatik',
     feat_manual: 'Schaltung',
@@ -694,6 +699,7 @@ const translations = {
     promo_title: 'Mietrabatte',
     promo_from: 'Ab',
     promo_save: 'sparen',
+    contact_us: 'Kontaktieren Sie uns',
 
     cal_mon: 'Mo', cal_tue: 'Di', cal_wed: 'Mi',
     cal_thu: 'Do', cal_fri: 'Fr', cal_sat: 'Sa', cal_sun: 'So',

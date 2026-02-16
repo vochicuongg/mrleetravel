@@ -2055,3 +2055,9 @@ select.form-control {
     background: var(--accent);
     color: var(--accent-inv);
 }
+
+.contact-price {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1.1rem;
+}

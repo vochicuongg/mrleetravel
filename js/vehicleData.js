@@ -13,7 +13,7 @@ const vehicleData = {
             price: 150000,
             priceUnit: 'per_day',
             currency: 'VND',
-            image: 'assets/images/products/honda-air-blade-125-2026-the-thao-xam-do-den.webp',
+            image: 'assets/images/products/bike/honda-air-blade-125-2026-the-thao-xam-do-den.webp',
             features: ['feat_automatic', 'feat_125cc', 'feat_helmet', 'feat_delivery']
         },
         {
@@ -24,7 +24,7 @@ const vehicleData = {
             price: 150000,
             priceUnit: 'per_day',
             currency: 'VND',
-            image: 'assets/images/products/honda-vision-2026-the-thao-xam-den.webp',
+            image: 'assets/images/products/bike/honda-vision-2026-the-thao-xam-den.webp',
             features: ['feat_automatic', 'feat_125cc', 'feat_helmet', 'feat_delivery']
         },
         {
@@ -35,7 +35,7 @@ const vehicleData = {
             price: 150000,
             priceUnit: 'per_day',
             currency: 'VND',
-            image: 'assets/images/products/honda-lead-abs-dac-biet-bac-den-.webp',
+            image: 'assets/images/products/bike/honda-lead-abs-dac-biet-bac-den-.webp',
             features: ['feat_automatic', 'feat_125cc', 'feat_helmet', 'feat_delivery']
         },
         {
@@ -46,7 +46,7 @@ const vehicleData = {
             price: 120000,
             priceUnit: 'per_day',
             currency: 'VND',
-            image: 'assets/images/products/yamaha-nouvo-5.webp',
+            image: 'assets/images/products/bike/yamaha-nouvo-5.webp',
             features: ['feat_automatic', 'feat_125cc', 'feat_helmet', 'feat_delivery']
         },
         {
@@ -57,7 +57,7 @@ const vehicleData = {
             price: 180000,
             priceUnit: 'per_day',
             currency: 'VND',
-            image: 'assets/images/products/honda-pcx-150.webp',
+            image: 'assets/images/products/bike/honda-pcx-150.webp',
             features: ['feat_automatic', 'feat_150cc', 'feat_helmet', 'feat_delivery']
         },
         {
@@ -68,7 +68,7 @@ const vehicleData = {
             price: 180000,
             priceUnit: 'per_day',
             currency: 'VND',
-            image: 'assets/images/products/nvx-155-v3-d121-den.webp',
+            image: 'assets/images/products/bike/nvx-155-v3-d121-den.webp',
             features: ['feat_automatic', 'feat_150cc', 'feat_helmet', 'feat_delivery']
         }
     ],
@@ -115,37 +115,37 @@ const vehicleData = {
     minibuses: [
         {
             id: 'van-1',
-            nameKey: 'Airport Transfer — HCM',
+            nameKey: 'Ford Transit',
             type: 'transfer',
             badgeKey: 'feat_airport',
             price: 2500000,
             priceUnit: 'per_trip',
             currency: 'VND',
-            image: 'https://placehold.co/600x400/111/fff?text=Airport+Transfer',
+            image: 'assets/images/products/minibus/ford-transit.webp',
             features: ['feat_16seats', 'feat_airport', 'feat_ac', 'feat_luggage'],
             capacity: 16
         },
         {
             id: 'van-2',
-            nameKey: 'Family Day Tour',
+            nameKey: 'Hyundai Solati',
             type: 'transfer',
             badgeKey: 'feat_16seats',
             price: 1800000,
-            priceUnit: 'per_day',
+            priceUnit: 'per_trip',
             currency: 'VND',
-            image: 'https://placehold.co/600x400/111/fff?text=Family+Day+Tour',
+            image: 'assets/images/products/minibus/hyundai-solati.webp',
             features: ['feat_16seats', 'feat_ac', 'feat_luggage'],
             capacity: 16
         },
         {
             id: 'van-3',
-            nameKey: 'Mui Ne — Da Lat Transfer',
+            nameKey: 'Toyota Fortuner',
             type: 'transfer',
             badgeKey: 'feat_private',
             price: 3000000,
             priceUnit: 'per_trip',
             currency: 'VND',
-            image: 'https://placehold.co/600x400/111/fff?text=Dalat+Transfer',
+            image: 'assets/images/products/minibus/toyota-fortuner.webp',
             features: ['feat_16seats', 'feat_private', 'feat_ac', 'feat_luggage'],
             capacity: 16
         }
