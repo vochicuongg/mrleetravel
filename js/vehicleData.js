@@ -146,8 +146,8 @@ const vehicleData = {
             priceUnit: 'per_trip',
             currency: 'VND',
             image: 'assets/images/products/minibus/toyota-fortuner.webp',
-            features: ['feat_16seats', 'feat_private', 'feat_ac', 'feat_luggage'],
-            capacity: 16
+            features: ['feat_7seats', 'feat_private', 'feat_ac', 'feat_luggage'],
+            capacity: 7
         }
     ]
 };

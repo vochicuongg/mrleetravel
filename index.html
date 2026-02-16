@@ -323,8 +323,34 @@
                         placeholder="Enter your phone number">
                 </div>
 
-                <!-- Delivery Method -->
-                <div class="form-group">
+                <!-- Tour Time (Jeep-specific) -->
+
+                <div class="tour-time-selector" id="tourTimeSelector">
+                    <div class="tour-time-option" data-time="sunrise">
+                        <div class="icon"><i class="fa-solid fa-sun"></i></div>
+                        <div class="label" data-translate="time_sunrise">Sunrise</div>
+                    </div>
+                    <div class="tour-time-option" data-time="sunset">
+                        <div class="icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                        <div class="label" data-translate="time_sunset">Sunset</div>
+                    </div>
+                    <div class="tour-time-option" data-time="custom">
+                        <div class="icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="label" data-translate="time_custom">Other</div>
+                    </div>
+                </div>
+
+                <!-- Trip Info Display (Dynamic) -->
+                <div class="form-group" id="tripInfoBox" style="display:none">
+                    <label data-translate="label_tour_time">Lộ trình</label>
+                    <div class="trip-info-box">
+                        <div id="itineraryDisplay"></div>
+                        <div id="routeDisplay"></div>
+                    </div>
+                </div>
+
+                <!-- Delivery Method (Motorbikes Only) -->
+                <div class="form-group" id="deliveryMethodGroup">
                     <label data-translate="label_delivery_method">Delivery Method</label>
                     <div class="delivery-toggle" id="deliveryToggle">
                         <div class="delivery-option selected" data-method="pickup">
@@ -338,25 +364,30 @@
                     </div>
                 </div>
 
-                <!-- Delivery Address (hidden by default) -->
-                <div class="delivery-fields" id="deliveryFields" style="display:none">
-                    <div class="form-group">
-                        <label data-translate="label_recipient_name">Recipient Name</label>
-                        <div class="autocomplete-wrapper">
-                            <input type="text" class="form-control" id="deliveryName"
-                                data-translate="placeholder_recipient_name" placeholder="Enter recipient name"
-                                autocomplete="off">
-                            <div class="autocomplete-list" id="hotelAutocomplete"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label data-translate="label_delivery_address">Delivery Address</label>
+                <!-- Address Fields -->
+                <div class="delivery-fields" id="deliveryFields">
+                    <!-- Pickup Address (Shows for Delivery OR Jeeps/Minibuses) -->
+                    <div class="form-group" id="pickupGroup" style="display:none">
+                        <label id="pickupLabel" data-translate="label_delivery_address">Delivery Address</label>
                         <div class="autocomplete-wrapper">
                             <input type="text" class="form-control" id="deliveryAddress"
-                                data-translate="placeholder_delivery_address"
-                                placeholder="Enter address in Phan Thiet - Mui Ne" autocomplete="off">
+                                data-translate="placeholder_delivery_address" placeholder="Enter address"
+                                autocomplete="off">
                             <div class="autocomplete-list" id="addressAutocomplete"></div>
                         </div>
+                    </div>
+
+                    <!-- Dropoff Address (Minibuses) -->
+                    <div class="form-group" id="dropoffGroup" style="display:none">
+                        <label data-translate="label_dropoff_address">Drop-off Address</label>
+                        <input type="text" class="form-control" id="dropoffAddress"
+                            placeholder="Enter drop-off address">
+                    </div>
+
+                    <!-- Flight Number (Minibuses - Airport) -->
+                    <div class="form-group" id="flightGroup" style="display:none">
+                        <label>Flight Number (Optional)</label>
+                        <input type="text" class="form-control" id="flightNumber" placeholder="VN123, VJ456...">
                     </div>
                 </div>
 
@@ -404,23 +435,17 @@
                     </div>
                 </div>
 
-                <!-- Tour Time (Jeep-specific) -->
-                <div class="tour-time-selector" id="tourTimeSelector">
-                    <div class="tour-time-option" data-time="sunrise">
-                        <div class="icon"><i class="fa-solid fa-sun"></i></div>
-                        <div class="label" data-translate="tour_sunrise">Sunrise</div>
-                    </div>
-                    <div class="tour-time-option" data-time="sunset">
-                        <div class="icon"><i class="fa-solid fa-cloud-sun"></i></div>
-                        <div class="label" data-translate="tour_sunset">Sunset</div>
-                    </div>
-                </div>
+
 
                 <!-- Notes -->
                 <div class="form-group">
                     <label data-translate="label_notes">Notes</label>
                     <textarea class="form-control" id="bookingNotes" rows="3" data-translate="placeholder_notes"
                         placeholder="Special requests..."></textarea>
+                </div>
+
+                <!-- Booking Price Summary -->
+                <div class="booking-price-summary" id="bookingPriceDisplay">
                 </div>
 
                 <!-- Submit Channels -->

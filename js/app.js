@@ -233,9 +233,20 @@
         const titleEl = $('#modalTitle');
         if (titleEl) {
             const cat = bookingVehicle._category;
-            const titleKey = cat === 'jeeps' ? 'modal_title_jeep'
-                : cat === 'minibuses' ? 'modal_title_minibus'
-                    : 'modal_title_motorbike';
+            let titleKey = 'modal_title_motorbike';
+
+            if (cat === 'jeeps') {
+                titleKey = 'modal_title_jeep';
+            } else if (cat === 'minibuses') {
+                // Check if it's 7-seat (Fortuner) using capacity or feature
+                // We set capacity: 7 in vehicleData.js for Fortuner
+                if (bookingVehicle.capacity === 7 || (bookingVehicle.features && bookingVehicle.features.includes('feat_7seats'))) {
+                    titleKey = 'modal_title_7seat';
+                } else {
+                    titleKey = 'modal_title_minibus';
+                }
+            }
+
             titleEl.textContent = `${t(titleKey)} — ${bookingVehicle.nameKey}`;
         }
 
@@ -247,6 +258,12 @@
             } else {
                 tourSelector.classList.remove('visible');
             }
+        }
+
+        // Hide clock picker for Jeeps (they use fixed tour times)
+        const clockPicker = $('#clockPicker');
+        if (clockPicker) {
+            clockPicker.style.display = bookingVehicle._category === 'jeeps' ? 'none' : '';
         }
 
         // Reset form
@@ -267,14 +284,45 @@
         if (deliveryAddr) deliveryAddr.value = '';
         $$('.delivery-option').forEach(el => {
             el.classList.toggle('selected', el.dataset.method === 'pickup');
+            el.onclick = () => {
+                $$('.delivery-option').forEach(b => b.classList.remove('selected'));
+                el.classList.add('selected');
+                toggleDeliveryFields(el.dataset.method);
+            };
         });
         switchClockMode('hour');
         $('#bookingNotes').value = '';
 
-        // Show/hide rental duration & promo for motorbikes
+        // Show/hide rental duration & promo (Motorbikes only)
         const rentalGroup = $('#rentalDurationGroup');
         const promoBanner = $('#promoBanner');
+        const deliveryMethodGroup = $('#deliveryMethodGroup');
+        const tripInfoBox = $('#tripInfoBox');
+
+        // Address Groups
+        const pickupGroup = $('#pickupGroup');
+        const dropoffGroup = $('#dropoffGroup');
+        const flightGroup = $('#flightGroup');
+        const pickupLabel = $('#pickupLabel');
+
+        // Reset visibility
+        if (rentalGroup) rentalGroup.style.display = 'none';
+        if (promoBanner) promoBanner.style.display = 'none';
+        if (deliveryMethodGroup) deliveryMethodGroup.style.display = 'none';
+        if (tripInfoBox) tripInfoBox.style.display = 'none';
+        if (pickupGroup) pickupGroup.style.display = 'none';
+        if (dropoffGroup) dropoffGroup.style.display = 'none';
+        if (flightGroup) flightGroup.style.display = 'none';
+
+        // LOGIC PER CATEGORY
         if (bookingVehicle._category === 'motorbikes') {
+            // MOTORBIKE
+            if (deliveryMethodGroup) {
+                deliveryMethodGroup.style.display = '';
+                // Trigger logic to show/hide pickup address based on toggle
+                const selectedMethod = $('.delivery-option.selected')?.dataset.method || 'pickup';
+                toggleDeliveryFields(selectedMethod);
+            }
             if (rentalGroup) {
                 rentalGroup.style.display = '';
                 const daysInput = $('#rentalDays');
@@ -282,9 +330,57 @@
                 updateRentalPrice();
             }
             if (promoBanner) renderPromoBanner();
-        } else {
-            if (rentalGroup) rentalGroup.style.display = 'none';
-            if (promoBanner) promoBanner.style.display = 'none';
+
+        } else if (bookingVehicle._category === 'jeeps') {
+            // JEEP
+            if (tripInfoBox) {
+                tripInfoBox.style.display = 'block';
+                $('#routeDisplay').innerHTML = ''; // Clear route (used for bus)
+                $('#itineraryDisplay').innerHTML = ''; // Will be set by selectTourTime
+            }
+            // Always show Pickup Address
+            if (pickupGroup) {
+                pickupGroup.style.display = 'block';
+                if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
+            }
+
+        } else if (bookingVehicle._category === 'minibuses') {
+            // MINIBUS
+            if (tripInfoBox) {
+                tripInfoBox.style.display = 'block';
+                $('#itineraryDisplay').innerHTML = '';
+
+                // Route Logic
+                const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
+                let routeText = '';
+                if (capacity.includes('7')) {
+                    routeText = `<strong>${t('route_7seat')}</strong>`;
+                } else if (capacity.includes('16')) {
+                    routeText = `<strong>${t('route_16seat')}</strong>`;
+                }
+
+                $('#routeDisplay').innerHTML = `
+                    <div class="route-info">${routeText}</div>
+                    <div class="route-note">
+                        <label><input type="checkbox" id="customRouteCheck" onchange="app.toggleCustomRoute(this)"> ${t('route_wrong')}</label>
+                    </div>
+                    <div class="custom-route-input" id="customRouteInput" style="display:none">
+                        <input type="text" class="form-control" id="customRouteText" data-translate="placeholder_custom_route" placeholder="${t('placeholder_custom_route')}">
+                    </div>
+                `;
+            }
+            // Show Address Fields
+            if (pickupGroup) {
+                pickupGroup.style.display = 'block';
+                if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
+            }
+            if (dropoffGroup) dropoffGroup.style.display = 'block';
+
+            // Show Flight for 16-seat (likely airport)
+            const isAirport = bookingVehicle.features.some(f => f === 'feat_airport') || bookingVehicle.features.some(f => f.includes('16'));
+            if (flightGroup && isAirport) {
+                flightGroup.style.display = 'block';
+            }
         }
 
         // Open modal
@@ -294,6 +390,9 @@
 
         // Render calendar
         renderCalendar();
+
+        // Display price summary
+        updateBookingPrice();
     }
 
     function closeBooking() {
@@ -307,6 +406,71 @@
         $$('.tour-time-option').forEach(el => {
             el.classList.toggle('selected', el.dataset.time === time);
         });
+
+        // Update Itinerary Display (Jeep)
+        const itinDisplay = $('#itineraryDisplay');
+        const tripInfoBox = $('#tripInfoBox');
+
+        if (time === 'custom') {
+            // Hide itinerary for custom time
+            if (tripInfoBox) tripInfoBox.style.display = 'none';
+        } else {
+            // Show itinerary for sunrise/sunset
+            if (tripInfoBox) tripInfoBox.style.display = 'block';
+            if (itinDisplay) {
+                if (time === 'sunrise') {
+                    itinDisplay.innerHTML = `<div class="itinerary-box"><strong>${t('time_sunrise')}</strong><p>${t('itin_sunrise')}</p></div>`;
+                } else if (time === 'sunset') {
+                    itinDisplay.innerHTML = `<div class="itinerary-box"><strong>${t('time_sunset')}</strong><p>${t('itin_sunset')}</p></div>`;
+                }
+            }
+        }
+    }
+
+    function toggleCustomRoute(checkbox) {
+        const routeInfo = $('#routeDisplay .route-info');
+        const customInput = $('#customRouteInput');
+
+        if (checkbox.checked) {
+            // Strike through default route & show custom input
+            if (routeInfo) {
+                routeInfo.style.textDecoration = 'line-through';
+                routeInfo.style.opacity = '0.4';
+            }
+            if (customInput) customInput.style.display = 'block';
+        } else {
+            // Restore default route & hide custom input
+            if (routeInfo) {
+                routeInfo.style.textDecoration = 'none';
+                routeInfo.style.opacity = '1';
+            }
+            if (customInput) {
+                customInput.style.display = 'none';
+                const input = $('#customRouteText');
+                if (input) input.value = '';
+            }
+        }
+    }
+
+    // Helper for Motorbike Delivery Toggle
+    function toggleDeliveryFields(method) {
+        const deliveryFields = $('#deliveryFields');
+        const pickupGroup = $('#pickupGroup');
+        const pickupLabel = $('#pickupLabel');
+
+        if (!deliveryFields) return;
+
+        // Motorbike logic:
+        // pickup -> hide address fields
+        // delivery -> show address fields (delivery address)
+
+        if (method === 'delivery') {
+            deliveryFields.style.display = 'block';
+            if (pickupGroup) pickupGroup.style.display = 'block';
+            if (pickupLabel) pickupLabel.textContent = t('label_delivery_address');
+        } else {
+            deliveryFields.style.display = 'none';
+        }
     }
 
     /* ============================================================
@@ -366,6 +530,28 @@
     function selectDate(day) {
         selectedDate = new Date(calendarYear, calendarMonth, day);
         renderCalendar();
+
+        // If today is selected, auto-advance hour to next available
+        const now = new Date();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const selDay = new Date(selectedDate);
+        selDay.setHours(0, 0, 0, 0);
+
+        if (selDay.getTime() === today.getTime()) {
+            const currentHour = now.getHours();
+            if (selectedClockHour < currentHour) {
+                const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+                const nextValid = hourValues.find(h => h > currentHour);
+                if (nextValid !== undefined) {
+                    selectedClockHour = nextValid;
+                }
+            }
+        }
+
+        // Re-render clock to update disabled state
+        renderClockFace();
+        updateClockHand();
     }
 
     /* ---------- Rental duration discount ---------- */
@@ -462,6 +648,43 @@
                 `<div class="rental-price-line">${formatPrice(originalPrice)}đ/${t('per_day')}</div>` +
                 `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}đ</strong> (${days} ${t('days_unit')})</div>`;
         }
+
+        // Also update the booking price summary
+        updateBookingPrice();
+    }
+
+    function updateBookingPrice() {
+        const display = $('#bookingPriceDisplay');
+        if (!display || !bookingVehicle) return;
+
+        const category = bookingVehicle._category;
+        let priceHtml = '';
+
+        if (category === 'motorbikes') {
+            const daysInput = $('#rentalDays');
+            let days = parseInt(daysInput ? daysInput.value : 1) || 1;
+            const discountPrice = getDiscountedPrice(bookingVehicle, days);
+            const total = discountPrice * days;
+            priceHtml = `
+                <div class="price-summary-label">${t('total_label')}</div>
+                <div class="price-summary-amount">${formatPrice(total)}đ</div>
+                <div class="price-summary-detail">${formatPrice(discountPrice)}đ × ${days} ${t('days_unit')}</div>
+            `;
+        } else if (category === 'jeeps') {
+            priceHtml = `
+                <div class="price-summary-label">${t('total_label')}</div>
+                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}đ</div>
+                <div class="price-summary-detail">${t('per_tour')}</div>
+            `;
+        } else if (category === 'minibuses') {
+            priceHtml = `
+                <div class="price-summary-label">${t('total_label')}</div>
+                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}đ</div>
+                <div class="price-summary-detail">${t('per_trip')}</div>
+            `;
+        }
+
+        display.innerHTML = priceHtml;
     }
 
     function adjustDays(delta) {
@@ -548,8 +771,30 @@
             const angle = getAngleFromEvent(e);
             const val = snapValue(angle);
             if (clockMode === 'hour') {
+                // Block dragging to a past hour when today is selected
+                if (selectedDate) {
+                    const now = new Date();
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const selDay = new Date(selectedDate);
+                    selDay.setHours(0, 0, 0, 0);
+                    if (selDay.getTime() === today.getTime() && val < now.getHours()) {
+                        return;
+                    }
+                }
                 selectedClockHour = val;
             } else {
+                // Block dragging to a past minute when today + current hour is selected
+                if (selectedDate) {
+                    const now = new Date();
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const selDay = new Date(selectedDate);
+                    selDay.setHours(0, 0, 0, 0);
+                    if (selDay.getTime() === today.getTime() && selectedClockHour === now.getHours() && val <= now.getMinutes()) {
+                        return;
+                    }
+                }
                 selectedClockMinute = val;
             }
             updateClockHand();
@@ -585,6 +830,7 @@
             numbersG.addEventListener('click', e => {
                 const num = e.target.closest('.clock-number');
                 if (!num) return;
+                if (num.dataset.disabled === 'true') return;
                 const val = parseInt(num.dataset.value);
                 if (clockMode === 'hour') {
                     selectedClockHour = val;
@@ -623,32 +869,64 @@
         if (clockMode === 'hour') {
             // 16 hour numbers (6-21) at 22.5-degree intervals
             const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+
+            // Determine which hours are past (disabled) when today is selected
+            let disabledUpTo = -1;
+            if (selectedDate) {
+                const now = new Date();
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const selDay = new Date(selectedDate);
+                selDay.setHours(0, 0, 0, 0);
+                if (selDay.getTime() === today.getTime()) {
+                    disabledUpTo = now.getHours();
+                }
+            }
+
             for (let i = 0; i < 16; i++) {
                 const h = hourValues[i];
+                const isPast = h < disabledUpTo;
                 const angle = (i * 22.5 - 90) * Math.PI / 180;
                 const x = cx + numR * Math.cos(angle);
                 const y = cy + numR * Math.sin(angle);
                 const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 txt.setAttribute('x', x);
                 txt.setAttribute('y', y);
-                txt.setAttribute('class', 'clock-number');
+                txt.setAttribute('class', 'clock-number' + (isPast ? ' disabled' : ''));
                 txt.setAttribute('data-value', h);
+                if (isPast) txt.setAttribute('data-disabled', 'true');
                 txt.textContent = h;
                 numbersG.appendChild(txt);
             }
         } else {
             // 12 minute labels: 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 00
             const minuteValues = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 0];
+
+            // Determine which minutes are past when today + current hour is selected
+            let disabledUpToMin = -1;
+            if (selectedDate) {
+                const now = new Date();
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const selDay = new Date(selectedDate);
+                selDay.setHours(0, 0, 0, 0);
+                if (selDay.getTime() === today.getTime() && selectedClockHour === now.getHours()) {
+                    disabledUpToMin = now.getMinutes();
+                }
+            }
+
             for (let i = 0; i < 12; i++) {
                 const val = minuteValues[i];
+                const isPast = disabledUpToMin >= 0 && val <= disabledUpToMin && val !== 0 || (disabledUpToMin >= 0 && val === 0 && disabledUpToMin >= 55);
                 const angle = ((i + 1) * 30 - 90) * Math.PI / 180;
                 const x = cx + numR * Math.cos(angle);
                 const y = cy + numR * Math.sin(angle);
                 const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 txt.setAttribute('x', x);
                 txt.setAttribute('y', y);
-                txt.setAttribute('class', 'clock-number');
+                txt.setAttribute('class', 'clock-number' + (isPast ? ' disabled' : ''));
                 txt.setAttribute('data-value', val);
+                if (isPast) txt.setAttribute('data-disabled', 'true');
                 txt.textContent = String(val).padStart(2, '0');
                 numbersG.appendChild(txt);
             }
@@ -872,7 +1150,7 @@
         const msg = encodeURIComponent(buildMessage(data));
         const phoneNumber = '84123456789'; // Replace with actual phone number
         window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
-        submitToCloudflare(data);
+        sendToTelegram(data);
         closeBooking();
         showToast(t('toast_success'));
     }
@@ -882,36 +1160,22 @@
         if (!data) return;
         const msg = encodeURIComponent(buildMessage(data));
         window.open(`https://zalo.me/84123456789`, '_blank');
-        submitToCloudflare(data);
+        sendToTelegram(data);
         closeBooking();
         showToast(t('toast_success'));
     }
 
-    function submitTelegram() {
-        const data = getBookingData();
-        if (!data) return;
-        const msg = encodeURIComponent(buildMessage(data));
-        window.open(`https://t.me/mrleetravel?text=${msg}`, '_blank');
-        submitToCloudflare(data);
-        closeBooking();
-        showToast(t('toast_success'));
-    }
-
-    /* --- Cloudflare Worker Integration --- */
-    async function submitToCloudflare(data) {
+    /* --- Telegram via Cloudflare Worker --- */
+    async function sendToTelegram(data) {
+        const WORKER_URL = 'https://mrlee-telegram-bot.YOUR_SUBDOMAIN.workers.dev'; // ← Thay bằng URL worker thật
         try {
-            const WORKER_URL = 'https://booking-worker.mrlee.workers.dev'; // Replace with actual worker URL
             await fetch(WORKER_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...data,
-                    timestamp: new Date().toISOString(),
-                    lang: currentLang
-                })
+                body: JSON.stringify(data)
             });
         } catch (err) {
-            console.warn('Cloudflare Worker submission failed:', err);
+            console.warn('Telegram notification failed:', err);
         }
     }
 

@@ -1357,6 +1357,13 @@ select.form-control {
     font-weight: 700;
 }
 
+.clock-number.disabled {
+    fill: var(--text-muted);
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: default;
+}
+
 .clock-tick {
     stroke: var(--border);
     stroke-width: 1;
@@ -2060,4 +2067,97 @@ select.form-control {
     font-weight: 700;
     color: var(--gold);
     font-size: 1.1rem;
+}
+
+/* ---------- Trip Info (Jeep/Minibus) ---------- */
+.trip-info-box {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    animation: fadeIn 0.3s ease;
+}
+
+.itinerary-box {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.itinerary-box strong {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.itinerary-box p {
+    margin: 0;
+}
+
+.route-info {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.route-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.route-note label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.route-note input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+}
+
+.custom-route-input {
+    margin-top: 10px;
+}
+
+.route-info {
+    transition: opacity 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Booking Price Summary */
+.booking-price-summary {
+    text-align: center;
+    padding: 16px 20px;
+    margin: 8px 0 4px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+}
+
+.price-summary-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+}
+
+.price-summary-amount {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: var(--font-body);
+}
+
+.price-summary-detail {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
 }
