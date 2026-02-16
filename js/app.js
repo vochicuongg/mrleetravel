@@ -1164,9 +1164,10 @@
         showToast(t('toast_success'));
     }
 
-    /* --- Telegram via Cloudflare Worker --- */
+    /* --- Telegram Bot Direct API --- */
     async function sendToTelegram(data) {
-        const WORKER_URL = 'https://mrlee-bot.binzin9999z.workers.dev';
+        const BOT_TOKEN = '8312475945:AAGJDDqCG-UV-pxTT7Wfx4UAD4A591IvJBY';
+        const CHAT_ID = '-1003849920066';
 
         const now = new Date();
         const timestamp = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -1187,10 +1188,14 @@
         ].filter(Boolean).join('\n');
 
         try {
-            await fetch(WORKER_URL, {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
             });
         } catch (err) {
             console.warn('Telegram notification failed:', err);
