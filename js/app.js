@@ -1179,12 +1179,12 @@
             `📱 <b>SĐT:</b> ${data.phone}`,
             `🚗 <b>Tên Xe:</b> ${data.vehicle}`,
             `💰 <b>Giá tiền:</b> ${data.price}`,
-            `📅 <b>Ngày:</b> ${data.date}`,
-            `⏰ <b>Giờ:</b> ${data.time}`,
+            `📅 <b>Ngày nhận xe:</b> ${data.date}`,
+            `⏰ <b>Giờ nhận xe:</b> ${data.time}`,
             `🚚 <b>Giao xe:</b> ${data.delivery}`,
             data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
             `━━━━━━━━━━━━━━━`,
-            `🕐 Thời gian tạo đơn: ${timestamp}`
+            `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
         ].filter(Boolean).join('\n');
 
         try {
