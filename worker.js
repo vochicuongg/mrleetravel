@@ -54,7 +54,7 @@ export default {
 
             // Send to Telegram
             const BOT_TOKEN = '8312475945:AAGJDDqCG-UV-pxTT7Wfx4UAD4A591IvJBY';
-            const CHAT_ID = '277626569';
+            const CHAT_ID = '-1003849920066';
 
             const res = await fetch(
                 `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
