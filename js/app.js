@@ -1131,16 +1131,15 @@
 
     function buildMessage(data) {
         return [
-            `🚀 *${t('modal_title')}*`,
-            `━━━━━━━━━━━━━━`,
-            `🚗 ${data.vehicle}`,
-            `💰 ${data.price}`,
-            `📅 ${data.date}`,
-            `⏰ ${data.time}`,
-            `👤 ${data.name}`,
-            `📱 ${data.phone}`,
-            `🚚 ${data.delivery}`,
-            data.notes ? `📝 ${data.notes}` : ''
+            `Xin chào Mr. Lee, tôi muốn đặt xe bên bạn và đây là thông tin của tôi:`,
+            `- *Tên:* ${data.name}`,
+            `- *SĐT:* ${data.phone}`,
+            `- *Tên Xe:* ${data.vehicle}`,
+            `- *Giá tiền:* ${data.price}`,
+            `- *Ngày nhận xe:* ${data.date}`,
+            `- *Giờ nhận xe:* ${data.time}`,
+            `- *Cách thức nhận xe:* ${data.delivery}`,
+            data.notes ? `- *Ghi chú:* ${data.notes}` : ''
         ].filter(Boolean).join('\n');
     }
 
