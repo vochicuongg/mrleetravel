@@ -13,7 +13,7 @@
  */
 
 export default {
-    async fetch(request, env) {
+    async fetch(request) {
         // CORS preflight
         if (request.method === 'OPTIONS') {
             return new Response(null, {
@@ -39,12 +39,13 @@ export default {
             const text = [
                 `🚀 <b>ĐƠN ĐẶT XE MỚI</b>`,
                 `━━━━━━━━━━━━━━━`,
+                `👤 <b>Tên KH:</b> ${esc(data.name)}`,
+                `📱 <b>SĐT:</b> ${esc(data.phone)}`,
                 `🚗 <b>Xe:</b> ${esc(data.vehicle)}`,
                 `💰 <b>Giá:</b> ${esc(data.price)}`,
                 `📅 <b>Ngày:</b> ${esc(data.date)}`,
                 `⏰ <b>Giờ:</b> ${esc(data.time)}`,
-                `👤 <b>Khách:</b> ${esc(data.name)}`,
-                `📱 <b>SĐT:</b> ${esc(data.phone)}`,
+
                 `🚚 <b>Giao xe:</b> ${esc(data.delivery)}`,
                 data.notes ? `📝 <b>Ghi chú:</b> ${esc(data.notes)}` : '',
                 `━━━━━━━━━━━━━━━`,
@@ -52,13 +53,16 @@ export default {
             ].filter(Boolean).join('\n');
 
             // Send to Telegram
+            const BOT_TOKEN = '8312475945:AAGJDDqCG-UV-pxTT7Wfx4UAD4A591IvJBY';
+            const CHAT_ID = '277626569';
+
             const res = await fetch(
-                `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+                `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chat_id: env.TELEGRAM_CHAT_ID,
+                        chat_id: CHAT_ID,
                         text,
                         parse_mode: 'HTML',
                     }),
