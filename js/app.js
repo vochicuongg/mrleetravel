@@ -1164,6 +1164,27 @@
         const hotelName = $('#deliveryName') ? $('#deliveryName').value.trim() : '';
         const hotelAddress = $('#deliveryAddress') ? $('#deliveryAddress').value.trim() : '';
 
+        // Route info (minibuses)
+        let routeInfo = '';
+        if (bookingVehicle && bookingVehicle._category === 'minibuses') {
+            const customCheck = $('#customRouteCheck');
+            const customText = $('#customRouteText');
+            if (customCheck && customCheck.checked && customText && customText.value.trim()) {
+                routeInfo = customText.value.trim();
+            } else {
+                const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
+                if (capacity.includes('7')) {
+                    routeInfo = t('route_7seat');
+                } else if (capacity.includes('16')) {
+                    routeInfo = t('route_16seat');
+                }
+            }
+        }
+
+        // Dropoff & flight (minibuses)
+        const dropoffAddress = $('#dropoffAddress') ? $('#dropoffAddress').value.trim() : '';
+        const flightNumber = $('#flightNumber') ? $('#flightNumber').value.trim() : '';
+
         return {
             vehicle: bookingVehicle ? bookingVehicle.nameKey : '',
             category: bookingVehicle ? bookingVehicle._category : '',
@@ -1178,7 +1199,10 @@
             price: priceStr,
             rentalDays,
             hotelName,
-            hotelAddress
+            hotelAddress,
+            routeInfo,
+            dropoffAddress,
+            flightNumber
         };
     }
 
@@ -1198,7 +1222,22 @@
             ].filter(Boolean).join('\n');
         }
 
-        // Default (motorbikes, minibuses)
+        if (data.category === 'minibuses') {
+            // Minibus customer message
+            return [
+                t('msg_greeting_minibus') || 'Xin chào Mr. Lee, tôi muốn đặt xe và đây là thông tin của tôi:',
+                `- *${t('msg_name')}:* ${data.name}`,
+                `- *${t('msg_phone')}:* ${data.phone}`,
+                `- *${t('msg_vehicle')}:* ${data.vehicle}`,
+                data.routeInfo ? `- *${t('msg_route') || 'Lộ trình'}:* ${data.routeInfo}` : '',
+                `- *${t('msg_date')}:* ${data.date}`,
+                `- *${t('msg_time')}:* ${data.time}`,
+                data.flightNumber ? `- *${t('msg_flight') || 'Số chuyến bay'}:* ${data.flightNumber}` : '',
+                data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
+            ].filter(Boolean).join('\n');
+        }
+
+        // Default (motorbikes)
         return [
             t('msg_greeting'),
             `- *${t('msg_name')}:* ${data.name}`,
@@ -1253,7 +1292,27 @@
                 `💰 <b>Giá tiền:</b> ${data.price}`,
                 `📅 <b>Ngày đón khách:</b> ${data.date}`,
                 `⏰ <b>Giờ đón khách:</b> ${data.time}`,
-                `🚚 <b>Địa chỉ nhận khách:</b> ${pickupAddress}`,
+                `🚚 <b>Địa chỉ đón khách:</b> ${pickupAddress}`,
+                data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
+                `---------------------`,
+                `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
+            ].filter(Boolean).join('\n');
+        } else if (data.category === 'minibuses') {
+            // Minibus/Transfer format
+            const pickupAddr = [data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || 'Chưa cung cấp';
+            message = [
+                `🚀 <b>ĐƠN ĐẶT XE TRANSFER</b>`,
+                `---------------------`,
+                `👤 <b>Tên KH:</b> ${data.name}`,
+                `📱 <b>SĐT:</b> ${data.phone}`,
+                `🚗 <b>Loại xe:</b> ${data.vehicle}`,
+                `💰 <b>Giá tiền:</b> ${data.price}`,
+                data.routeInfo ? `🗺️ <b>Lộ trình:</b> ${data.routeInfo}` : '',
+                `📅 <b>Ngày đón:</b> ${data.date}`,
+                `⏰ <b>Giờ đón:</b> ${data.time}`,
+                `📍 <b>Điểm đón:</b> ${pickupAddr}`,
+                data.dropoffAddress ? `📍 <b>Điểm trả:</b> ${data.dropoffAddress}` : '',
+                data.flightNumber ? `✈️ <b>Số chuyến bay:</b> ${data.flightNumber}` : '',
                 data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
                 `---------------------`,
                 `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
@@ -1261,7 +1320,7 @@
         } else {
             // Default format (motorbikes, minibuses)
             message = [
-                `🚀 <b>ĐƠN ĐẶT XE MỚI</b>`,
+                `🚀 <b>ĐƠN ĐẶT XE MÁY</b>`,
                 `---------------------`,
                 `👤 <b>Tên KH:</b> ${data.name}`,
                 `📱 <b>SĐT:</b> ${data.phone}`,

@@ -170,6 +170,9 @@ const translations = {
     msg_date_jeep: 'Ngày đón',
     msg_time_jeep: 'Giờ đón',
     msg_pickup_address: 'Địa chỉ đón',
+    msg_greeting_minibus: 'Xin chào Mr. Lee, tôi muốn đặt xe transfer và đây là thông tin của tôi:',
+    msg_route: 'Lộ trình',
+    msg_flight: 'Số chuyến bay',
   },
 
   en: {
@@ -317,6 +320,9 @@ const translations = {
     msg_date_jeep: 'Pickup date',
     msg_time_jeep: 'Pickup time',
     msg_pickup_address: 'Pickup address',
+    msg_greeting_minibus: 'Hello Mr. Lee, I would like to book a transfer. Here is my information:',
+    msg_route: 'Route',
+    msg_flight: 'Flight number',
   },
 
   ru: {
@@ -462,6 +468,9 @@ const translations = {
     msg_date_jeep: 'Дата встречи',
     msg_time_jeep: 'Время встречи',
     msg_pickup_address: 'Адрес встречи',
+    msg_greeting_minibus: 'Здравствуйте Mr. Lee, я хотел бы забронировать трансфер. Вот мои данные:',
+    msg_route: 'Маршрут',
+    msg_flight: 'Номер рейса',
   },
 
   zh: {
@@ -607,6 +616,9 @@ const translations = {
     msg_date_jeep: '接送日期',
     msg_time_jeep: '接送时间',
     msg_pickup_address: '接送地址',
+    msg_greeting_minibus: '你好Mr. Lee，我想预订接送服务。以下是我的信息：',
+    msg_route: '路线',
+    msg_flight: '航班号',
   },
 
   kr: {
@@ -752,6 +764,9 @@ const translations = {
     msg_date_jeep: '픽업 날짜',
     msg_time_jeep: '픽업 시간',
     msg_pickup_address: '픽업 주소',
+    msg_greeting_minibus: '안녕하세요 Mr. Lee, 트랜스퍼를 예약하고 싶습니다. 제 정보입니다:',
+    msg_route: '경로',
+    msg_flight: '항공편명',
   },
 
   de: {
@@ -897,5 +912,8 @@ const translations = {
     msg_date_jeep: 'Abholdatum',
     msg_time_jeep: 'Abholzeit',
     msg_pickup_address: 'Abholadresse',
+    msg_greeting_minibus: 'Hallo Mr. Lee, ich möchte einen Transfer buchen. Hier sind meine Daten:',
+    msg_route: 'Route',
+    msg_flight: 'Flugnummer',
   }
 };
