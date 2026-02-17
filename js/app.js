@@ -1224,14 +1224,16 @@
         if (data.category === 'minibuses') {
             // Minibus customer message
             return [
-                t('msg_greeting_minibus') || 'Xin chào Mr. Lee, tôi muốn đặt xe và đây là thông tin của tôi:',
-                `- *${t('msg_name')}:* ${data.name}`,
-                `- *${t('msg_phone')}:* ${data.phone}`,
-                `- *${t('msg_vehicle')}:* ${data.vehicle}`,
-                data.routeInfo ? `- *${t('msg_route') || 'Lộ trình'}:* ${data.routeInfo}` : '',
-                `- *${t('msg_date')}:* ${data.date}`,
-                `- *${t('msg_time')}:* ${data.time}`,
-                data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
+                t('msg_greeting_minibus') || 'Xin chào Mr. Lee, tôi muốn đặt xe transfer và đây là thông tin của tôi:',
+                `* *${t('msg_name')}:* ${data.name}`,
+                `* *${t('msg_phone')}:* ${data.phone}`,
+                `* *${t('msg_vehicle')}:* ${data.vehicle}`,
+                data.routeInfo ? `* *${t('msg_route') || 'Lộ trình'}:* ${data.routeInfo}` : '',
+                data.hotelName ? `* *${t('msg_hotel_name') || 'Tên Khách sạn/Resort'}:* ${data.hotelName}` : '',
+                data.hotelAddress ? `* *${t('msg_hotel_address') || 'Địa chỉ'}:* ${data.hotelAddress}` : '',
+                `* *${t('msg_date')}:* ${data.date}`,
+                `* *${t('msg_time')}:* ${data.time}`,
+                data.notes ? `* *${t('msg_notes')}:* ${data.notes}` : ''
             ].filter(Boolean).join('\n');
         }
 
