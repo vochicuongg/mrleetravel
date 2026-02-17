@@ -352,29 +352,28 @@
                 tripInfoBox.style.display = 'block';
                 $('#itineraryDisplay').innerHTML = '';
 
-                // Route Logic
+                // Route: Điểm đón (fixed) + Điểm trả (dropdown)
                 const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
-                let routeText = '';
-                if (capacity.includes('7')) {
-                    routeText = `<strong>${t('route_7seat')}</strong>`;
-                } else if (capacity.includes('16')) {
-                    routeText = `<strong>${t('route_16seat')}</strong>`;
+                let dropoffOptions = '';
+                if (capacity.includes('16')) {
+                    dropoffOptions = `<option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>`;
+                } else if (capacity.includes('7')) {
+                    dropoffOptions = `
+                        <option value="" disabled selected>Chọn điểm trả...</option>
+                        <option value="Nha Trang">Nha Trang</option>
+                        <option value="Tà Cú (Không bao gồm phí cáp treo)">Tà Cú (Không bao gồm phí cáp treo)</option>
+                    `;
                 }
 
                 $('#routeDisplay').innerHTML = `
-                    <div class="route-info">${routeText}</div>
-                    <div class="route-note">
-                        <label><input type="checkbox" id="customRouteCheck" onchange="app.toggleCustomRoute(this)"> ${t('route_wrong')}</label>
+                    <div class="route-field">
+                        <label class="route-label">Điểm đón</label>
+                        <input type="text" class="form-control" value="Mũi Né" readonly style="background:var(--bg-secondary);cursor:default">
                     </div>
-                    <div class="custom-route-input" id="customRouteInput" style="display:none">
-                        <select class="form-control" id="customRouteSelect">
-                            <option value="" disabled selected>${t('placeholder_select_destination') || 'Chọn điểm đến...'}</option>
-                            <option value="TP.HCM (Sân bay Tân Sơn Nhất)">TP.HCM (Sân bay Tân Sơn Nhất)</option>
-                            <option value="Nha Trang">Nha Trang</option>
-                            <option value="Đà Lạt">Đà Lạt</option>
-                            <option value="Vũng Tàu">Vũng Tàu</option>
-                            <option value="Cam Ranh">Cam Ranh</option>
-                            <option value="Long Hải">Long Hải</option>
+                    <div class="route-field" style="margin-top:10px">
+                        <label class="route-label">Điểm trả</label>
+                        <select class="form-control" id="dropoffSelect">
+                            ${dropoffOptions}
                         </select>
                     </div>
                 `;
@@ -431,30 +430,6 @@
         }
     }
 
-    function toggleCustomRoute(checkbox) {
-        const routeInfo = $('#routeDisplay .route-info');
-        const customInput = $('#customRouteInput');
-
-        if (checkbox.checked) {
-            // Strike through default route & show destination dropdown
-            if (routeInfo) {
-                routeInfo.style.textDecoration = 'line-through';
-                routeInfo.style.opacity = '0.4';
-            }
-            if (customInput) customInput.style.display = 'block';
-        } else {
-            // Restore default route & hide dropdown
-            if (routeInfo) {
-                routeInfo.style.textDecoration = 'none';
-                routeInfo.style.opacity = '1';
-            }
-            if (customInput) {
-                customInput.style.display = 'none';
-                const select = $('#customRouteSelect');
-                if (select) select.selectedIndex = 0;
-            }
-        }
-    }
 
     // Helper for Motorbike Delivery Toggle
     function toggleDeliveryFields(method) {
@@ -1169,17 +1144,10 @@
         // Route info (minibuses)
         let routeInfo = '';
         if (bookingVehicle && bookingVehicle._category === 'minibuses') {
-            const customCheck = $('#customRouteCheck');
-            const customSelect = $('#customRouteSelect');
-            if (customCheck && customCheck.checked && customSelect && customSelect.value) {
-                routeInfo = `Mũi Né ➔ ${customSelect.value}`;
-            } else {
-                const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
-                if (capacity.includes('7')) {
-                    routeInfo = t('route_7seat');
-                } else if (capacity.includes('16')) {
-                    routeInfo = t('route_16seat');
-                }
+            const dropoffSelect = $('#dropoffSelect');
+            const dropoff = dropoffSelect ? dropoffSelect.value : '';
+            if (dropoff) {
+                routeInfo = `Mũi Né ➔ ${dropoff}`;
             }
         }
 
@@ -1540,8 +1508,7 @@
         selectHotel,
         adjustDays,
         updateRentalPrice,
-        setLanguage,
-        toggleCustomRoute
+        setLanguage
     };
 
     /* ---------- DOM Ready ---------- */
