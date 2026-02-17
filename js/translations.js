@@ -166,6 +166,10 @@ const translations = {
     msg_notes: 'Ghi chú',
     msg_return_date: 'Ngày trả xe',
     label_return_date: 'Ngày trả xe',
+    msg_greeting_jeep: 'Xin chào Mr. Lee, tôi muốn đặt tour Jeep và đây là thông tin của tôi:',
+    msg_date_jeep: 'Ngày đón',
+    msg_time_jeep: 'Giờ đón',
+    msg_pickup_address: 'Địa chỉ đón',
   },
 
   en: {
@@ -309,6 +313,10 @@ const translations = {
     msg_notes: 'Notes',
     msg_return_date: 'Return date',
     label_return_date: 'Return date',
+    msg_greeting_jeep: 'Hello Mr. Lee, I would like to book a Jeep tour. Here is my information:',
+    msg_date_jeep: 'Pickup date',
+    msg_time_jeep: 'Pickup time',
+    msg_pickup_address: 'Pickup address',
   },
 
   ru: {
@@ -450,6 +458,10 @@ const translations = {
     msg_notes: 'Примечание',
     msg_return_date: 'Дата возврата',
     label_return_date: 'Дата возврата',
+    msg_greeting_jeep: 'Здравствуйте Mr. Lee, я хотел бы забронировать тур на Jeep. Вот мои данные:',
+    msg_date_jeep: 'Дата встречи',
+    msg_time_jeep: 'Время встречи',
+    msg_pickup_address: 'Адрес встречи',
   },
 
   zh: {
@@ -591,6 +603,10 @@ const translations = {
     msg_notes: '备注',
     msg_return_date: '还车日期',
     label_return_date: '还车日期',
+    msg_greeting_jeep: '你好Mr. Lee，我想预订吉普车旅游。以下是我的信息：',
+    msg_date_jeep: '接送日期',
+    msg_time_jeep: '接送时间',
+    msg_pickup_address: '接送地址',
   },
 
   kr: {
@@ -732,6 +748,10 @@ const translations = {
     msg_notes: '메모',
     msg_return_date: '반납일',
     label_return_date: '반납일',
+    msg_greeting_jeep: '안녕하세요 Mr. Lee, 지프 투어를 예약하고 싶습니다. 제 정보입니다:',
+    msg_date_jeep: '픽업 날짜',
+    msg_time_jeep: '픽업 시간',
+    msg_pickup_address: '픽업 주소',
   },
 
   de: {
@@ -873,5 +893,9 @@ const translations = {
     msg_notes: 'Anmerkungen',
     msg_return_date: 'Rückgabedatum',
     label_return_date: 'Rückgabedatum',
+    msg_greeting_jeep: 'Hallo Mr. Lee, ich möchte eine Jeep-Tour buchen. Hier sind meine Daten:',
+    msg_date_jeep: 'Abholdatum',
+    msg_time_jeep: 'Abholzeit',
+    msg_pickup_address: 'Abholadresse',
   }
 };

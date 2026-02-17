@@ -1183,6 +1183,22 @@
     }
 
     function buildMessage(data) {
+        if (data.category === 'jeeps') {
+            // Jeep Tour customer message
+            const pickupAddr = [data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || '';
+            return [
+                t('msg_greeting_jeep') || 'Xin chào Mr. Lee, tôi muốn đặt tour Jeep và đây là thông tin của tôi:',
+                `- *${t('msg_name')}:* ${data.name}`,
+                `- *${t('msg_phone')}:* ${data.phone}`,
+                `- *${t('msg_vehicle')}:* ${data.vehicle}`,
+                `- *${t('msg_date_jeep') || 'Ngày đón'}:* ${data.date}`,
+                `- *${t('msg_time_jeep') || 'Giờ đón'}:* ${data.time}`,
+                pickupAddr ? `- *${t('msg_pickup_address') || 'Địa chỉ đón'}:* ${pickupAddr}` : '',
+                data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
+            ].filter(Boolean).join('\n');
+        }
+
+        // Default (motorbikes, minibuses)
         return [
             t('msg_greeting'),
             `- *${t('msg_name')}:* ${data.name}`,
