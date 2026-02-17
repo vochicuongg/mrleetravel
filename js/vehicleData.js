@@ -43,7 +43,7 @@ const vehicleData = {
             nameKey: 'Yamaha Nouvo 5',
             type: 'scooter',
             badgeKey: 'feat_automatic',
-            price: 120000,
+            price: 130000,
             priceUnit: 'per_day',
             currency: 'VND',
             image: 'assets/images/products/bike/yamaha-nouvo-5.webp',
