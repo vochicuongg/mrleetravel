@@ -1131,14 +1131,14 @@
 
     function buildMessage(data) {
         return [
-            `Xin chào Mr. Lee, tôi muốn đặt xe bên bạn và đây là thông tin của tôi:`,
-            `- *Tên:* ${data.name}`,
-            `- *SĐT:* ${data.phone}`,
-            `- *Tên Xe:* ${data.vehicle}`,
-            `- *Ngày nhận xe:* ${data.date}`,
-            `- *Giờ nhận xe:* ${data.time}`,
-            `- *Cách thức nhận xe:* ${data.delivery}`,
-            data.notes ? `- *Ghi chú:* ${data.notes}` : ''
+            t('msg_greeting'),
+            `- *${t('msg_name')}:* ${data.name}`,
+            `- *${t('msg_phone')}:* ${data.phone}`,
+            `- *${t('msg_vehicle')}:* ${data.vehicle}`,
+            `- *${t('msg_date')}:* ${data.date}`,
+            `- *${t('msg_time')}:* ${data.time}`,
+            `- *${t('msg_delivery')}:* ${data.delivery}`,
+            data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
         ].filter(Boolean).join('\n');
     }
 

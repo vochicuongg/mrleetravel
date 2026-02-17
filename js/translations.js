@@ -154,6 +154,16 @@ const translations = {
     toast_error: 'Vui lòng điền đầy đủ thông tin.',
 
     scroll_text: 'Cuộn xuống',
+
+    // Booking Message (WhatsApp/Zalo)
+    msg_greeting: 'Xin chào Mr. Lee, tôi muốn đặt xe bên bạn và đây là thông tin của tôi:',
+    msg_name: 'Tên',
+    msg_phone: 'SĐT',
+    msg_vehicle: 'Tên Xe',
+    msg_date: 'Ngày nhận xe',
+    msg_time: 'Giờ nhận xe',
+    msg_delivery: 'Cách thức nhận xe',
+    msg_notes: 'Ghi chú',
   },
 
   en: {
@@ -286,6 +296,15 @@ const translations = {
     toast_success: 'Booking submitted successfully!',
     toast_error: 'Please fill in all required fields.',
     scroll_text: 'Scroll down',
+
+    msg_greeting: 'Hello Mr. Lee, I would like to book a vehicle. Here is my information:',
+    msg_name: 'Name',
+    msg_phone: 'Phone',
+    msg_vehicle: 'Vehicle',
+    msg_date: 'Pickup date',
+    msg_time: 'Pickup time',
+    msg_delivery: 'Delivery method',
+    msg_notes: 'Notes',
   },
 
   ru: {
@@ -416,6 +435,15 @@ const translations = {
     toast_success: 'Бронирование успешно отправлено!',
     toast_error: 'Пожалуйста, заполните все поля.',
     scroll_text: 'Прокрутите вниз',
+
+    msg_greeting: 'Здравствуйте Mr. Lee, я хотел бы забронировать транспорт. Вот мои данные:',
+    msg_name: 'Имя',
+    msg_phone: 'Телефон',
+    msg_vehicle: 'Транспорт',
+    msg_date: 'Дата получения',
+    msg_time: 'Время получения',
+    msg_delivery: 'Способ доставки',
+    msg_notes: 'Примечание',
   },
 
   zh: {
@@ -546,6 +574,15 @@ const translations = {
     toast_success: '预订已成功提交！',
     toast_error: '请填写所有必填项。',
     scroll_text: '向下滚动',
+
+    msg_greeting: '你好Mr. Lee，我想预订车辆。以下是我的信息：',
+    msg_name: '姓名',
+    msg_phone: '电话',
+    msg_vehicle: '车辆',
+    msg_date: '取车日期',
+    msg_time: '取车时间',
+    msg_delivery: '取车方式',
+    msg_notes: '备注',
   },
 
   kr: {
@@ -676,6 +713,15 @@ const translations = {
     toast_success: '예약이 성공적으로 제출되었습니다!',
     toast_error: '모든 필수 항목을 작성해주세요.',
     scroll_text: '아래로 스크롤',
+
+    msg_greeting: '안녕하세요 Mr. Lee, 차량을 예약하고 싶습니다. 제 정보입니다:',
+    msg_name: '이름',
+    msg_phone: '전화번호',
+    msg_vehicle: '차량',
+    msg_date: '수령일',
+    msg_time: '수령 시간',
+    msg_delivery: '수령 방법',
+    msg_notes: '메모',
   },
 
   de: {
@@ -806,5 +852,14 @@ const translations = {
     toast_success: 'Buchung erfolgreich eingereicht!',
     toast_error: 'Bitte füllen Sie alle Pflichtfelder aus.',
     scroll_text: 'Nach unten scrollen',
+
+    msg_greeting: 'Hallo Mr. Lee, ich möchte ein Fahrzeug buchen. Hier sind meine Daten:',
+    msg_name: 'Name',
+    msg_phone: 'Telefon',
+    msg_vehicle: 'Fahrzeug',
+    msg_date: 'Abholdatum',
+    msg_time: 'Abholzeit',
+    msg_delivery: 'Liefermethode',
+    msg_notes: 'Anmerkungen',
   }
 };
