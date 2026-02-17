@@ -377,13 +377,6 @@
                 pickupGroup.style.display = 'block';
                 if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
             }
-            if (dropoffGroup) dropoffGroup.style.display = 'block';
-
-            // Show Flight for 16-seat (likely airport)
-            const isAirport = bookingVehicle.features.some(f => f === 'feat_airport') || bookingVehicle.features.some(f => f.includes('16'));
-            if (flightGroup && isAirport) {
-                flightGroup.style.display = 'block';
-            }
         }
 
         // Open modal
@@ -1233,7 +1226,6 @@
                 data.routeInfo ? `- *${t('msg_route') || 'Lộ trình'}:* ${data.routeInfo}` : '',
                 `- *${t('msg_date')}:* ${data.date}`,
                 `- *${t('msg_time')}:* ${data.time}`,
-                data.flightNumber ? `- *${t('msg_flight') || 'Số chuyến bay'}:* ${data.flightNumber}` : '',
                 data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
             ].filter(Boolean).join('\n');
         }
@@ -1312,8 +1304,6 @@
                 `📅 <b>Ngày đón:</b> ${data.date}`,
                 `⏰ <b>Giờ đón:</b> ${data.time}`,
                 `📍 <b>Điểm đón:</b> ${pickupAddr}`,
-                data.dropoffAddress ? `📍 <b>Điểm trả:</b> ${data.dropoffAddress}` : '',
-                data.flightNumber ? `✈️ <b>Số chuyến bay:</b> ${data.flightNumber}` : '',
                 data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
                 `---------------------`,
                 `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
