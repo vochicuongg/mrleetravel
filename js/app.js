@@ -1160,6 +1160,10 @@
             }
         }
 
+        // Hotel/address info
+        const hotelName = $('#deliveryName') ? $('#deliveryName').value.trim() : '';
+        const hotelAddress = $('#deliveryAddress') ? $('#deliveryAddress').value.trim() : '';
+
         return {
             vehicle: bookingVehicle ? bookingVehicle.nameKey : '',
             category: bookingVehicle ? bookingVehicle._category : '',
@@ -1172,7 +1176,9 @@
                 ? t('tour_' + selectedTourTime) : clockTime,
             notes,
             price: priceStr,
-            rentalDays
+            rentalDays,
+            hotelName,
+            hotelAddress
         };
     }
 
@@ -1217,21 +1223,43 @@
         const now = new Date();
         const timestamp = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-        const message = [
-            `🚀 <b>ĐƠN ĐẶT XE MỚI</b>`,
-            `---------------------`,
-            `👤 <b>Tên KH:</b> ${data.name}`,
-            `📱 <b>SĐT:</b> ${data.phone}`,
-            `🚗 <b>Tên Xe:</b> ${data.vehicle}`,
-            `💰 <b>Giá tiền:</b> ${data.price}`,
-            `📅 <b>Ngày nhận xe:</b> ${data.date}`,
-            `⏰ <b>Giờ nhận xe:</b> ${data.time}`,
-            data.returnDate ? `📆 <b>Ngày trả xe:</b> ${data.returnDate}` : '',
-            `🚚 <b>Hình thức nhận xe:</b> ${data.delivery}`,
-            data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
-            `---------------------`,
-            `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
-        ].filter(Boolean).join('\n');
+        let message;
+
+        if (data.category === 'jeeps') {
+            // Jeep Tour format
+            const pickupAddress = [data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || 'Chưa cung cấp';
+            message = [
+                `🚀 <b>ĐƠN ĐẶT JEEP TOUR</b>`,
+                `---------------------`,
+                `👤 <b>Tên KH:</b> ${data.name}`,
+                `📱 <b>SĐT:</b> ${data.phone}`,
+                `🚗 <b>Mẫu xe:</b> ${data.vehicle}`,
+                `💰 <b>Giá tiền:</b> ${data.price}`,
+                `📅 <b>Ngày đón khách:</b> ${data.date}`,
+                `⏰ <b>Giờ đón khách:</b> ${data.time}`,
+                `🚚 <b>Địa chỉ nhận khách:</b> ${pickupAddress}`,
+                data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
+                `---------------------`,
+                `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
+            ].filter(Boolean).join('\n');
+        } else {
+            // Default format (motorbikes, minibuses)
+            message = [
+                `🚀 <b>ĐƠN ĐẶT XE MỚI</b>`,
+                `---------------------`,
+                `👤 <b>Tên KH:</b> ${data.name}`,
+                `📱 <b>SĐT:</b> ${data.phone}`,
+                `🚗 <b>Tên Xe:</b> ${data.vehicle}`,
+                `💰 <b>Giá tiền:</b> ${data.price}`,
+                `📅 <b>Ngày nhận xe:</b> ${data.date}`,
+                `⏰ <b>Giờ nhận xe:</b> ${data.time}`,
+                data.returnDate ? `📆 <b>Ngày trả xe:</b> ${data.returnDate}` : '',
+                `🚚 <b>Hình thức nhận xe:</b> ${data.delivery}`,
+                data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
+                `---------------------`,
+                `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
+            ].filter(Boolean).join('\n');
+        }
 
         try {
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
