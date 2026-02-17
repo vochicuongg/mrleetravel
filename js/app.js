@@ -1208,7 +1208,7 @@
             `📅 <b>Ngày nhận xe:</b> ${data.date}`,
             `⏰ <b>Giờ nhận xe:</b> ${data.time}`,
             data.returnDate ? `📆 <b>Ngày trả xe:</b> ${data.returnDate}` : '',
-            `🚚 <b>Giao xe:</b> ${data.delivery}`,
+            `🚚 <b>Hình thức nhận xe:</b> ${data.delivery}`,
             data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
             `---------------------`,
             `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
