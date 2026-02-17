@@ -1540,7 +1540,8 @@
         selectHotel,
         adjustDays,
         updateRentalPrice,
-        setLanguage
+        setLanguage,
+        toggleCustomRoute
     };
 
     /* ---------- DOM Ready ---------- */
