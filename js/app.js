@@ -371,7 +371,8 @@
                     </div>
                 `;
             }
-            // Show Address Fields
+            // Show Hotel Name + Address Fields for Transfer
+            if (deliveryFields) deliveryFields.style.display = 'block';
             if (pickupGroup) {
                 pickupGroup.style.display = 'block';
                 if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
