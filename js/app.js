@@ -657,9 +657,11 @@
 
     function updateReturnDate() {
         const display = $('#returnDateDisplay');
-        if (!display) return;
+        const group = $('#returnDateGroup');
+        const input = $('#returnDateInput');
         if (!selectedDate || !bookingVehicle || bookingVehicle._category !== 'motorbikes') {
-            display.innerHTML = '';
+            if (display) display.innerHTML = '';
+            if (group) group.style.display = 'none';
             return;
         }
         const daysInput = $('#rentalDays');
@@ -667,7 +669,9 @@
         const returnDate = new Date(selectedDate);
         returnDate.setDate(returnDate.getDate() + days);
         const returnStr = `${returnDate.getDate()}/${returnDate.getMonth() + 1}/${returnDate.getFullYear()}`;
-        display.innerHTML = `📆 <strong>${t('label_return_date')}:</strong> ${returnStr}`;
+        if (display) display.innerHTML = '';
+        if (group) group.style.display = '';
+        if (input) input.value = returnStr;
     }
 
     function updateBookingPrice() {
