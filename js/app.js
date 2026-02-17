@@ -261,10 +261,10 @@
             }
         }
 
-        // Hide clock picker for Jeeps (they use fixed tour times)
+        // Hide clock picker initially (shown when date is selected, except for Jeeps)
         const clockPicker = $('#clockPicker');
         if (clockPicker) {
-            clockPicker.style.display = bookingVehicle._category === 'jeeps' ? 'none' : '';
+            clockPicker.style.display = 'none';
         }
 
         // Reset form
@@ -555,9 +555,11 @@
         updateClockHand();
         updateReturnDate();
 
-        // Show clock picker when date is selected
+        // Show clock picker when date is selected (not for Jeeps - they use tour time)
         const clockPicker = $('#clockPicker');
-        if (clockPicker) clockPicker.style.display = '';
+        if (clockPicker && bookingVehicle && bookingVehicle._category !== 'jeeps') {
+            clockPicker.style.display = '';
+        }
     }
 
     /* ---------- Rental duration discount ---------- */
