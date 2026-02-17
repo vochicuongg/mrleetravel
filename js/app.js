@@ -93,7 +93,8 @@
     }
 
     function formatPrice(price) {
-        return new Intl.NumberFormat('vi-VN').format(price);
+        const k = Math.round(price / 1000);
+        return new Intl.NumberFormat('vi-VN').format(k) + 'K';
     }
 
     /* Feature icon mapping for product detail popup */
@@ -132,7 +133,7 @@
           </div>
           <div class="vehicle-card-footer">
             <div class="vehicle-card-price">
-              ${v.price > 0 ? `${formatPrice(v.price)} <small>${v.currency}/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
+              ${v.price > 0 ? `${formatPrice(v.price)} <small>/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
             </div>
             <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); app.openBooking('${v.id}')">
               ${t('book_now')}
@@ -183,7 +184,7 @@
         if (img) { img.src = vehicle.image; img.alt = vehicle.nameKey; }
         if (title) title.textContent = vehicle.nameKey;
         if (price) {
-            price.innerHTML = vehicle.price > 0 ? `${formatPrice(vehicle.price)} <small>${vehicle.currency}/${t(vehicle.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`;
+            price.innerHTML = vehicle.price > 0 ? `${formatPrice(vehicle.price)} <small>/${t(vehicle.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`;
         }
         if (features) {
             features.innerHTML = vehicle.features.map(f => {
@@ -610,8 +611,8 @@
             `<li>` +
             `<span class="promo-bullet">🏷️</span>` +
             `<div class="promo-item-text">` +
-            `<span class="promo-price">${t('promo_from')} ${it.days} ${t('days_unit')}: <strong>${formatPrice(it.price)}đ/${t('per_day')}</strong></span>` +
-            `<span class="promo-save">${t('promo_save')} ${formatPrice(basePrice - it.price)}đ/${t('per_day')}</span>` +
+            `<span class="promo-price">${t('promo_from')} ${it.days} ${t('days_unit')}: <strong>${formatPrice(it.price)}/${t('per_day')}</strong></span>` +
+            `<span class="promo-save">${t('promo_save')} ${formatPrice(basePrice - it.price)}/${t('per_day')}</span>` +
             `</div>` +
             `</li>`
         ).join('');
@@ -640,14 +641,14 @@
             display.innerHTML =
                 `<div class="rental-discount-badge">🎉 ${t('discount_label')}</div>` +
                 `<div class="rental-price-line">` +
-                `<span class="rental-price-original">${formatPrice(originalPrice)}đ</span> → ` +
-                `<span class="rental-price-new">${formatPrice(discountPrice)}đ/${t('per_day')}</span>` +
+                `<span class="rental-price-original">${formatPrice(originalPrice)}</span> → ` +
+                `<span class="rental-price-new">${formatPrice(discountPrice)}/${t('per_day')}</span>` +
                 `</div>` +
-                `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}đ</strong> (${days} ${t('days_unit')})</div>`;
+                `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}</strong> (${days} ${t('days_unit')})</div>`;
         } else {
             display.innerHTML =
-                `<div class="rental-price-line">${formatPrice(originalPrice)}đ/${t('per_day')}</div>` +
-                `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}đ</strong> (${days} ${t('days_unit')})</div>`;
+                `<div class="rental-price-line">${formatPrice(originalPrice)}/${t('per_day')}</div>` +
+                `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}</strong> (${days} ${t('days_unit')})</div>`;
         }
 
         // Also update the booking price summary
@@ -688,19 +689,19 @@
             const total = discountPrice * days;
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
-                <div class="price-summary-amount">${formatPrice(total)}đ</div>
-                <div class="price-summary-detail">${formatPrice(discountPrice)}đ × ${days} ${t('days_unit')}</div>
+                <div class="price-summary-amount">${formatPrice(total)}</div>
+                <div class="price-summary-detail">${formatPrice(discountPrice)} × ${days} ${t('days_unit')}</div>
             `;
         } else if (category === 'jeeps') {
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
-                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}đ</div>
+                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}</div>
                 <div class="price-summary-detail">${t('per_tour')}</div>
             `;
         } else if (category === 'minibuses') {
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
-                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}đ</div>
+                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}</div>
                 <div class="price-summary-detail">${t('per_trip')}</div>
             `;
         }
@@ -1125,15 +1126,15 @@
         // Rental days & pricing for motorbikes
         let rentalDays = 1;
         let returnDateStr = '';
-        let priceStr = bookingVehicle ? `${formatPrice(bookingVehicle.price)}đ` : '';
+        let priceStr = bookingVehicle ? `${formatPrice(bookingVehicle.price)}` : '';
         if (bookingVehicle && bookingVehicle._category === 'motorbikes') {
             const daysInput = $('#rentalDays');
             rentalDays = parseInt(daysInput ? daysInput.value : 1) || 1;
             const discounted = getDiscountedPrice(bookingVehicle, rentalDays);
             const total = discounted * rentalDays;
             priceStr = discounted < bookingVehicle.price
-                ? `${formatPrice(discounted)}đ/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}đ (${t('discount_label')})`
-                : `${formatPrice(bookingVehicle.price)}đ/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}đ`;
+                ? `${formatPrice(discounted)}/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)} (${t('discount_label')})`
+                : `${formatPrice(bookingVehicle.price)}/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}`;
             if (selectedDate) {
                 const returnDate = new Date(selectedDate);
                 returnDate.setDate(returnDate.getDate() + rentalDays);
