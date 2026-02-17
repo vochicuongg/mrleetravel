@@ -152,6 +152,8 @@ const translations = {
     // Toast
     toast_success: 'Đặt dịch vụ thành công!',
     toast_error: 'Vui lòng điền đầy đủ thông tin.',
+    toast_select_tour_time: 'Vui lòng chọn mốc thời gian!',
+    toast_select_dropoff: 'Vui lòng chọn điểm trả!',
 
     scroll_text: 'Cuộn xuống',
 
@@ -307,6 +309,8 @@ const translations = {
 
     toast_success: 'Booking submitted successfully!',
     toast_error: 'Please fill in all required fields.',
+    toast_select_tour_time: 'Please select a tour time!',
+    toast_select_dropoff: 'Please select a drop-off point!',
     scroll_text: 'Scroll down',
 
     msg_greeting: 'Hello Mr. Lee, I would like to book a vehicle. Here is my information:',
@@ -458,6 +462,8 @@ const translations = {
 
     toast_success: 'Бронирование успешно отправлено!',
     toast_error: 'Пожалуйста, заполните все поля.',
+    toast_select_tour_time: 'Пожалуйста, выберите время тура!',
+    toast_select_dropoff: 'Пожалуйста, выберите пункт назначения!',
     scroll_text: 'Прокрутите вниз',
 
     msg_greeting: 'Здравствуйте Mr. Lee, я хотел бы забронировать транспорт. Вот мои данные:',
@@ -609,6 +615,8 @@ const translations = {
 
     toast_success: '预订已成功提交！',
     toast_error: '请填写所有必填项。',
+    toast_select_tour_time: '请选择旅游时间！',
+    toast_select_dropoff: '请选择下车地点！',
     scroll_text: '向下滚动',
 
     msg_greeting: '你好Mr. Lee，我想预订车辆。以下是我的信息：',
@@ -760,6 +768,8 @@ const translations = {
 
     toast_success: '예약이 성공적으로 제출되었습니다!',
     toast_error: '모든 필수 항목을 작성해주세요.',
+    toast_select_tour_time: '투어 시간을 선택해 주세요!',
+    toast_select_dropoff: '하차 지점을 선택해 주세요!',
     scroll_text: '아래로 스크롤',
 
     msg_greeting: '안녕하세요 Mr. Lee, 차량을 예약하고 싶습니다. 제 정보입니다:',
@@ -911,6 +921,8 @@ const translations = {
 
     toast_success: 'Buchung erfolgreich eingereicht!',
     toast_error: 'Bitte füllen Sie alle Pflichtfelder aus.',
+    toast_select_tour_time: 'Bitte wählen Sie eine Tourzeit!',
+    toast_select_dropoff: 'Bitte wählen Sie einen Abgabeort!',
     scroll_text: 'Nach unten scrollen',
 
     msg_greeting: 'Hallo Mr. Lee, ich möchte ein Fahrzeug buchen. Hier sind meine Daten:',

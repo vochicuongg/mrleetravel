@@ -1135,6 +1135,21 @@
             return null;
         }
 
+        // Validate: Jeep must have tour time selected
+        if (bookingVehicle && bookingVehicle._category === 'jeeps' && !selectedTourTime) {
+            showToast(t('toast_select_tour_time') || 'Vui lòng chọn mốc thời gian!');
+            return null;
+        }
+
+        // Validate: 7-seat minibus must have dropoff selected
+        if (bookingVehicle && bookingVehicle._category === 'minibuses') {
+            const dropoffSelect = $('#dropoffSelect');
+            if (dropoffSelect && !dropoffSelect.value) {
+                showToast(t('toast_select_dropoff') || 'Vui lòng chọn điểm trả!');
+                return null;
+            }
+        }
+
         // Delivery info
         let deliveryInfo = t('delivery_pickup');
         if (selectedDeliveryMethod === 'delivery') {
