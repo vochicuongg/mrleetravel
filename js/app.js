@@ -415,8 +415,8 @@
         const tripInfoBox = $('#tripInfoBox');
 
         if (time === 'custom') {
-            // Hide itinerary for custom time
-            if (tripInfoBox) tripInfoBox.style.display = 'none';
+            // No longer used
+            return;
         } else {
             // Show itinerary for sunrise/sunset
             if (tripInfoBox) tripInfoBox.style.display = 'block';
