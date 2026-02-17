@@ -173,6 +173,8 @@ const translations = {
     msg_greeting_minibus: 'Xin chào Mr. Lee, tôi muốn đặt xe transfer và đây là thông tin của tôi:',
     msg_route: 'Lộ trình',
     msg_flight: 'Số chuyến bay',
+    msg_hotel_name: 'Tên Khách sạn/Resort',
+    msg_hotel_address: 'Địa chỉ',
   },
 
   en: {
@@ -323,6 +325,8 @@ const translations = {
     msg_greeting_minibus: 'Hello Mr. Lee, I would like to book a transfer. Here is my information:',
     msg_route: 'Route',
     msg_flight: 'Flight number',
+    msg_hotel_name: 'Hotel/Resort name',
+    msg_hotel_address: 'Address',
   },
 
   ru: {
@@ -471,6 +475,8 @@ const translations = {
     msg_greeting_minibus: 'Здравствуйте Mr. Lee, я хотел бы забронировать трансфер. Вот мои данные:',
     msg_route: 'Маршрут',
     msg_flight: 'Номер рейса',
+    msg_hotel_name: 'Название отеля/курорта',
+    msg_hotel_address: 'Адрес',
   },
 
   zh: {
@@ -619,6 +625,8 @@ const translations = {
     msg_greeting_minibus: '你好Mr. Lee，我想预订接送服务。以下是我的信息：',
     msg_route: '路线',
     msg_flight: '航班号',
+    msg_hotel_name: '酒店/度假村名称',
+    msg_hotel_address: '地址',
   },
 
   kr: {
@@ -767,6 +775,8 @@ const translations = {
     msg_greeting_minibus: '안녕하세요 Mr. Lee, 트랜스퍼를 예약하고 싶습니다. 제 정보입니다:',
     msg_route: '경로',
     msg_flight: '항공편명',
+    msg_hotel_name: '호텔/리조트 이름',
+    msg_hotel_address: '주소',
   },
 
   de: {
@@ -915,5 +925,7 @@ const translations = {
     msg_greeting_minibus: 'Hallo Mr. Lee, ich möchte einen Transfer buchen. Hier sind meine Daten:',
     msg_route: 'Route',
     msg_flight: 'Flugnummer',
+    msg_hotel_name: 'Hotel-/Resortname',
+    msg_hotel_address: 'Adresse',
   }
 };
