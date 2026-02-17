@@ -164,6 +164,8 @@ const translations = {
     msg_time: 'Giờ nhận xe',
     msg_delivery: 'Cách thức nhận xe',
     msg_notes: 'Ghi chú',
+    msg_return_date: 'Ngày trả xe',
+    label_return_date: 'Ngày trả xe',
   },
 
   en: {
@@ -305,6 +307,8 @@ const translations = {
     msg_time: 'Pickup time',
     msg_delivery: 'Delivery method',
     msg_notes: 'Notes',
+    msg_return_date: 'Return date',
+    label_return_date: 'Return date',
   },
 
   ru: {
@@ -444,6 +448,8 @@ const translations = {
     msg_time: 'Время получения',
     msg_delivery: 'Способ доставки',
     msg_notes: 'Примечание',
+    msg_return_date: 'Дата возврата',
+    label_return_date: 'Дата возврата',
   },
 
   zh: {
@@ -583,6 +589,8 @@ const translations = {
     msg_time: '取车时间',
     msg_delivery: '取车方式',
     msg_notes: '备注',
+    msg_return_date: '还车日期',
+    label_return_date: '还车日期',
   },
 
   kr: {
@@ -722,6 +730,8 @@ const translations = {
     msg_time: '수령 시간',
     msg_delivery: '수령 방법',
     msg_notes: '메모',
+    msg_return_date: '반납일',
+    label_return_date: '반납일',
   },
 
   de: {
@@ -861,5 +871,7 @@ const translations = {
     msg_time: 'Abholzeit',
     msg_delivery: 'Liefermethode',
     msg_notes: 'Anmerkungen',
+    msg_return_date: 'Rückgabedatum',
+    label_return_date: 'Rückgabedatum',
   }
 };

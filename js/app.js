@@ -552,6 +552,7 @@
         // Re-render clock to update disabled state
         renderClockFace();
         updateClockHand();
+        updateReturnDate();
     }
 
     /* ---------- Rental duration discount ---------- */
@@ -651,6 +652,22 @@
 
         // Also update the booking price summary
         updateBookingPrice();
+        updateReturnDate();
+    }
+
+    function updateReturnDate() {
+        const display = $('#returnDateDisplay');
+        if (!display) return;
+        if (!selectedDate || !bookingVehicle || bookingVehicle._category !== 'motorbikes') {
+            display.innerHTML = '';
+            return;
+        }
+        const daysInput = $('#rentalDays');
+        const days = parseInt(daysInput ? daysInput.value : 1) || 1;
+        const returnDate = new Date(selectedDate);
+        returnDate.setDate(returnDate.getDate() + days);
+        const returnStr = `${returnDate.getDate()}/${returnDate.getMonth() + 1}/${returnDate.getFullYear()}`;
+        display.innerHTML = `📆 <strong>${t('label_return_date')}:</strong> ${returnStr}`;
     }
 
     function updateBookingPrice() {
@@ -1103,6 +1120,7 @@
 
         // Rental days & pricing for motorbikes
         let rentalDays = 1;
+        let returnDateStr = '';
         let priceStr = bookingVehicle ? `${formatPrice(bookingVehicle.price)}đ` : '';
         if (bookingVehicle && bookingVehicle._category === 'motorbikes') {
             const daysInput = $('#rentalDays');
@@ -1112,6 +1130,11 @@
             priceStr = discounted < bookingVehicle.price
                 ? `${formatPrice(discounted)}đ/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}đ (${t('discount_label')})`
                 : `${formatPrice(bookingVehicle.price)}đ/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}đ`;
+            if (selectedDate) {
+                const returnDate = new Date(selectedDate);
+                returnDate.setDate(returnDate.getDate() + rentalDays);
+                returnDateStr = `${returnDate.getDate()}/${returnDate.getMonth() + 1}/${returnDate.getFullYear()}`;
+            }
         }
 
         return {
@@ -1121,6 +1144,7 @@
             phone,
             delivery: deliveryInfo,
             date: dateStr,
+            returnDate: returnDateStr,
             time: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
                 ? t('tour_' + selectedTourTime) : clockTime,
             notes,
@@ -1136,6 +1160,7 @@
             `- *${t('msg_phone')}:* ${data.phone}`,
             `- *${t('msg_vehicle')}:* ${data.vehicle}`,
             `- *${t('msg_date')}:* ${data.date}`,
+            data.returnDate ? `- *${t('msg_return_date')}:* ${data.returnDate}` : '',
             `- *${t('msg_time')}:* ${data.time}`,
             `- *${t('msg_delivery')}:* ${data.delivery}`,
             data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
@@ -1178,6 +1203,7 @@
             `🚗 <b>Tên Xe:</b> ${data.vehicle}`,
             `💰 <b>Giá tiền:</b> ${data.price}`,
             `📅 <b>Ngày nhận xe:</b> ${data.date}`,
+            data.returnDate ? `📆 <b>Ngày trả xe:</b> ${data.returnDate}` : '',
             `⏰ <b>Giờ nhận xe:</b> ${data.time}`,
             `🚚 <b>Giao xe:</b> ${data.delivery}`,
             data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
