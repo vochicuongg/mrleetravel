@@ -1164,7 +1164,6 @@
             `- *${t('msg_phone')}:* ${data.phone}`,
             `- *${t('msg_vehicle')}:* ${data.vehicle}`,
             `- *${t('msg_date')}:* ${data.date}`,
-            data.returnDate ? `- *${t('msg_return_date')}:* ${data.returnDate}` : '',
             `- *${t('msg_time')}:* ${data.time}`,
             `- *${t('msg_delivery')}:* ${data.delivery}`,
             data.notes ? `- *${t('msg_notes')}:* ${data.notes}` : ''
@@ -1201,17 +1200,17 @@
 
         const message = [
             `🚀 <b>ĐƠN ĐẶT XE MỚI</b>`,
-            `━━━━━━━━━━━━━━━`,
+            `---------------------`,
             `👤 <b>Tên KH:</b> ${data.name}`,
             `📱 <b>SĐT:</b> ${data.phone}`,
             `🚗 <b>Tên Xe:</b> ${data.vehicle}`,
             `💰 <b>Giá tiền:</b> ${data.price}`,
             `📅 <b>Ngày nhận xe:</b> ${data.date}`,
-            data.returnDate ? `📆 <b>Ngày trả xe:</b> ${data.returnDate}` : '',
             `⏰ <b>Giờ nhận xe:</b> ${data.time}`,
+            data.returnDate ? `📆 <b>Ngày trả xe:</b> ${data.returnDate}` : '',
             `🚚 <b>Giao xe:</b> ${data.delivery}`,
             data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
-            `━━━━━━━━━━━━━━━`,
+            `---------------------`,
             `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
         ].filter(Boolean).join('\n');
 
