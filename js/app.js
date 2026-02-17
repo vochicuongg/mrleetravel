@@ -554,6 +554,10 @@
         renderClockFace();
         updateClockHand();
         updateReturnDate();
+
+        // Show clock picker when date is selected
+        const clockPicker = $('#clockPicker');
+        if (clockPicker) clockPicker.style.display = '';
     }
 
     /* ---------- Rental duration discount ---------- */
