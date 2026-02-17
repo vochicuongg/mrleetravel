@@ -1046,12 +1046,23 @@
                 list.classList.remove('open');
                 return;
             }
-            list.innerHTML = matches.map((h, i) =>
-                `<div class="autocomplete-item" data-index="${hotelList.indexOf(h)}" onclick="app.selectHotel(${hotelList.indexOf(h)})">
+            list.innerHTML = matches.map((h, i) => {
+                const idx = hotelList.indexOf(h);
+                return `<div class="autocomplete-item" data-index="${idx}">
                     <div class="autocomplete-name">${h.name}</div>
                     <div class="autocomplete-address">${h.address}</div>
-                </div>`
-            ).join('');
+                </div>`;
+            }).join('');
+
+            // Use mousedown to fire before blur
+            list.querySelectorAll('.autocomplete-item').forEach(item => {
+                item.addEventListener('mousedown', (e) => {
+                    e.preventDefault(); // Prevent blur from closing list
+                    const idx = parseInt(item.dataset.index);
+                    selectHotel(idx);
+                });
+            });
+
             list.classList.add('open');
         }
 
@@ -1080,7 +1091,7 @@
         });
 
         input.addEventListener('blur', () => {
-            setTimeout(() => list.classList.remove('open'), 200);
+            setTimeout(() => list.classList.remove('open'), 300);
         });
     }
 
