@@ -367,7 +367,15 @@
                         <label><input type="checkbox" id="customRouteCheck" onchange="app.toggleCustomRoute(this)"> ${t('route_wrong')}</label>
                     </div>
                     <div class="custom-route-input" id="customRouteInput" style="display:none">
-                        <input type="text" class="form-control" id="customRouteText" data-translate="placeholder_custom_route" placeholder="${t('placeholder_custom_route')}">
+                        <select class="form-control" id="customRouteSelect">
+                            <option value="" disabled selected>${t('placeholder_select_destination') || 'Chọn điểm đến...'}</option>
+                            <option value="TP.HCM (Sân bay Tân Sơn Nhất)">TP.HCM (Sân bay Tân Sơn Nhất)</option>
+                            <option value="Nha Trang">Nha Trang</option>
+                            <option value="Đà Lạt">Đà Lạt</option>
+                            <option value="Vũng Tàu">Vũng Tàu</option>
+                            <option value="Cam Ranh">Cam Ranh</option>
+                            <option value="Long Hải">Long Hải</option>
+                        </select>
                     </div>
                 `;
             }
@@ -428,22 +436,22 @@
         const customInput = $('#customRouteInput');
 
         if (checkbox.checked) {
-            // Strike through default route & show custom input
+            // Strike through default route & show destination dropdown
             if (routeInfo) {
                 routeInfo.style.textDecoration = 'line-through';
                 routeInfo.style.opacity = '0.4';
             }
             if (customInput) customInput.style.display = 'block';
         } else {
-            // Restore default route & hide custom input
+            // Restore default route & hide dropdown
             if (routeInfo) {
                 routeInfo.style.textDecoration = 'none';
                 routeInfo.style.opacity = '1';
             }
             if (customInput) {
                 customInput.style.display = 'none';
-                const input = $('#customRouteText');
-                if (input) input.value = '';
+                const select = $('#customRouteSelect');
+                if (select) select.selectedIndex = 0;
             }
         }
     }
@@ -1162,9 +1170,9 @@
         let routeInfo = '';
         if (bookingVehicle && bookingVehicle._category === 'minibuses') {
             const customCheck = $('#customRouteCheck');
-            const customText = $('#customRouteText');
-            if (customCheck && customCheck.checked && customText && customText.value.trim()) {
-                routeInfo = customText.value.trim();
+            const customSelect = $('#customRouteSelect');
+            if (customCheck && customCheck.checked && customSelect && customSelect.value) {
+                routeInfo = `Mũi Né ➔ ${customSelect.value}`;
             } else {
                 const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
                 if (capacity.includes('7')) {
