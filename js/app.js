@@ -818,6 +818,10 @@
             if (wasDragging && clockMode === 'hour') {
                 setTimeout(() => switchClockMode('minute'), 250);
             }
+            // Show confirmation when minute drag ends
+            if (wasDragging && clockMode === 'minute') {
+                showClockConfirmation();
+            }
         }
 
         // Mouse events
@@ -845,6 +849,7 @@
                 } else {
                     selectedClockMinute = val;
                     updateClockHand();
+                    showClockConfirmation();
                 }
             });
         }
@@ -854,6 +859,30 @@
         const minDisplay = $('#clockMinDisplay');
         if (hourDisplay) hourDisplay.addEventListener('click', () => switchClockMode('hour'));
         if (minDisplay) minDisplay.addEventListener('click', () => switchClockMode('minute'));
+    }
+
+    function showClockConfirmation() {
+        const display = $('.clock-display');
+        if (!display) return;
+
+        // Add confirmed class for green flash
+        display.classList.add('clock-confirmed');
+
+        // Show checkmark badge
+        let badge = display.querySelector('.clock-check-badge');
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'clock-check-badge';
+            badge.textContent = '✓';
+            display.appendChild(badge);
+        }
+        badge.classList.add('show');
+
+        // Remove after animation
+        setTimeout(() => {
+            display.classList.remove('clock-confirmed');
+            badge.classList.remove('show');
+        }, 1500);
     }
 
     function switchClockMode(mode) {
