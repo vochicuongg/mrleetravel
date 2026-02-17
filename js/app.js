@@ -339,7 +339,8 @@
                 $('#routeDisplay').innerHTML = ''; // Clear route (used for bus)
                 $('#itineraryDisplay').innerHTML = ''; // Will be set by selectTourTime
             }
-            // Always show Pickup Address
+            // Show Hotel Name + Pickup Address for Jeeps
+            if (deliveryFields) deliveryFields.style.display = 'block';
             if (pickupGroup) {
                 pickupGroup.style.display = 'block';
                 if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
