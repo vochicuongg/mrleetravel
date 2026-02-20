@@ -161,15 +161,15 @@ const translations = {
     veh_jeep_xanh_duong: 'Xe Jeep Xanh Dương',
     veh_jeep_trang: 'Xe Jeep Trắng',
 
-    loc_red_dunes: 'Đồi Cát Hồng', loc_red_dunes_desc: 'Đồi cát đỏ hồng rực rỡ khi bình minh lên',
+    loc_red_dunes: 'Đồi Cát Đỏ', loc_red_dunes_desc: 'Đồi cát đỏ rực rỡ khi bình minh lên',
     loc_bau_trang: 'Bàu Trắng', loc_bau_trang_desc: 'Đồi cát trắng bạt ngàn với hồ nước trong xanh',
     loc_fairy_stream: 'Suối Tiên', loc_fairy_stream_desc: 'Con suối huyền ảo uốn lượn qua vách đất đỏ',
     loc_fishing_village: 'Làng Chài Mũi Né', loc_fishing_village_desc: 'Bình minh rực rỡ trên cảng thuyền thúng truyền thống',
     loc_cham_tower: 'Tháp Chăm Pô Sha Inư', loc_cham_tower_desc: 'Công trình kiến trúc Chăm Pa ngàn năm tuổi',
     loc_white_dunes: 'Đồi Cát Trắng', loc_white_dunes_desc: 'Sa mạc thu nhỏ với cát trắng mịn trải dài',
     loc_ke_ga: 'Hải Đăng Kê Gà', loc_ke_ga_desc: 'Ngọn hải đăng cổ xưa nhất Đông Dương trên đảo đá',
-    loc_ong_dia: 'Chùa Ông Địa', loc_ong_dia_desc: 'Ngôi chùa linh thiêng nằm trên mỏm đá giữa biển',
-    loc_muine_beach: 'Biển Mũi Né', loc_muine_beach_desc: 'Bãi biển xanh ngắt, thiên đường lướt ván diều',
+    loc_ong_dia: 'Chùa Ông', loc_ong_dia_desc: 'Ngôi chùa linh thiêng nằm trên mỏm đá giữa biển',
+    loc_muine_beach: 'Bãi Đá Ông Địa', loc_muine_beach_desc: 'Bãi biển xanh ngắt với những tảng đá đen đẹp huyền bí',
 
     scroll_text: 'Cuộn xuống',
 
@@ -341,8 +341,8 @@ const translations = {
     loc_cham_tower: 'Pô Sha Inư Cham Towers', loc_cham_tower_desc: 'A thousand-year-old Cham Pa architectural masterpiece',
     loc_white_dunes: 'White Sand Dunes', loc_white_dunes_desc: 'A miniature desert of soft white sand stretching to the horizon',
     loc_ke_ga: 'Kê Gà Lighthouse', loc_ke_ga_desc: 'The oldest lighthouse in Indochina, standing on a rocky island',
-    loc_ong_dia: 'Ông Địa Temple', loc_ong_dia_desc: 'A sacred temple perched on a rocky outcrop amid the sea',
-    loc_muine_beach: 'Mũi Né Beach', loc_muine_beach_desc: 'Crystal-clear waters — a paradise for kitesurfers',
+    loc_ong_dia: 'Ong Temple', loc_ong_dia_desc: 'A sacred temple perched on a rocky outcrop amid the sea',
+    loc_muine_beach: 'Ong Dia Rocky Beach', loc_muine_beach_desc: 'Crystal-clear waters meeting mysterious black rocks',
 
     scroll_text: 'Scroll down',
 
@@ -511,8 +511,8 @@ const translations = {
     loc_cham_tower: 'Башни Чам Пô Ша Иню', loc_cham_tower_desc: 'Тысячелетний шедевр архитектуры Чам Па',
     loc_white_dunes: 'Белые Дюны', loc_white_dunes_desc: 'Мини-пустыня из мягкого белого песка',
     loc_ke_ga: 'Маяк Кэ Га', loc_ke_ga_desc: 'Старейший маяк Индокитая на скалистом острове',
-    loc_ong_dia: 'Храм Онг Диа', loc_ong_dia_desc: 'Священный храм на скале посреди моря',
-    loc_muine_beach: 'Пляж Мюйне', loc_muine_beach_desc: 'Кристальные воды — рай для кайтсёрферов',
+    loc_ong_dia: 'Храм Онг', loc_ong_dia_desc: 'Священный храм на скале посреди моря',
+    loc_muine_beach: 'Каменистый Пляж Онг Диа', loc_muine_beach_desc: 'Кристальные воды среди загадочных чёрных скал',
 
     scroll_text: 'Прокрутите вниз',
 
@@ -681,8 +681,8 @@ const translations = {
     loc_cham_tower: '婆沙奴占婆塔', loc_cham_tower_desc: '千年占婆建筑艺术杰作',
     loc_white_dunes: '白色沙丘', loc_white_dunes_desc: '绵延无际的洁白细沙小型沙漠',
     loc_ke_ga: '鸡角灯塔', loc_ke_ga_desc: '印度支那最古老的灯塔，屹立于礁石岛上',
-    loc_ong_dia: '翁地庙', loc_ong_dia_desc: '海中礁石上的神圣庙宇',
-    loc_muine_beach: '美奈海滩', loc_muine_beach_desc: '碧蓝海水——风筝冲浪的天堂',
+    loc_ong_dia: '翁庙', loc_ong_dia_desc: '海中礁石上的神圣庙宇',
+    loc_muine_beach: '翁地石滩', loc_muine_beach_desc: '碧蓝海水与神秘黑石交辉映辉',
 
     scroll_text: '向下滚动',
 
@@ -851,8 +851,8 @@ const translations = {
     loc_cham_tower: '포 샤 이뉴 참 탑', loc_cham_tower_desc: '천 년 역사의 참파 건축 걸작',
     loc_white_dunes: '흰 모래언덕', loc_white_dunes_desc: '끝없이 펼쳐지는 부드러운 흰 모래 미니 사막',
     loc_ke_ga: '케 가 등대', loc_ke_ga_desc: '인도차이나에서 가장 오래된 등대, 바위섬 위에 서 있음',
-    loc_ong_dia: '옹 디아 사원', loc_ong_dia_desc: '바다 한가운데 바위 위에 세워진 신성한 사원',
-    loc_muine_beach: '무이네 해변', loc_muine_beach_desc: '맑은 바다 — 카이트서퍼의 천국',
+    loc_ong_dia: '옹 사원', loc_ong_dia_desc: '바다 한가운데 바위 위에 세워진 신성한 사원',
+    loc_muine_beach: '옹 디아 파악 해변', loc_muine_beach_desc: '신비로운 검은 바위와 맑은 바다의 콘트라스트',
 
     scroll_text: '아래로 스크롤',
 
@@ -1021,8 +1021,8 @@ const translations = {
     loc_cham_tower: 'Cham-Türme Pô Sha Inư', loc_cham_tower_desc: 'Ein tausendjähriges Meisterwerk der Cham-Pa-Architektur',
     loc_white_dunes: 'Weiße Sanddünen', loc_white_dunes_desc: 'Eine Mini-Wüste aus feinem weißem Sand, so weit das Auge reicht',
     loc_ke_ga: 'Leuchtturm Kê Gà', loc_ke_ga_desc: 'Der älteste Leuchtturm Indochinas auf einer Felseninsel',
-    loc_ong_dia: 'Ông Địa Tempel', loc_ong_dia_desc: 'Ein heiliger Tempel auf einem Felsvorsprung mitten im Meer',
-    loc_muine_beach: 'Strand Mũi Né', loc_muine_beach_desc: 'Kristallklares Wasser — Paradies für Kitesurfer',
+    loc_ong_dia: 'Ong-Tempel', loc_ong_dia_desc: 'Ein heiliger Tempel auf einem Felsvorsprung mitten im Meer',
+    loc_muine_beach: 'Ong Dia Felsstrand', loc_muine_beach_desc: 'Kristallklares Wasser trifft auf rätselhafte schwarze Felsen',
 
     scroll_text: 'Nach unten scrollen',
 
