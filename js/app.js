@@ -1213,7 +1213,7 @@
         const flightNumber = $('#flightNumber') ? $('#flightNumber').value.trim() : '';
 
         return {
-            vehicle: bookingVehicle ? bookingVehicle.nameKey : '',
+            vehicle: bookingVehicle ? (t(bookingVehicle.nameKey) || bookingVehicle.nameKey) : '',
             category: bookingVehicle ? bookingVehicle._category : '',
             name,
             phone,
