@@ -1126,8 +1126,16 @@
         if (!hotel) return;
         const nameInput = $('#deliveryName');
         const addrInput = $('#deliveryAddress');
-        if (nameInput) nameInput.value = hotel.name;
-        if (addrInput) addrInput.value = hotel.address;
+
+        if (hotel._isOther) {
+            // "Khách sạn khác" — clear both fields and let user type
+            if (nameInput) { nameInput.value = ''; nameInput.focus(); }
+            if (addrInput) addrInput.value = '';
+        } else {
+            if (nameInput) nameInput.value = hotel.name;
+            if (addrInput) addrInput.value = hotel.address;
+        }
+
         const list1 = $('#hotelAutocomplete');
         const list2 = $('#addressAutocomplete');
         if (list1) list1.classList.remove('open');
