@@ -124,10 +124,10 @@
         grid.innerHTML = items.map(v => `
       <div class="vehicle-card fade-in" data-vehicle-id="${v.id}" style="cursor:pointer">
         <div class="vehicle-card-img">
-          <img src="${v.image}" alt="${v.nameKey}" loading="lazy">
+          <img src="${v.image}" alt="${t(v.nameKey) || v.nameKey}" loading="lazy">
         </div>
         <div class="vehicle-card-body">
-          <h3 class="vehicle-card-title">${v.nameKey}</h3>
+          <h3 class="vehicle-card-title">${t(v.nameKey) || v.nameKey}</h3>
           <div class="vehicle-card-features">
             ${v.features.map(f => `<span>${t(f)}</span>`).join('')}
           </div>
@@ -181,8 +181,8 @@
         const features = $('#productFeatures');
         const bookBtn = $('#productBookBtn');
 
-        if (img) { img.src = vehicle.image; img.alt = vehicle.nameKey; }
-        if (title) title.textContent = vehicle.nameKey;
+        if (img) { img.src = vehicle.image; img.alt = t(vehicle.nameKey) || vehicle.nameKey; }
+        if (title) title.textContent = t(vehicle.nameKey) || vehicle.nameKey;
         if (price) {
             price.innerHTML = vehicle.price > 0 ? `${formatPrice(vehicle.price)} <small>/${t(vehicle.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`;
         }

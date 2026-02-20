@@ -155,6 +155,12 @@ const translations = {
     toast_select_tour_time: 'Vui lòng chọn mốc thời gian!',
     toast_select_dropoff: 'Vui lòng chọn điểm trả!',
 
+    veh_jeep_vang: 'Xe Jeep Vàng',
+    veh_jeep_hong: 'Xe Jeep Hồng',
+    veh_jeep_xanh_luc: 'Xe Jeep Xanh Lục',
+    veh_jeep_xanh_duong: 'Xe Jeep Xanh Dương',
+    veh_jeep_trang: 'Xe Jeep Trắng',
+
     scroll_text: 'Cuộn xuống',
 
     // Booking Message (WhatsApp/Zalo)
@@ -311,6 +317,12 @@ const translations = {
     toast_error: 'Please fill in all required fields.',
     toast_select_tour_time: 'Please select a tour time!',
     toast_select_dropoff: 'Please select a drop-off point!',
+
+    veh_jeep_vang: 'Yellow Jeep',
+    veh_jeep_hong: 'Pink Jeep',
+    veh_jeep_xanh_luc: 'Green Jeep',
+    veh_jeep_xanh_duong: 'Blue Jeep',
+    veh_jeep_trang: 'White Jeep',
     scroll_text: 'Scroll down',
 
     msg_greeting: 'Hello Mr. Lee, I would like to book a vehicle. Here is my information:',
@@ -464,6 +476,12 @@ const translations = {
     toast_error: 'Пожалуйста, заполните все поля.',
     toast_select_tour_time: 'Пожалуйста, выберите время тура!',
     toast_select_dropoff: 'Пожалуйста, выберите пункт назначения!',
+
+    veh_jeep_vang: 'Жёлтый Джип',
+    veh_jeep_hong: 'Розовый Джип',
+    veh_jeep_xanh_luc: 'Зелёный Джип',
+    veh_jeep_xanh_duong: 'Синий Джип',
+    veh_jeep_trang: 'Белый Джип',
     scroll_text: 'Прокрутите вниз',
 
     msg_greeting: 'Здравствуйте Mr. Lee, я хотел бы забронировать транспорт. Вот мои данные:',
@@ -617,6 +635,12 @@ const translations = {
     toast_error: '请填写所有必填项。',
     toast_select_tour_time: '请选择旅游时间！',
     toast_select_dropoff: '请选择下车地点！',
+
+    veh_jeep_vang: '黄色吉普',
+    veh_jeep_hong: '粉色吉普',
+    veh_jeep_xanh_luc: '绿色吉普',
+    veh_jeep_xanh_duong: '蓝色吉普',
+    veh_jeep_trang: '白色吉普',
     scroll_text: '向下滚动',
 
     msg_greeting: '你好Mr. Lee，我想预订车辆。以下是我的信息：',
@@ -770,6 +794,12 @@ const translations = {
     toast_error: '모든 필수 항목을 작성해주세요.',
     toast_select_tour_time: '투어 시간을 선택해 주세요!',
     toast_select_dropoff: '하차 지점을 선택해 주세요!',
+
+    veh_jeep_vang: '노란색 지프',
+    veh_jeep_hong: '분홍색 지프',
+    veh_jeep_xanh_luc: '녹색 지프',
+    veh_jeep_xanh_duong: '파란색 지프',
+    veh_jeep_trang: '흰색 지프',
     scroll_text: '아래로 스크롤',
 
     msg_greeting: '안녕하세요 Mr. Lee, 차량을 예약하고 싶습니다. 제 정보입니다:',
@@ -923,6 +953,12 @@ const translations = {
     toast_error: 'Bitte füllen Sie alle Pflichtfelder aus.',
     toast_select_tour_time: 'Bitte wählen Sie eine Tourzeit!',
     toast_select_dropoff: 'Bitte wählen Sie einen Abgabeort!',
+
+    veh_jeep_vang: 'Gelber Jeep',
+    veh_jeep_hong: 'Rosa Jeep',
+    veh_jeep_xanh_luc: 'Grüner Jeep',
+    veh_jeep_xanh_duong: 'Blauer Jeep',
+    veh_jeep_trang: 'Weißer Jeep',
     scroll_text: 'Nach unten scrollen',
 
     msg_greeting: 'Hallo Mr. Lee, ich möchte ein Fahrzeug buchen. Hier sind meine Daten:',

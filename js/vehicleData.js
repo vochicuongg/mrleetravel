@@ -76,7 +76,7 @@ const vehicleData = {
     jeeps: [
         {
             id: 'jeep-1',
-            nameKey: 'Xe Jeep Vàng',
+            nameKey: 'veh_jeep_vang',
             type: 'tour',
             badgeKey: 'feat_private',
             price: 800000,
@@ -88,7 +88,7 @@ const vehicleData = {
         },
         {
             id: 'jeep-2',
-            nameKey: 'Xe Jeep Hồng',
+            nameKey: 'veh_jeep_hong',
             type: 'tour',
             badgeKey: 'feat_private',
             price: 800000,
@@ -100,7 +100,7 @@ const vehicleData = {
         },
         {
             id: 'jeep-3',
-            nameKey: 'Xe Jeep Xanh Lục',
+            nameKey: 'veh_jeep_xanh_luc',
             type: 'tour',
             badgeKey: 'feat_private',
             price: 800000,
@@ -112,7 +112,7 @@ const vehicleData = {
         },
         {
             id: 'jeep-4',
-            nameKey: 'Xe Jeep Xanh Dương',
+            nameKey: 'veh_jeep_xanh_duong',
             type: 'tour',
             badgeKey: 'feat_private',
             price: 800000,
@@ -124,7 +124,7 @@ const vehicleData = {
         },
         {
             id: 'jeep-5',
-            nameKey: 'Xe Jeep Trắng',
+            nameKey: 'veh_jeep_trang',
             type: 'tour',
             badgeKey: 'feat_private',
             price: 800000,
