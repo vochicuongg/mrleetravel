@@ -934,6 +934,43 @@ button {
     transform: scale(1.03);
 }
 
+/* Gallery thumbnail strip */
+.product-gallery {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    background: var(--bg-secondary);
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.product-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-thumb {
+    flex: 0 0 72px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    scroll-snap-align: start;
+}
+
+.gallery-thumb:hover {
+    transform: scale(1.05);
+    border-color: var(--gold-light);
+}
+
+.gallery-thumb.active {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px var(--gold);
+}
+
 .product-modal-body {
     padding: 24px 28px 28px;
 }

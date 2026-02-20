@@ -193,6 +193,19 @@
             }).join('');
         }
 
+        // Gallery thumbnails
+        let galleryEl = $('#productGallery');
+        if (galleryEl) {
+            if (vehicle.gallery && vehicle.gallery.length > 1) {
+                galleryEl.innerHTML = vehicle.gallery.map((src, i) =>
+                    `<img src="${src}" class="gallery-thumb${i === 0 ? ' active' : ''}" onclick="this.parentNode.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active'); document.getElementById('productImg').src=this.src;" alt="Jeep ${i + 1}" loading="lazy">`
+                ).join('');
+                galleryEl.style.display = 'flex';
+            } else {
+                galleryEl.style.display = 'none';
+            }
+        }
+
         // Book button → opens booking modal
         if (bookBtn) {
             bookBtn.onclick = () => {
