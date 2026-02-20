@@ -246,9 +246,15 @@
                 <div>
                     <h4 data-translate="footer_services">Services</h4>
                     <ul>
-                        <li><a href="#" data-translate="tab_motorbikes">Motorbikes</a></li>
-                        <li><a href="#" data-translate="tab_jeeps">Jeeps</a></li>
-                        <li><a href="#" data-translate="tab_minibuses">Minibuses</a></li>
+                        <li><a href="#services"
+                                onclick="event.preventDefault(); document.getElementById('services').scrollIntoView({behavior:'smooth'}); document.querySelector('[data-tab=\'motorbikes\']').click();"
+                                data-translate="tab_motorbikes">Motorbikes</a></li>
+                        <li><a href="#services"
+                                onclick="event.preventDefault(); document.getElementById('services').scrollIntoView({behavior:'smooth'}); document.querySelector('[data-tab=\'jeeps\']').click();"
+                                data-translate="tab_jeeps">Jeeps</a></li>
+                        <li><a href="#services"
+                                onclick="event.preventDefault(); document.getElementById('services').scrollIntoView({behavior:'smooth'}); document.querySelector('[data-tab=\'minibuses\']').click();"
+                                data-translate="tab_minibuses">Minibuses</a></li>
                     </ul>
                 </div>
 
