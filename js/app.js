@@ -261,7 +261,7 @@
                 }
             }
 
-            titleEl.textContent = `${t(titleKey)} — ${bookingVehicle.nameKey}`;
+            titleEl.textContent = `${t(titleKey)} — ${t(bookingVehicle.nameKey) || bookingVehicle.nameKey}`;
         }
 
         // Show/hide jeep-specific tour time selector
