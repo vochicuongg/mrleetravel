@@ -161,6 +161,16 @@ const translations = {
     veh_jeep_xanh_duong: 'Xe Jeep Xanh Dương',
     veh_jeep_trang: 'Xe Jeep Trắng',
 
+    loc_red_dunes: 'Đồi Cát Hồng', loc_red_dunes_desc: 'Đồi cát đỏ hồng rực rỡ khi bình minh lên',
+    loc_bau_trang: 'Bàu Trắng', loc_bau_trang_desc: 'Đồi cát trắng bạt ngàn với hồ nước trong xanh',
+    loc_fairy_stream: 'Suối Tiên', loc_fairy_stream_desc: 'Con suối huyền ảo uốn lượn qua vách đất đỏ',
+    loc_fishing_village: 'Làng Chài Mũi Né', loc_fishing_village_desc: 'Bình minh rực rỡ trên cảng thuyền thúng truyền thống',
+    loc_cham_tower: 'Tháp Chăm Pô Sha Inư', loc_cham_tower_desc: 'Công trình kiến trúc Chăm Pa ngàn năm tuổi',
+    loc_white_dunes: 'Đồi Cát Trắng', loc_white_dunes_desc: 'Sa mạc thu nhỏ với cát trắng mịn trải dài',
+    loc_ke_ga: 'Hải Đăng Kê Gà', loc_ke_ga_desc: 'Ngọn hải đăng cổ xưa nhất Đông Dương trên đảo đá',
+    loc_ong_dia: 'Chùa Ông Địa', loc_ong_dia_desc: 'Ngôi chùa linh thiêng nằm trên mỏm đá giữa biển',
+    loc_muine_beach: 'Biển Mũi Né', loc_muine_beach_desc: 'Bãi biển xanh ngắt, thiên đường lướt ván diều',
+
     scroll_text: 'Cuộn xuống',
 
     // Booking Message (WhatsApp/Zalo)
@@ -323,6 +333,17 @@ const translations = {
     veh_jeep_xanh_luc: 'Green Jeep',
     veh_jeep_xanh_duong: 'Blue Jeep',
     veh_jeep_trang: 'White Jeep',
+
+    loc_red_dunes: 'Red Sand Dunes', loc_red_dunes_desc: 'Glowing red-pink dunes at sunrise',
+    loc_bau_trang: 'White Lake (Bàu Trắng)', loc_bau_trang_desc: 'Vast white dunes surrounding a crystal-clear lake',
+    loc_fairy_stream: 'Fairy Stream (Suối Tiên)', loc_fairy_stream_desc: 'A magical stream winding through red clay cliffs',
+    loc_fishing_village: 'Mũi Né Fishing Village', loc_fishing_village_desc: 'Vivid sunrise over the traditional basket-boat harbor',
+    loc_cham_tower: 'Pô Sha Inư Cham Towers', loc_cham_tower_desc: 'A thousand-year-old Cham Pa architectural masterpiece',
+    loc_white_dunes: 'White Sand Dunes', loc_white_dunes_desc: 'A miniature desert of soft white sand stretching to the horizon',
+    loc_ke_ga: 'Kê Gà Lighthouse', loc_ke_ga_desc: 'The oldest lighthouse in Indochina, standing on a rocky island',
+    loc_ong_dia: 'Ông Địa Temple', loc_ong_dia_desc: 'A sacred temple perched on a rocky outcrop amid the sea',
+    loc_muine_beach: 'Mũi Né Beach', loc_muine_beach_desc: 'Crystal-clear waters — a paradise for kitesurfers',
+
     scroll_text: 'Scroll down',
 
     msg_greeting: 'Hello Mr. Lee, I would like to book a vehicle. Here is my information:',
@@ -482,6 +503,17 @@ const translations = {
     veh_jeep_xanh_luc: 'Зелёный Джип',
     veh_jeep_xanh_duong: 'Синий Джип',
     veh_jeep_trang: 'Белый Джип',
+
+    loc_red_dunes: 'Красные Дюны', loc_red_dunes_desc: 'Ярко-розовые дюны в лучах рассвета',
+    loc_bau_trang: 'Бау Транг (Белое озеро)', loc_bau_trang_desc: 'Огромные белые дюны с кристально чистым озером',
+    loc_fairy_stream: 'Сказочный Ручей (Suối Tiên)', loc_fairy_stream_desc: 'Волшебный ручей вьётся среди красных глиняных скал',
+    loc_fishing_village: 'Рыбацкая Деревня Мюйне', loc_fishing_village_desc: 'Яркий рассвет над гаванью традиционных лодок',
+    loc_cham_tower: 'Башни Чам Пô Ша Иню', loc_cham_tower_desc: 'Тысячелетний шедевр архитектуры Чам Па',
+    loc_white_dunes: 'Белые Дюны', loc_white_dunes_desc: 'Мини-пустыня из мягкого белого песка',
+    loc_ke_ga: 'Маяк Кэ Га', loc_ke_ga_desc: 'Старейший маяк Индокитая на скалистом острове',
+    loc_ong_dia: 'Храм Онг Диа', loc_ong_dia_desc: 'Священный храм на скале посреди моря',
+    loc_muine_beach: 'Пляж Мюйне', loc_muine_beach_desc: 'Кристальные воды — рай для кайтсёрферов',
+
     scroll_text: 'Прокрутите вниз',
 
     msg_greeting: 'Здравствуйте Mr. Lee, я хотел бы забронировать транспорт. Вот мои данные:',
@@ -641,6 +673,17 @@ const translations = {
     veh_jeep_xanh_luc: '绿色吉普',
     veh_jeep_xanh_duong: '蓝色吉普',
     veh_jeep_trang: '白色吉普',
+
+    loc_red_dunes: '红色沙丘', loc_red_dunes_desc: '日出时分红粉色沙丘熠熠生辉',
+    loc_bau_trang: '白湖（Bàu Trắng）', loc_bau_trang_desc: '宽阔白沙丘环抱清澈湖泊',
+    loc_fairy_stream: '仙女溪（Suối Tiên）', loc_fairy_stream_desc: '蜿蜒穿行于红色土壁之间的神秘小溪',
+    loc_fishing_village: '美奈渔村', loc_fishing_village_desc: '传统竹筏港上绚烂的日出奇景',
+    loc_cham_tower: '婆沙奴占婆塔', loc_cham_tower_desc: '千年占婆建筑艺术杰作',
+    loc_white_dunes: '白色沙丘', loc_white_dunes_desc: '绵延无际的洁白细沙小型沙漠',
+    loc_ke_ga: '鸡角灯塔', loc_ke_ga_desc: '印度支那最古老的灯塔，屹立于礁石岛上',
+    loc_ong_dia: '翁地庙', loc_ong_dia_desc: '海中礁石上的神圣庙宇',
+    loc_muine_beach: '美奈海滩', loc_muine_beach_desc: '碧蓝海水——风筝冲浪的天堂',
+
     scroll_text: '向下滚动',
 
     msg_greeting: '你好Mr. Lee，我想预订车辆。以下是我的信息：',
@@ -800,6 +843,17 @@ const translations = {
     veh_jeep_xanh_luc: '녹색 지프',
     veh_jeep_xanh_duong: '파란색 지프',
     veh_jeep_trang: '흰색 지프',
+
+    loc_red_dunes: '붉은 모래언덕', loc_red_dunes_desc: '일출 때 붉고 분홍빛으로 빛나는 모래언덕',
+    loc_bau_trang: '바우 짱 (화이트 레이크)', loc_bau_trang_desc: '맑은 호수를 품은 광활한 흰 모래언덕',
+    loc_fairy_stream: '수이 티엔 (요정의 샘)', loc_fairy_stream_desc: '붉은 절벽 사이를 흐르는 신비로운 개울',
+    loc_fishing_village: '무이네 어촌마을', loc_fishing_village_desc: '전통 바구니 배 항구 위의 화려한 일출',
+    loc_cham_tower: '포 샤 이뉴 참 탑', loc_cham_tower_desc: '천 년 역사의 참파 건축 걸작',
+    loc_white_dunes: '흰 모래언덕', loc_white_dunes_desc: '끝없이 펼쳐지는 부드러운 흰 모래 미니 사막',
+    loc_ke_ga: '케 가 등대', loc_ke_ga_desc: '인도차이나에서 가장 오래된 등대, 바위섬 위에 서 있음',
+    loc_ong_dia: '옹 디아 사원', loc_ong_dia_desc: '바다 한가운데 바위 위에 세워진 신성한 사원',
+    loc_muine_beach: '무이네 해변', loc_muine_beach_desc: '맑은 바다 — 카이트서퍼의 천국',
+
     scroll_text: '아래로 스크롤',
 
     msg_greeting: '안녕하세요 Mr. Lee, 차량을 예약하고 싶습니다. 제 정보입니다:',
@@ -959,6 +1013,17 @@ const translations = {
     veh_jeep_xanh_luc: 'Grüner Jeep',
     veh_jeep_xanh_duong: 'Blauer Jeep',
     veh_jeep_trang: 'Weißer Jeep',
+
+    loc_red_dunes: 'Rote Sanddünen', loc_red_dunes_desc: 'Leuchtend rötlich-rosa Dünen beim Sonnenaufgang',
+    loc_bau_trang: 'Weißer See (Bàu Trắng)', loc_bau_trang_desc: 'Weitläufige weiße Dünen rund um einen kristallklaren See',
+    loc_fairy_stream: 'Feenbach (Suối Tiên)', loc_fairy_stream_desc: 'Ein magischer Bach schlängelt sich durch rote Lehmfelsen',
+    loc_fishing_village: 'Fischerdorf Mũi Né', loc_fishing_village_desc: 'Farbenprächtiger Sonnenaufgang über dem traditionellen Korbboothafen',
+    loc_cham_tower: 'Cham-Türme Pô Sha Inư', loc_cham_tower_desc: 'Ein tausendjähriges Meisterwerk der Cham-Pa-Architektur',
+    loc_white_dunes: 'Weiße Sanddünen', loc_white_dunes_desc: 'Eine Mini-Wüste aus feinem weißem Sand, so weit das Auge reicht',
+    loc_ke_ga: 'Leuchtturm Kê Gà', loc_ke_ga_desc: 'Der älteste Leuchtturm Indochinas auf einer Felseninsel',
+    loc_ong_dia: 'Ông Địa Tempel', loc_ong_dia_desc: 'Ein heiliger Tempel auf einem Felsvorsprung mitten im Meer',
+    loc_muine_beach: 'Strand Mũi Né', loc_muine_beach_desc: 'Kristallklares Wasser — Paradies für Kitesurfer',
+
     scroll_text: 'Nach unten scrollen',
 
     msg_greeting: 'Hallo Mr. Lee, ich möchte ein Fahrzeug buchen. Hier sind meine Daten:',
