@@ -1278,7 +1278,7 @@
             date: dateStr,
             returnDate: returnDateStr,
             time: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
-                ? t('tour_' + selectedTourTime) : clockTime,
+                ? (selectedTourTime === 'sunrise' ? '04:30' : '13:30') : clockTime,
             notes,
             price: priceStr,
             rentalDays,
