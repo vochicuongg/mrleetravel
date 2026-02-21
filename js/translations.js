@@ -173,6 +173,7 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: 'Loại Tour',
+    label_pickup_time: 'Thời gian đón',
     tour_type_private: 'Tour riêng tư',
     tour_type_group: 'Tour ghép',
     label_people_count: 'Số lượng người',
@@ -353,6 +354,7 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: 'Tour Type',
+    label_pickup_time: 'Pickup Time',
     tour_type_private: 'Private Tour',
     tour_type_group: 'Group Tour',
     label_people_count: 'Number of People',
@@ -530,6 +532,7 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: 'Тип Тура',
+    label_pickup_time: 'Время подачи',
     tour_type_private: 'Приватный Тур',
     tour_type_group: 'Групповой Тур',
     label_people_count: 'Количество человек',
@@ -707,6 +710,7 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: '旅游类型',
+    label_pickup_time: '接车时间',
     tour_type_private: '包车旅行',
     tour_type_group: '拼车旅行',
     label_people_count: '人数',
@@ -884,6 +888,7 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: '투어 유형',
+    label_pickup_time: '승차 시간',
     tour_type_private: '프라이빗 투어',
     tour_type_group: '그룹 투어',
     label_people_count: '인원 수',
@@ -1061,6 +1066,7 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: 'Tour-Typ',
+    label_pickup_time: 'Abholzeit',
     tour_type_private: 'Private Tour',
     tour_type_group: 'Gruppen-Tour',
     label_people_count: 'Personenanzahl',
