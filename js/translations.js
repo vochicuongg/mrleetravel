@@ -173,8 +173,8 @@ const translations = {
 
     // Tour Type (Jeep)
     label_tour_type: 'Loại Tour',
-    tour_type_private: 'Private Tour',
-    tour_type_group: 'Group Tour',
+    tour_type_private: 'Tour riêng tư',
+    tour_type_group: 'Tour ghép',
     label_people_count: 'Số lượng người',
     group_price_hint: '180.000đ / Người',
     people_unit: 'người',

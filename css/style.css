@@ -2306,3 +2306,42 @@ select.form-control {
     font-weight: 600;
     text-align: center;
 }
+
+/* --- Jeep Dual Price on Card --- */
+.jeep-price-block {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.jeep-price-private {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.jeep-price-private small {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-left: 1px;
+}
+
+.jeep-price-sep {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.jeep-price-group {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.jeep-price-group small {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-left: 1px;
+}

@@ -135,7 +135,9 @@
           </div>
           <div class="vehicle-card-footer">
             <div class="vehicle-card-price">
-              ${v.price > 0 ? `${formatPrice(v.price)} <small>/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
+              ${category === 'jeeps'
+                ? `<span class="jeep-price-block"><span class="jeep-price-private">${formatPrice(v.price)}<small>/${t('per_tour')}</small></span><span class="jeep-price-sep">·</span><span class="jeep-price-group">180K<small>/${t('people_unit')}</small></span></span>`
+                : v.price > 0 ? `${formatPrice(v.price)} <small>/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
             </div>
             <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); app.openBooking('${v.id}')">
               ${t('book_now')}
