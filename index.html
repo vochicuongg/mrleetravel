@@ -328,6 +328,10 @@
                             <a href="tel:+84338311432">+84 338 311 432</a>
                         </li>
                         <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+84913690974">+84 913 690 974</a>
+                        </li>
+                        <li>
                             <i class="fa-solid fa-location-dot"></i>
                             <a href="https://www.google.com/maps/place/50+Nguy%E1%BB%85n+T%E1%BA%A5n+%C4%90%E1%BB%8Bnh,+Ph%C6%B0%E1%BB%9Dng+H%C3%A0m+Ti%E1%BA%BFn,+Th%C3%A0nh+ph%E1%BB%91+Phan+Thi%E1%BA%BFt,+B%C3%ACnh+Thu%E1%BA%ADn,+Vi%E1%BB%87t+Nam/@10.9551034,108.2126836,17z"
                                 target="_blank" rel="noopener noreferrer">50B Nguyễn Tấn Định, Khu phố 1, Mũi Né, Lâm
@@ -427,6 +431,34 @@
                     <div class="form-group" id="flightGroup" style="display:none">
                         <label>Flight Number (Optional)</label>
                         <input type="text" class="form-control" id="flightNumber" placeholder="VN123, VJ456...">
+                    </div>
+                </div>
+
+                <!-- Tour Type Selector (Jeep only) -->
+                <div class="form-group jeep-only" id="jeepTourTypeGroup" style="display:none">
+                    <label data-translate="label_tour_type">Loại Tour</label>
+                    <div class="tour-type-toggle" id="tourTypeToggle">
+                        <div class="tour-type-option selected" data-type="private"
+                            onclick="app.selectTourType('private')">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span data-translate="tour_type_private">Private Tour</span>
+                        </div>
+                        <div class="tour-type-option" data-type="group" onclick="app.selectTourType('group')">
+                            <i class="fa-solid fa-users"></i>
+                            <span data-translate="tour_type_group">Group Tour</span>
+                        </div>
+                    </div>
+
+                    <!-- Group: people count (shown only when Group selected) -->
+                    <div id="groupPeopleGroup" style="display:none; margin-top:12px">
+                        <label data-translate="label_people_count">Số lượng người</label>
+                        <div class="rental-duration-row">
+                            <button class="rental-days-btn" onclick="app.adjustPeople(-1)">−</button>
+                            <input type="number" class="form-control rental-days-input" id="groupPeopleCount" value="2"
+                                min="1" max="20" onchange="app.updateBookingPrice()">
+                            <button class="rental-days-btn" onclick="app.adjustPeople(1)">+</button>
+                        </div>
+                        <div class="group-price-hint" data-translate="group_price_hint">180.000đ / Người</div>
                     </div>
                 </div>
 

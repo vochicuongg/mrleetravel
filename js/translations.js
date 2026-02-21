@@ -171,6 +171,14 @@ const translations = {
     loc_ong_dia: 'Chùa Ông', loc_ong_dia_desc: 'Ngôi chùa linh thiêng nằm trên mỏm đá giữa biển',
     loc_muine_beach: 'Bãi Đá Ông Địa', loc_muine_beach_desc: 'Bãi biển xanh ngắt với những tảng đá đen đẹp huyền bí',
 
+    // Tour Type (Jeep)
+    label_tour_type: 'Loại Tour',
+    tour_type_private: 'Private Tour',
+    tour_type_group: 'Group Tour',
+    label_people_count: 'Số lượng người',
+    group_price_hint: '180.000đ / Người',
+    people_unit: 'người',
+
     scroll_text: 'Cuộn xuống',
 
     // Booking Message (WhatsApp/Zalo)
@@ -344,6 +352,14 @@ const translations = {
     loc_ong_dia: 'Ong Temple', loc_ong_dia_desc: 'A sacred temple perched on a rocky outcrop amid the sea',
     loc_muine_beach: 'Ong Dia Rocky Beach', loc_muine_beach_desc: 'Crystal-clear waters meeting mysterious black rocks',
 
+    // Tour Type (Jeep)
+    label_tour_type: 'Tour Type',
+    tour_type_private: 'Private Tour',
+    tour_type_group: 'Group Tour',
+    label_people_count: 'Number of People',
+    group_price_hint: '180,000đ / Person',
+    people_unit: 'people',
+
     scroll_text: 'Scroll down',
 
     msg_greeting: 'Hello Mr. Lee, I would like to book a vehicle. Here is my information:',
@@ -513,6 +529,14 @@ const translations = {
     loc_ke_ga: 'Маяк Кэ Га', loc_ke_ga_desc: 'Старейший маяк Индокитая на скалистом острове',
     loc_ong_dia: 'Храм Онг', loc_ong_dia_desc: 'Священный храм на скале посреди моря',
     loc_muine_beach: 'Каменистый Пляж Онг Диа', loc_muine_beach_desc: 'Кристальные воды среди загадочных чёрных скал',
+
+    // Tour Type (Jeep)
+    label_tour_type: 'Тип Тура',
+    tour_type_private: 'Приватный Тур',
+    tour_type_group: 'Групповой Тур',
+    label_people_count: 'Количество человек',
+    group_price_hint: '180.000đ / человек',
+    people_unit: 'чел.',
 
     scroll_text: 'Прокрутите вниз',
 
@@ -684,6 +708,14 @@ const translations = {
     loc_ong_dia: '翁庙', loc_ong_dia_desc: '海中礁石上的神圣庙宇',
     loc_muine_beach: '翁地石滩', loc_muine_beach_desc: '碧蓝海水与神秘黑石交辉映辉',
 
+    // Tour Type (Jeep)
+    label_tour_type: '旅游类型',
+    tour_type_private: '包车旅行',
+    tour_type_group: '拼车旅行',
+    label_people_count: '人数',
+    group_price_hint: '180.000đ / 人',
+    people_unit: '人',
+
     scroll_text: '向下滚动',
 
     msg_greeting: '你好Mr. Lee，我想预订车辆。以下是我的信息：',
@@ -854,6 +886,14 @@ const translations = {
     loc_ong_dia: '옹 사원', loc_ong_dia_desc: '바다 한가운데 바위 위에 세워진 신성한 사원',
     loc_muine_beach: '옹 디아 파악 해변', loc_muine_beach_desc: '신비로운 검은 바위와 맑은 바다의 콘트라스트',
 
+    // Tour Type (Jeep)
+    label_tour_type: '투어 유형',
+    tour_type_private: '프라이빗 투어',
+    tour_type_group: '그룹 투어',
+    label_people_count: '인원 수',
+    group_price_hint: '180,000đ / 인',
+    people_unit: '명',
+
     scroll_text: '아래로 스크롤',
 
     msg_greeting: '안녕하세요 Mr. Lee, 차량을 예약하고 싶습니다. 제 정보입니다:',
@@ -1023,6 +1063,14 @@ const translations = {
     loc_ke_ga: 'Leuchtturm Kê Gà', loc_ke_ga_desc: 'Der älteste Leuchtturm Indochinas auf einer Felseninsel',
     loc_ong_dia: 'Ong-Tempel', loc_ong_dia_desc: 'Ein heiliger Tempel auf einem Felsvorsprung mitten im Meer',
     loc_muine_beach: 'Ong Dia Felsstrand', loc_muine_beach_desc: 'Kristallklares Wasser trifft auf rätselhafte schwarze Felsen',
+
+    // Tour Type (Jeep)
+    label_tour_type: 'Tour-Typ',
+    tour_type_private: 'Private Tour',
+    tour_type_group: 'Gruppen-Tour',
+    label_people_count: 'Personenanzahl',
+    group_price_hint: '180.000đ / Person',
+    people_unit: 'Pers.',
 
     scroll_text: 'Nach unten scrollen',
 

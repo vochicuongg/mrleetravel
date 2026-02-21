@@ -19,6 +19,8 @@
     let calendarYear = new Date().getFullYear();
     let bookingVehicle = null;
     let selectedTourTime = null;
+    let selectedTourType = 'private'; // 'private' | 'group'
+    const GROUP_PRICE_PER_PERSON = 180000;
     let selectedDeliveryMethod = 'pickup';
     let selectedClockHour = 8;
     let selectedClockMinute = 0;
@@ -283,6 +285,7 @@
         // Reset form
         selectedDate = null;
         selectedTourTime = null;
+        selectedTourType = 'private';
         selectedDeliveryMethod = 'pickup';
         selectedClockHour = 8;
         selectedClockMinute = 0;
@@ -349,15 +352,18 @@
             // JEEP
             if (tripInfoBox) {
                 tripInfoBox.style.display = 'block';
-                $('#routeDisplay').innerHTML = ''; // Clear route (used for bus)
-                $('#itineraryDisplay').innerHTML = ''; // Will be set by selectTourTime
+                $('#routeDisplay').innerHTML = '';
+                $('#itineraryDisplay').innerHTML = '';
             }
-            // Show Hotel Name + Pickup Address for Jeeps
             if (deliveryFields) deliveryFields.style.display = 'block';
             if (pickupGroup) {
                 pickupGroup.style.display = 'block';
                 if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
             }
+            // Show tour type selector & reset to Private
+            const tourTypeGroup = $('#jeepTourTypeGroup');
+            if (tourTypeGroup) tourTypeGroup.style.display = 'block';
+            selectTourType('private');
 
         } else if (bookingVehicle._category === 'minibuses') {
             // MINIBUS
@@ -444,17 +450,12 @@
     }
 
 
-    // Helper for Motorbike Delivery Toggle
     function toggleDeliveryFields(method) {
         const deliveryFields = $('#deliveryFields');
         const pickupGroup = $('#pickupGroup');
         const pickupLabel = $('#pickupLabel');
 
         if (!deliveryFields) return;
-
-        // Motorbike logic:
-        // pickup -> hide address fields
-        // delivery -> show address fields (delivery address)
 
         if (method === 'delivery') {
             deliveryFields.style.display = 'block';
@@ -463,6 +464,27 @@
         } else {
             deliveryFields.style.display = 'none';
         }
+    }
+
+    /* -------- Tour Type (Jeep) -------- */
+    function selectTourType(type) {
+        selectedTourType = type;
+        $$('.tour-type-option').forEach(el => {
+            el.classList.toggle('selected', el.dataset.type === type);
+        });
+        const groupPeople = $('#groupPeopleGroup');
+        if (groupPeople) groupPeople.style.display = type === 'group' ? 'block' : 'none';
+        updateBookingPrice();
+    }
+
+    function adjustPeople(delta) {
+        const input = $('#groupPeopleCount');
+        if (!input) return;
+        let val = (parseInt(input.value) || 1) + delta;
+        if (val < 1) val = 1;
+        if (val > 20) val = 20;
+        input.value = val;
+        updateBookingPrice();
     }
 
     /* ============================================================
@@ -690,11 +712,21 @@
                 <div class="price-summary-detail">${formatPrice(discountPrice)} × ${days} ${t('days_unit')}</div>
             `;
         } else if (category === 'jeeps') {
-            priceHtml = `
-                <div class="price-summary-label">${t('total_label')}</div>
-                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}</div>
-                <div class="price-summary-detail">${t('per_tour')}</div>
-            `;
+            if (selectedTourType === 'group') {
+                const people = parseInt($('#groupPeopleCount')?.value || 2) || 2;
+                const total = people * GROUP_PRICE_PER_PERSON;
+                priceHtml = `
+                    <div class="price-summary-label">${t('total_label')}</div>
+                    <div class="price-summary-amount">${formatPrice(total)}</div>
+                    <div class="price-summary-detail">${formatPrice(GROUP_PRICE_PER_PERSON)} × ${people} ${t('people_unit')}</div>
+                `;
+            } else {
+                priceHtml = `
+                    <div class="price-summary-label">${t('total_label')}</div>
+                    <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}</div>
+                    <div class="price-summary-detail">${t('per_tour')}</div>
+                `;
+            }
         } else if (category === 'minibuses') {
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
@@ -1575,7 +1607,10 @@
         selectHotel,
         adjustDays,
         updateRentalPrice,
-        setLanguage
+        setLanguage,
+        selectTourType,
+        adjustPeople,
+        updateBookingPrice
     };
 
     /* ---------- DOM Ready ---------- */

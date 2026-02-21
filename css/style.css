@@ -2259,3 +2259,50 @@ select.form-control {
     color: var(--text-secondary);
     margin-top: 2px;
 }
+
+/* --- Tour Type Toggle (Jeep) --- */
+.tour-type-toggle {
+    display: flex;
+    gap: 10px;
+}
+
+.tour-type-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 12px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.tour-type-option i {
+    font-size: 1.2rem;
+}
+
+.tour-type-option:hover {
+    border-color: var(--gold);
+    color: var(--text-primary);
+}
+
+.tour-type-option.selected {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--bg-dark);
+}
+
+.group-price-hint {
+    margin-top: 8px;
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 600;
+    text-align: center;
+}
