@@ -333,6 +333,15 @@
         if (dropoffGroup) dropoffGroup.style.display = 'none';
         if (flightGroup) flightGroup.style.display = 'none';
 
+        // Always hide jeep-only sections first
+        const jeepTourTypeGroup = $('#jeepTourTypeGroup');
+        if (jeepTourTypeGroup) jeepTourTypeGroup.style.display = 'none';
+        const groupPeopleGroup = $('#groupPeopleGroup');
+        if (groupPeopleGroup) groupPeopleGroup.style.display = 'none';
+        const tourTimeWrapper = $('#tourTimeWrapper');
+        if (tourTimeWrapper) tourTimeWrapper.style.display = 'none';
+        $('#tourTimeSelector')?.classList.remove('visible');
+
         // LOGIC PER CATEGORY
         if (bookingVehicle._category === 'motorbikes') {
             // MOTORBIKE
@@ -365,6 +374,8 @@
             // Show tour type selector & reset to Private
             const tourTypeGroup = $('#jeepTourTypeGroup');
             if (tourTypeGroup) tourTypeGroup.style.display = 'block';
+            if (tourTimeWrapper) tourTimeWrapper.style.display = 'block';
+            $('#tourTimeSelector')?.classList.add('visible');
             selectTourType('private');
 
         } else if (bookingVehicle._category === 'minibuses') {
@@ -1278,7 +1289,7 @@
             date: dateStr,
             returnDate: returnDateStr,
             time: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
-                ? (selectedTourTime === 'sunrise' ? '🌅 04:30' : '🌇 13:30') : clockTime,
+                ? (selectedTourTime === 'sunrise' ? '04:30 🌅' : '13:30 🌇') : clockTime,
             timeDisplay: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
                 ? (selectedTourTime === 'sunrise' ? 'Bình minh - 04:30' : 'Hoàng hôn - 13:30') : null,
             notes,
