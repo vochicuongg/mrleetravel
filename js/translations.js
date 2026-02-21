@@ -176,7 +176,6 @@ const translations = {
     tour_type_private: 'Tour riêng tư',
     tour_type_group: 'Tour ghép',
     label_people_count: 'Số lượng người',
-    group_price_hint: '180.000đ / Người',
     people_unit: 'người',
 
     scroll_text: 'Cuộn xuống',
@@ -357,7 +356,6 @@ const translations = {
     tour_type_private: 'Private Tour',
     tour_type_group: 'Group Tour',
     label_people_count: 'Number of People',
-    group_price_hint: '180,000đ / Person',
     people_unit: 'people',
 
     scroll_text: 'Scroll down',
@@ -535,7 +533,6 @@ const translations = {
     tour_type_private: 'Приватный Тур',
     tour_type_group: 'Групповой Тур',
     label_people_count: 'Количество человек',
-    group_price_hint: '180.000đ / человек',
     people_unit: 'чел.',
 
     scroll_text: 'Прокрутите вниз',
@@ -713,7 +710,6 @@ const translations = {
     tour_type_private: '包车旅行',
     tour_type_group: '拼车旅行',
     label_people_count: '人数',
-    group_price_hint: '180.000đ / 人',
     people_unit: '人',
 
     scroll_text: '向下滚动',
@@ -891,7 +887,6 @@ const translations = {
     tour_type_private: '프라이빗 투어',
     tour_type_group: '그룹 투어',
     label_people_count: '인원 수',
-    group_price_hint: '180,000đ / 인',
     people_unit: '명',
 
     scroll_text: '아래로 스크롤',
@@ -1069,7 +1064,6 @@ const translations = {
     tour_type_private: 'Private Tour',
     tour_type_group: 'Gruppen-Tour',
     label_people_count: 'Personenanzahl',
-    group_price_hint: '180.000đ / Person',
     people_unit: 'Pers.',
 
     scroll_text: 'Nach unten scrollen',

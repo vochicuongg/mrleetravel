@@ -1236,6 +1236,21 @@
             }
         }
 
+        // Jeep pricing: depends on tour type
+        let tourTypeLabel = '';
+        let peopleCount = 0;
+        if (bookingVehicle && bookingVehicle._category === 'jeeps') {
+            const peopleInput = $('#groupPeopleCount');
+            peopleCount = parseInt(peopleInput ? peopleInput.value : 1) || 1;
+            if (selectedTourType === 'group') {
+                tourTypeLabel = t('tour_type_group') || 'Tour Ghép';
+                priceStr = `${formatPrice(peopleCount * 180000)} (${formatPrice(180000)} × ${peopleCount} ${t('people_unit') || 'người'})`;
+            } else {
+                tourTypeLabel = t('tour_type_private') || 'Tour riêng tư';
+                priceStr = formatPrice(bookingVehicle.price);
+            }
+        }
+
         // Hotel/address info
         const hotelName = $('#deliveryName') ? $('#deliveryName').value.trim() : '';
         const hotelAddress = $('#deliveryAddress') ? $('#deliveryAddress').value.trim() : '';
@@ -1271,19 +1286,22 @@
             hotelAddress,
             routeInfo,
             dropoffAddress,
-            flightNumber
+            flightNumber,
+            tourType: tourTypeLabel,
+            peopleCount
         };
     }
 
     function buildMessage(data) {
         if (data.category === 'jeeps') {
-            // Jeep Tour customer message
             const pickupAddr = [data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || '';
+            const tourTypeLine = data.tourType ? `* *${t('label_tour_type') || 'Loại Tour'}:* ${data.tourType}${data.peopleCount > 1 ? ` (${data.peopleCount} ${t('people_unit') || 'người'})` : ''}` : '';
             return [
                 t('msg_greeting_jeep') || 'Xin chào Mr. Lee, tôi muốn đặt tour Jeep và đây là thông tin của tôi:',
                 `* *${t('msg_name')}:* ${data.name}`,
                 `* *${t('msg_phone')}:* ${data.phone}`,
                 `* *${t('msg_vehicle_jeep') || 'Mẫu Xe'}:* ${data.vehicle}`,
+                tourTypeLine,
                 `* *${t('msg_date_jeep') || 'Ngày đón'}:* ${data.date}`,
                 `* *${t('msg_time_jeep') || 'Giờ đón'}:* ${data.time}`,
                 pickupAddr ? `* *${t('msg_pickup_address') || 'Địa chỉ đón'}:* ${pickupAddr}` : '',
@@ -1351,14 +1369,17 @@
         let message;
 
         if (data.category === 'jeeps') {
-            // Jeep Tour format
             const pickupAddress = [data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || 'Chưa cung cấp';
+            const tourTypeLine = data.tourType
+                ? `🎫 <b>Loại Tour:</b> ${data.tourType}${data.peopleCount > 1 ? ` (${data.peopleCount} ${t('people_unit') || 'người'})` : ''}`
+                : '';
             message = [
                 `🚀 <b>ĐƠN ĐẶT JEEP TOUR</b>`,
                 `---------------------`,
                 `👤 <b>Tên KH:</b> ${data.name}`,
                 `📱 <b>SĐT:</b> ${data.phone}`,
                 `🚗 <b>Mẫu xe:</b> ${data.vehicle}`,
+                tourTypeLine,
                 `💰 <b>Giá tiền:</b> ${data.price}`,
                 `📅 <b>Ngày đón khách:</b> ${data.date}`,
                 `⏰ <b>Giờ đón khách:</b> ${data.time}`,
