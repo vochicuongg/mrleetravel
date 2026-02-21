@@ -1293,7 +1293,8 @@
             time: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
                 ? (selectedTourTime === 'sunrise' ? '04:30 🌅' : '13:30 🌇') : clockTime,
             timeDisplay: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
-                ? (selectedTourTime === 'sunrise' ? 'Bình minh - 04:30' : 'Hoàng hôn - 13:30') : null,
+                ? `${t('tour_' + selectedTourTime + '_display') || (selectedTourTime === 'sunrise' ? 'Bình minh' : 'Hoàng hôn')} - ${selectedTourTime === 'sunrise' ? '04:30' : '13:30'}`
+                : null,
             notes,
             price: priceStr,
             rentalDays,
