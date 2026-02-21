@@ -79,7 +79,7 @@ const vehicleData = {
             nameKey: 'veh_jeep_vang',
             type: 'tour',
             badgeKey: 'feat_private',
-            price: 800000,
+            price: 650000,
             priceUnit: 'per_tour',
             currency: 'VND',
             image: 'assets/images/products/jeep/xe-jeep-vang.webp',
@@ -91,7 +91,7 @@ const vehicleData = {
             nameKey: 'veh_jeep_hong',
             type: 'tour',
             badgeKey: 'feat_private',
-            price: 800000,
+            price: 650000,
             priceUnit: 'per_tour',
             currency: 'VND',
             image: 'assets/images/products/jeep/xe-jeep-hong.webp',
@@ -103,7 +103,7 @@ const vehicleData = {
             nameKey: 'veh_jeep_xanh_luc',
             type: 'tour',
             badgeKey: 'feat_private',
-            price: 800000,
+            price: 650000,
             priceUnit: 'per_tour',
             currency: 'VND',
             image: 'assets/images/products/jeep/xe-jeep-xanh-luc.webp',
@@ -115,7 +115,7 @@ const vehicleData = {
             nameKey: 'veh_jeep_xanh_duong',
             type: 'tour',
             badgeKey: 'feat_private',
-            price: 800000,
+            price: 650000,
             priceUnit: 'per_tour',
             currency: 'VND',
             image: 'assets/images/products/jeep/xe-jeep-xanh-duong.webp',
@@ -127,7 +127,7 @@ const vehicleData = {
             nameKey: 'veh_jeep_trang',
             type: 'tour',
             badgeKey: 'feat_private',
-            price: 800000,
+            price: 650000,
             priceUnit: 'per_tour',
             currency: 'VND',
             image: 'assets/images/products/jeep/xe-jeep-trang.webp',
@@ -242,6 +242,3 @@ const hotelList = [
     { name: 'Hòn Rơm 1 Resort', address: 'Long Sơn, Mũi Né, Phan Thiết' },
     { name: 'Khách sạn khác', address: '', _isOther: true }
 ];
-
-
-
