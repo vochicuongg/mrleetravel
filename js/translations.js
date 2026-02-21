@@ -172,7 +172,7 @@ const translations = {
     loc_muine_beach: 'Bãi Đá Ông Địa', loc_muine_beach_desc: 'Bãi biển xanh ngắt với những tảng đá đen đẹp huyền bí',
     loc_chua_co_thach: 'Chùa Cổ Thạch', loc_chua_co_thach_desc: 'Ngôi chùa cổ kính ẩn mình giữa những khối đá thiên nhiên kỳ thú ven biển',
     loc_nui_ta_cu: 'Núi Tà Cú', loc_nui_ta_cu_desc: 'Ngọn núi linh thiêng với tượng Phật nằm dài nhất Đông Nam Á trên đỉnh núi',
-    loc_truong_duc_thanh: 'Trường Lũy Đức Thánh', loc_truong_duc_thanh_desc: 'Công trình lũy đá cổ hàng trăm năm tuổi, di tích lịch sử độc đáo của vùng đất Bình Thuận',
+    loc_truong_duc_thanh: 'Trường Dục Thanh', loc_truong_duc_thanh_desc: 'Công trình lũy đá cổ hàng trăm năm tuổi, di tích lịch sử độc đáo của vùng đất Bình Thuận',
 
     // Tour Type (Jeep)
     label_tour_type: 'Loại Tour',
@@ -358,7 +358,7 @@ const translations = {
     loc_muine_beach: 'Ong Dia Rocky Beach', loc_muine_beach_desc: 'Crystal-clear waters meeting mysterious black rocks',
     loc_chua_co_thach: 'Co Thach Pagoda', loc_chua_co_thach_desc: 'An ancient pagoda nestled among extraordinary natural rock formations by the sea',
     loc_nui_ta_cu: 'Ta Cu Mountain', loc_nui_ta_cu_desc: 'A sacred mountain home to the longest reclining Buddha statue in Southeast Asia',
-    loc_truong_duc_thanh: 'Duc Thanh Rampart', loc_truong_duc_thanh_desc: 'A centuries-old stone rampart, a unique historical landmark of Binh Thuan province',
+    loc_truong_duc_thanh: 'Duc Thanh School', loc_truong_duc_thanh_desc: 'A centuries-old stone rampart, a unique historical landmark of Binh Thuan province',
 
     // Tour Type (Jeep)
     label_tour_type: 'Tour Type',
@@ -541,7 +541,7 @@ const translations = {
     loc_muine_beach: 'Каменистый Пляж Онг Диа', loc_muine_beach_desc: 'Кристальные воды среди загадочных чёрных скал',
     loc_chua_co_thach: 'Пагода Ко Тхач', loc_chua_co_thach_desc: 'Древняя пагода, скрытаясь среди удивительных скальных образований у морей',
     loc_nui_ta_cu: 'Гора Та Ку', loc_nui_ta_cu_desc: 'Священная гора с статуей лежащего Будды — самой длинной в Юго-Восточной Азии',
-    loc_truong_duc_thanh: 'Вал Дык Тхань', loc_truong_duc_thanh_desc: 'Старинный каменный вал возрастом несколько сотен лет, уникальный исторический памятник Провинции Бинь Туан',
+    loc_truong_duc_thanh: 'Школа Дык Тхань', loc_truong_duc_thanh_desc: 'Старинный каменный вал возрастом несколько сотен лет, уникальный исторический памятник Провинции Бинь Туан',
 
     // Tour Type (Jeep)
     label_tour_type: 'Тип Тура',
@@ -724,7 +724,7 @@ const translations = {
     loc_muine_beach: '翁地石滩', loc_muine_beach_desc: '碧蓝海水与神秘黑石交辉映辉',
     loc_chua_co_thach: '古石寺', loc_chua_co_thach_desc: '古寺隐藏于海边奇特天然岁石之中',
     loc_nui_ta_cu: '塔古山', loc_nui_ta_cu_desc: '灵山著名，拥有东南亚最长卧佛象',
-    loc_truong_duc_thanh: '德圣垄垒', loc_truong_duc_thanh_desc: '已有数百年历史的古技垄垒，平顺省独特的历史遗迹',
+    loc_truong_duc_thanh: '德成学校', loc_truong_duc_thanh_desc: '已有数百年历史的古技垄垒，平顺省独特的历史遗迹',
 
     // Tour Type (Jeep)
     label_tour_type: '旅游类型',
@@ -907,7 +907,7 @@ const translations = {
     loc_muine_beach: '옹 디아 파악 해변', loc_muine_beach_desc: '신비로운 검은 바위와 맑은 바다의 콘트라스트',
     loc_chua_co_thach: '코 택 사원', loc_chua_co_thach_desc: '해돌가 어우러지는 이상한 바위 사이에 숫은 유서 깊은 사원',
     loc_nui_ta_cu: '타 쿠 산', loc_nui_ta_cu_desc: '동남아시아에서 가장 긴 와불 상이 있는 영헌한 산',
-    loc_truong_duc_thanh: '덕 탁 토루', loc_truong_duc_thanh_desc: '수백 년 역사를 자랑하는 고대 돌 장벽, 빈 투언 성의 독특한 역사 유적',
+    loc_truong_duc_thanh: '득탄 학교', loc_truong_duc_thanh_desc: '수백 년 역사를 자랑하는 고대 돌 장벽, 빈 투언 성의 독특한 역사 유적',
 
     // Tour Type (Jeep)
     label_tour_type: '투어 유형',
@@ -1090,7 +1090,7 @@ const translations = {
     loc_muine_beach: 'Ong Dia Felsstrand', loc_muine_beach_desc: 'Kristallklares Wasser trifft auf rätselhafte schwarze Felsen',
     loc_chua_co_thach: 'Pagode Co Thach', loc_chua_co_thach_desc: 'Eine uralte Pagode, verborgen zwischen außergewöhnlichen Felsformationen am Meer',
     loc_nui_ta_cu: 'Ta Cu Berg', loc_nui_ta_cu_desc: 'Ein heiliger Berg mit der längsten liegenden Buddha-Statue Südostasiens',
-    loc_truong_duc_thanh: 'Duc Thanh Steinwall', loc_truong_duc_thanh_desc: 'Ein jahrhundertealter Steinwall, ein einzigartiges historisches Denkmal der Provinz Binh Thuan',
+    loc_truong_duc_thanh: 'Duc Thanh Steinwall Schule', loc_truong_duc_thanh_desc: 'Ein jahrhundertealter Steinwall, ein einzigartiges historisches Denkmal der Provinz Binh Thuan',
 
     // Tour Type (Jeep)
     label_tour_type: 'Tour-Typ',
