@@ -394,6 +394,8 @@
                         <option value="" disabled selected>Chọn điểm trả...</option>
                         <option value="Nha Trang">Nha Trang</option>
                         <option value="Tà Cú (Không bao gồm phí cáp treo)">Tà Cú (Không bao gồm phí cáp treo)</option>
+                        <option value="Xương Cá Ông">Xương Cá Ông</option>
+                        <option value="Chùa Cổ Thạch">Chùa Cổ Thạch</option>
                     `;
                 }
 
