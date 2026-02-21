@@ -168,7 +168,7 @@ const translations = {
     loc_cham_tower: 'Tháp Chăm Pô Sha Inư', loc_cham_tower_desc: 'Công trình kiến trúc Chăm Pa ngàn năm tuổi',
     loc_white_dunes: 'Đồi Cát Trắng', loc_white_dunes_desc: 'Sa mạc thu nhỏ với cát trắng mịn trải dài',
     loc_ke_ga: 'Hải Đăng Kê Gà', loc_ke_ga_desc: 'Ngọn hải đăng cổ xưa nhất Đông Dương trên đảo đá',
-    loc_ong_dia: 'Chùa Ông', loc_ong_dia_desc: 'Ngôi chùa linh thiêng nằm trên mỏm đá giữa biển',
+    loc_xuong_ca_ong: 'Xương Cá Ông', loc_xuong_ca_ong_desc: 'Bãi đá xương cá kỳ thú tựa hình chiếc xương cá khổng lồ vươn ra biển xanh',
     loc_muine_beach: 'Bãi Đá Ông Địa', loc_muine_beach_desc: 'Bãi biển xanh ngắt với những tảng đá đen đẹp huyền bí',
 
     // Tour Type (Jeep)
@@ -351,7 +351,7 @@ const translations = {
     loc_cham_tower: 'Pô Sha Inư Cham Towers', loc_cham_tower_desc: 'A thousand-year-old Cham Pa architectural masterpiece',
     loc_white_dunes: 'White Sand Dunes', loc_white_dunes_desc: 'A miniature desert of soft white sand stretching to the horizon',
     loc_ke_ga: 'Kê Gà Lighthouse', loc_ke_ga_desc: 'The oldest lighthouse in Indochina, standing on a rocky island',
-    loc_ong_dia: 'Ong Temple', loc_ong_dia_desc: 'A sacred temple perched on a rocky outcrop amid the sea',
+    loc_xuong_ca_ong: 'Xuong Ca Ong', loc_xuong_ca_ong_desc: 'A dramatic rock formation shaped like a giant fish skeleton stretching into the sea',
     loc_muine_beach: 'Ong Dia Rocky Beach', loc_muine_beach_desc: 'Crystal-clear waters meeting mysterious black rocks',
 
     // Tour Type (Jeep)
@@ -531,7 +531,7 @@ const translations = {
     loc_cham_tower: 'Башни Чам Пô Ша Иню', loc_cham_tower_desc: 'Тысячелетний шедевр архитектуры Чам Па',
     loc_white_dunes: 'Белые Дюны', loc_white_dunes_desc: 'Мини-пустыня из мягкого белого песка',
     loc_ke_ga: 'Маяк Кэ Га', loc_ke_ga_desc: 'Старейший маяк Индокитая на скалистом острове',
-    loc_ong_dia: 'Храм Онг', loc_ong_dia_desc: 'Священный храм на скале посреди моря',
+    loc_xuong_ca_ong: 'Хребет Рыбы', loc_xuong_ca_ong_desc: 'Драматичные скальные образования в форме рыбьего скелета, уходящего в море',
     loc_muine_beach: 'Каменистый Пляж Онг Диа', loc_muine_beach_desc: 'Кристальные воды среди загадочных чёрных скал',
 
     // Tour Type (Jeep)
@@ -711,7 +711,7 @@ const translations = {
     loc_cham_tower: '婆沙奴占婆塔', loc_cham_tower_desc: '千年占婆建筑艺术杰作',
     loc_white_dunes: '白色沙丘', loc_white_dunes_desc: '绵延无际的洁白细沙小型沙漠',
     loc_ke_ga: '鸡角灯塔', loc_ke_ga_desc: '印度支那最古老的灯塔，屹立于礁石岛上',
-    loc_ong_dia: '翁庙', loc_ong_dia_desc: '海中礁石上的神圣庙宇',
+    loc_xuong_ca_ong: '鱼骨湿', loc_xuong_ca_ong_desc: '奇特的鱼骨形岁石海岸，状如巨鱼骨卦开延伸入海中',
     loc_muine_beach: '翁地石滩', loc_muine_beach_desc: '碧蓝海水与神秘黑石交辉映辉',
 
     // Tour Type (Jeep)
@@ -891,7 +891,7 @@ const translations = {
     loc_cham_tower: '포 샤 이뉴 참 탑', loc_cham_tower_desc: '천 년 역사의 참파 건축 걸작',
     loc_white_dunes: '흰 모래언덕', loc_white_dunes_desc: '끝없이 펼쳐지는 부드러운 흰 모래 미니 사막',
     loc_ke_ga: '케 가 등대', loc_ke_ga_desc: '인도차이나에서 가장 오래된 등대, 바위섬 위에 서 있음',
-    loc_ong_dia: '옹 사원', loc_ong_dia_desc: '바다 한가운데 바위 위에 세워진 신성한 사원',
+    loc_xuong_ca_ong: '젙돌 해안', loc_xuong_ca_ong_desc: '바다로 뮸어나오는 거대한 얻가시 모양의 드라마틱한 바위 해안',
     loc_muine_beach: '옹 디아 파악 해변', loc_muine_beach_desc: '신비로운 검은 바위와 맑은 바다의 콘트라스트',
 
     // Tour Type (Jeep)
@@ -1071,7 +1071,7 @@ const translations = {
     loc_cham_tower: 'Cham-Türme Pô Sha Inư', loc_cham_tower_desc: 'Ein tausendjähriges Meisterwerk der Cham-Pa-Architektur',
     loc_white_dunes: 'Weiße Sanddünen', loc_white_dunes_desc: 'Eine Mini-Wüste aus feinem weißem Sand, so weit das Auge reicht',
     loc_ke_ga: 'Leuchtturm Kê Gà', loc_ke_ga_desc: 'Der älteste Leuchtturm Indochinas auf einer Felseninsel',
-    loc_ong_dia: 'Ong-Tempel', loc_ong_dia_desc: 'Ein heiliger Tempel auf einem Felsvorsprung mitten im Meer',
+    loc_xuong_ca_ong: 'Fischgräten-Felsen', loc_xuong_ca_ong_desc: 'Dramatische Küstenformation in Form eines riesigen Fischskeletts, das ins Meer ragt',
     loc_muine_beach: 'Ong Dia Felsstrand', loc_muine_beach_desc: 'Kristallklares Wasser trifft auf rätselhafte schwarze Felsen',
 
     // Tour Type (Jeep)
