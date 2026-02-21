@@ -1278,7 +1278,9 @@
             date: dateStr,
             returnDate: returnDateStr,
             time: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
-                ? (selectedTourTime === 'sunrise' ? '04:30' : '13:30') : clockTime,
+                ? (selectedTourTime === 'sunrise' ? '🌅 04:30' : '🌇 13:30') : clockTime,
+            timeDisplay: bookingVehicle && bookingVehicle._category === 'jeeps' && selectedTourTime
+                ? (selectedTourTime === 'sunrise' ? 'Bình minh - 04:30' : 'Hoàng hôn - 13:30') : null,
             notes,
             price: priceStr,
             rentalDays,
@@ -1303,7 +1305,7 @@
                 `* *${t('msg_vehicle_jeep') || 'Mẫu Xe'}:* ${data.vehicle}`,
                 tourTypeLine,
                 `* *${t('msg_date_jeep') || 'Ngày đón'}:* ${data.date}`,
-                `* *${t('msg_time_jeep') || 'Giờ đón'}:* ${data.time}`,
+                `* *${t('msg_time_jeep') || 'Giờ đón'}:* ${data.timeDisplay || data.time}`,
                 pickupAddr ? `* *${t('msg_pickup_address') || 'Địa chỉ đón'}:* ${pickupAddr}` : '',
                 data.notes ? `* *${t('msg_notes')}:* ${data.notes}` : ''
             ].filter(Boolean).join('\n');
