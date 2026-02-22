@@ -24,6 +24,7 @@
     let selectedDeliveryMethod = 'pickup';
     let selectedClockHour = 8;
     let selectedClockMinute = 0;
+    let clockUserSelected = false; // true only after user explicitly picks a time
 
     /* ---------- DOM Cache ---------- */
     const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -380,109 +381,207 @@
 
         } else if (bookingVehicle._category === 'minibuses') {
             // MINIBUS
-            if (tripInfoBox) {
-                tripInfoBox.style.display = 'block';
-                $('#itineraryDisplay').innerHTML = '';
+            if (tripInfoBox) tripInfoBox.style.display = 'block';
+            $('#itineraryDisplay').innerHTML = '';
 
-                const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
-                const is16Seat = capacity.includes('16');
-                let dropoffOptions = '';
-                if (is16Seat) {
-                    dropoffOptions = `
-                        <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
-                        <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
-                        <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
-                        <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
-                        <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
-                    `;
-                } else if (capacity.includes('7')) {
-                    dropoffOptions = `
-                        <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
-                        <option value="Nha Trang">Nha Trang</option>
-                        <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
-                        <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
-                        <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
-                    `;
-                }
+            const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
+            const is16Seat = capacity.includes('16');
 
-                $('#routeDisplay').innerHTML = `
-                    <div class="route-field">
-                        <label class="route-label">${t('label_pickup_address') || 'Điểm đón'}</label>
-                        <input type="text" class="form-control" value="Mũi Né" readonly style="background:var(--bg-secondary);cursor:default">
-                    </div>
-                    <div class="route-field" style="margin-top:10px">
-                        <label class="route-label">${t('label_dropoff_address') || 'Điểm trả'}</label>
-                        <select class="form-control" id="dropoffSelect">
-                            ${dropoffOptions}
-                        </select>
-                    </div>
-                    <div id="routeSummaryBox" style="display:none;margin-top:12px"></div>
-                `;
+            const pickupOptions = `
+                <option value="" disabled selected>${t('placeholder_choose_pickup') || 'Chọn điểm đón...'}</option>
+                <option value="Mũi Né">Mũi Né</option>
+                <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
+                <option value="Nha Trang">Nha Trang</option>
+            `;
+            const dropoffOptions = `
+                <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
+                <option value="Mũi Né">Mũi Né</option>
+                <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
+                <option value="Nha Trang">Nha Trang</option>
+                <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
+                <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
+                <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
+            `;
 
-                // Route summary for all 7-seat dropoff options (+ 16-seat fixed)
-                const ROUTE_STOPS = {
-                    'Sân bay Tân Sơn Nhất (SGN)': [t('stop_muine'), t('stop_sgn')],
-                    'Nha Trang': [t('stop_muine'), t('stop_nhatrang')],
-                    'Tà Cú (Không bao gồm phí cáp treo)': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_ta_cu'), t('stop_muine')],
-                    'Xương Cá Ông': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_muine')],
-                    'Chùa Cổ Thạch': [t('stop_muine'), t('stop_chua_co_thach'), t('stop_muine')],
-                };
-
-                // Price overrides per dropoff, capacity-aware
-                const BASE_PRICE = bookingVehicle.price || 1690000;
-                const DROPOFF_PRICES = is16Seat ? {
-                    'Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                    'Xương Cá Ông': 1900000,
-                    'Chùa Cổ Thạch': 2700000,
-                } : {
-                    'Chùa Cổ Thạch': 1900000,
-                };
-
-                const dropoffSel = $('#dropoffSelect');
-                const routeSummaryBox = $('#routeSummaryBox');
-
-                function renderRouteSummary(val) {
-                    const stops = ROUTE_STOPS[val];
-                    if (!stops) { routeSummaryBox.style.display = 'none'; return; }
-                    routeSummaryBox.style.display = 'block';
-                    const last = stops.length - 1;
-                    const isRoundTrip = stops[0] === stops[last];
-                    const tripPrice = DROPOFF_PRICES[val] ?? BASE_PRICE;
-                    routeSummaryBox.innerHTML = `
-                        <div class="route-summary">
-                            ${stops.map((s, i) => {
-                        let cls = 'route-stop';
-                        if (i === 0) cls += ' route-stop--start';
-                        else if (i === last) cls += ' route-stop--return';
-                        else if (isRoundTrip && i === last - 1) cls += ' route-stop--dest';
-                        else cls += ' route-stop--mid';
-                        return `<span class="${cls}">${s}</span>${i < last ? '<span class="route-arrow">→</span>' : ''}`;
-                    }).join('')}
+            $('#routeDisplay').innerHTML = `
+                <div class="route-field">
+                    <label class="route-label">${t('label_pickup_address') || 'Điểm đón'}</label>
+                    <select class="form-control" id="pickupSelect">${pickupOptions}</select>
+                </div>
+                <div class="route-swap-row">
+                    <button type="button" class="route-swap-btn" id="swapRouteBtn" title="Hoán đổi điểm">⇅</button>
+                </div>
+                <div class="route-field">
+                    <label class="route-label">${t('label_dropoff_address') || 'Điểm trả'}</label>
+                    <select class="form-control" id="dropoffSelect">${dropoffOptions}</select>
+                </div>
+                <div id="routeSummaryBox" style="display:none;margin-top:12px"></div>
+                <div id="routeHotelFields" style="display:none;margin-top:14px">
+                    <div class="form-group" style="margin-bottom:12px">
+                        <label class="route-label">T\u00ean Kh\u00e1ch s\u1ea1n/Resort</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="form-control" id="routeDeliveryName"
+                                placeholder="Nh\u1eadp t\u00ean kh\u00e1ch s\u1ea1n/Resort" autocomplete="off">
+                            <div class="autocomplete-list" id="routeHotelAC"></div>
                         </div>
-                        <div class="route-price-badge">
-                            <i class="fa-solid fa-tag"></i>
-                            ${formatPrice(tripPrice)} <small>/ ${t('per_trip') || 'chuyến'}</small>
-                        </div>`;
-                }
+                        <div id="routeOtherHotelWrap" style="display:none;margin-top:8px">
+                            <input type="text" class="form-control" id="routeOtherHotelName"
+                                placeholder="Nh\u1eadp t\u00ean kh\u00e1ch s\u1ea1n c\u1ee7a b\u1ea1n..." autocomplete="off"
+                                style="border-color:#e8a000;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="route-label">\u0110\u1ecba ch\u1ec9 giao xe</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="form-control" id="routeDeliveryAddress"
+                                placeholder="Nh\u1eadp \u0111\u1ecba ch\u1ec9 kh\u00e1ch s\u1ea1n/Resort" autocomplete="off">
+                            <div class="autocomplete-list" id="routeAddressAC"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
 
-                if (dropoffSel) {
-                    dropoffSel.addEventListener('change', () => {
-                        renderRouteSummary(dropoffSel.value);
-                        updateBookingPrice();
-                    });
-                    // Auto-show on open (for 16-seat fixed option or pre-selected value)
-                    if (dropoffSel.value) {
-                        renderRouteSummary(dropoffSel.value);
-                    }
+            const ROUTE_STOPS = {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': [t('stop_muine'), t('stop_sgn')],
+                'Mũi Né→Nha Trang': [t('stop_muine'), t('stop_nhatrang')],
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_ta_cu'), t('stop_muine')],
+                'Mũi Né→Xương Cá Ông': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_muine')],
+                'Mũi Né→Chùa Cổ Thạch': [t('stop_muine'), t('stop_chua_co_thach'), t('stop_muine')],
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': [t('stop_sgn'), t('stop_muine')],
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': [t('stop_sgn'), t('stop_nhatrang')],
+                'Nha Trang→Mũi Né': [t('stop_nhatrang'), t('stop_muine')],
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_nhatrang'), t('stop_sgn')],
+            };
+            const BASE_PRICE = bookingVehicle.price || 1690000;
+            const ROUTE_PRICES = is16Seat ? {
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
+                'Mũi Né→Xương Cá Ông': 1900000,
+                'Mũi Né→Chùa Cổ Thạch': 2700000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
+            } : {
+                'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
+            };
+
+            const pickupSel = $('#pickupSelect');
+            const dropoffSel = $('#dropoffSelect');
+            const routeSummaryBox = $('#routeSummaryBox');
+
+            function renderRouteSummary() {
+                const pickup = pickupSel ? pickupSel.value : '';
+                const dropoff = dropoffSel ? dropoffSel.value : '';
+                if (!pickup || !dropoff) { if (routeSummaryBox) routeSummaryBox.style.display = 'none'; return; }
+                const routeKey = pickup + '→' + dropoff;
+                const stops = ROUTE_STOPS[routeKey];
+                if (!stops) { routeSummaryBox.style.display = 'none'; return; }
+                routeSummaryBox.style.display = 'block';
+                const last = stops.length - 1;
+                const isRoundTrip = stops[0] === stops[last];
+                const tripPrice = ROUTE_PRICES[routeKey] ?? BASE_PRICE;
+                routeSummaryBox.innerHTML = `
+                    <div class="route-summary">
+                        ${stops.map((s, i) => {
+                    let cls = 'route-stop';
+                    if (i === 0) cls += ' route-stop--start';
+                    else if (i === last) cls += ' route-stop--return';
+                    else if (isRoundTrip && i === last - 1) cls += ' route-stop--dest';
+                    else cls += ' route-stop--mid';
+                    return `<span class="${cls}">${s}</span>${i < last ? '<span class="route-arrow">→</span>' : ''}`;
+                }).join('')}
+                    </div>
+                    <div class="route-price-badge">
+                        <i class="fa-solid fa-tag"></i>
+                        ${formatPrice(tripPrice)} <small>/ ${t('per_trip') || 'chuyến'}</small>
+                    </div>`;
+            }
+
+            function updateHotelVisibility(pickup) {
+                const isAirport = pickup === 'Sân bay Tân Sơn Nhất (SGN)';
+                const rh = $('#routeHotelFields');
+                const orig = $('#deliveryFields');
+                if (orig) orig.style.display = 'none';
+                if (rh) rh.style.display = isAirport ? 'none' : 'block';
+            }
+
+            let prevPickupVal = '';
+            let prevDropoffVal = '';
+            const tourOnly = ['Tà Cú (Không bao gồm phí cáp treo)', 'Xương Cá Ông', 'Chùa Cổ Thạch'];
+
+            function filterDropoff() {
+                if (!pickupSel || !dropoffSel) return;
+                const newPickup = pickupSel.value;
+                const isAirport = newPickup === 'Sân bay Tân Sơn Nhất (SGN)';
+                const isNhaTrang = newPickup === 'Nha Trang';
+                Array.from(dropoffSel.options).forEach(opt => {
+                    const restricted = (isAirport || isNhaTrang) && tourOnly.includes(opt.value);
+                    opt.hidden = restricted; opt.disabled = restricted;
+                });
+                if (dropoffSel.value === newPickup) {
+                    const cand = prevPickupVal;
+                    const canSet = cand && cand !== newPickup &&
+                        !Array.from(dropoffSel.options).find(o => o.value === cand && o.hidden);
+                    dropoffSel.value = canSet ? cand : '';
                 }
+                const cur = dropoffSel.options[dropoffSel.selectedIndex];
+                if (cur && cur.hidden) dropoffSel.value = '';
+                updateHotelVisibility(newPickup);
+                prevPickupVal = newPickup;
             }
-            // Show Hotel Name + Address Fields for Transfer
-            if (deliveryFields) deliveryFields.style.display = 'block';
-            if (pickupGroup) {
-                pickupGroup.style.display = 'block';
-                if (pickupLabel) pickupLabel.textContent = t('label_pickup_address');
+
+            function filterPickup() {
+                if (!pickupSel || !dropoffSel) return;
+                const newDropoff = dropoffSel.value;
+                if (pickupSel.value === newDropoff) {
+                    const cand = prevDropoffVal;
+                    const pv = Array.from(pickupSel.options).map(o => o.value);
+                    pickupSel.value = (cand && pv.includes(cand) && cand !== newDropoff) ? cand : '';
+                    filterDropoff();
+                }
+                prevDropoffVal = newDropoff;
             }
+
+            function swapPickupDropoff() {
+                if (!pickupSel || !dropoffSel) return;
+                const op = pickupSel.value, od = dropoffSel.value;
+                if (!op || !od) return;
+                const pv = Array.from(pickupSel.options).map(o => o.value);
+                if (!pv.includes(od)) { showToast('Không thể hoán đổi — điểm trả không phải điểm đón hợp lệ!'); return; }
+                Array.from(dropoffSel.options).forEach(o => { o.hidden = false; o.disabled = false; });
+                pickupSel.value = od; dropoffSel.value = op;
+                prevPickupVal = od; prevDropoffVal = op;
+                filterDropoff(); renderRouteSummary(); updateBookingPrice();
+                const btn = $('#swapRouteBtn');
+                if (btn) { btn.classList.add('spinning'); setTimeout(() => btn.classList.remove('spinning'), 400); }
+            }
+
+            const swapBtn = $('#swapRouteBtn');
+            if (swapBtn) swapBtn.addEventListener('click', swapPickupDropoff);
+            if (pickupSel) pickupSel.addEventListener('change', () => {
+                filterDropoff();
+                renderRouteSummary();
+                updateBookingPrice();
+            });
+            if (dropoffSel) {
+                dropoffSel.addEventListener('change', () => { filterPickup(); renderRouteSummary(); updateBookingPrice(); });
+                if (dropoffSel.value) renderRouteSummary();
+            }
+            if (deliveryFields) deliveryFields.style.display = 'none';
+            if (pickupGroup) pickupGroup.style.display = 'none';
+
+            // Wire up hotel autocomplete — getter resolves list dynamically by pickup
+            const routeHotelGetter = () => {
+                const pv = pickupSel ? pickupSel.value : '';
+                return pv === 'Nha Trang' ? nhaTrangHotelList : hotelList;
+            };
+            setupHotelAutocomplete('#routeDeliveryName', '#routeHotelAC', 'name', routeHotelGetter);
+            setupHotelAutocomplete('#routeDeliveryAddress', '#routeAddressAC', 'both', routeHotelGetter);
         }
+
+        // Reset state on each booking open
+        selectedDate = null;
+        clockUserSelected = false;
 
         // Open modal
         const overlay = $('#bookingOverlay');
@@ -831,18 +930,22 @@
                 `;
             }
         } else if (category === 'minibuses') {
-            // Dynamic price: capacity-aware overrides
-            const dropoffSel = $('#dropoffSelect');
-            const selectedDropoff = dropoffSel ? dropoffSel.value : '';
-            const cap = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
-            const overrides = cap.includes('16') ? {
-                'Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Xương Cá Ông': 1900000,
-                'Chùa Cổ Thạch': 2700000,
+            // Dynamic price: pickup→dropoff combined route key
+            const mbP = $('#pickupSelect'), mbD = $('#dropoffSelect');
+            const mbRK = (mbP ? mbP.value : '') + '→' + (mbD ? mbD.value : '');
+            const mbC = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
+            const mbPx = mbC.includes('16') ? {
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
+                'Mũi Né→Xương Cá Ông': 1900000,
+                'Mũi Né→Chùa Cổ Thạch': 2700000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
-                'Chùa Cổ Thạch': 1900000,
+                'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
-            const tripPrice = overrides[selectedDropoff] ?? bookingVehicle.price;
+            const tripPrice = mbPx[mbRK] ?? bookingVehicle.price;
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
                 <div class="price-summary-amount">${formatPrice(tripPrice)}</div>
@@ -1022,6 +1125,7 @@
     }
 
     function showClockConfirmation() {
+        clockUserSelected = true; // User has explicitly chosen a time
         const display = $('.clock-display');
         if (!display) return;
 
@@ -1203,61 +1307,49 @@
        5. HOTEL AUTOCOMPLETE (Delivery)
        ============================================================ */
     function initAutocomplete() {
-        // Hotel Name autocomplete
+        // Hotel Name autocomplete (static delivery fields for non-minibus vehicles)
         setupHotelAutocomplete('#deliveryName', '#hotelAutocomplete', 'name');
         // Address autocomplete
         setupHotelAutocomplete('#deliveryAddress', '#addressAutocomplete', 'both');
     }
 
-    function setupHotelAutocomplete(inputSel, listSel, searchBy) {
+    function setupHotelAutocomplete(inputSel, listSel, searchBy, hotelData) {
+        // hotelData can be an array or a getter function (called at event time)
+        const getList = typeof hotelData === 'function' ? hotelData : () => (hotelData || hotelList);
         const input = $(inputSel);
         const list = $(listSel);
         if (!input || !list) return;
 
         function renderList(matches) {
-            if (matches.length === 0) {
-                list.classList.remove('open');
-                return;
-            }
-            list.innerHTML = matches.map((h, i) => {
-                const idx = hotelList.indexOf(h);
-                return `<div class="autocomplete-item" data-index="${idx}">
+            if (matches.length === 0) { list.classList.remove('open'); return; }
+            list.innerHTML = matches.map(h => `
+                <div class="autocomplete-item">
                     <div class="autocomplete-name">${h.name}</div>
                     <div class="autocomplete-address">${h.address}</div>
-                </div>`;
-            }).join('');
+                </div>`).join('');
 
-            // Use mousedown to fire before blur
-            list.querySelectorAll('.autocomplete-item').forEach(item => {
+            list.querySelectorAll('.autocomplete-item').forEach((item, i) => {
                 item.addEventListener('mousedown', (e) => {
-                    e.preventDefault(); // Prevent blur from closing list
-                    const idx = parseInt(item.dataset.index);
-                    selectHotel(idx);
+                    e.preventDefault();
+                    selectHotelItem(matches[i], inputSel, listSel);
                 });
             });
-
             list.classList.add('open');
         }
 
-        // Show all on focus
         input.addEventListener('focus', () => {
+            const data = getList();
             const val = input.value.toLowerCase().trim();
-            if (val.length < 2) {
-                renderList(hotelList);
-            }
+            if (val.length < 2) { renderList(data); return; }
+            renderList(data.filter(h => h.name.toLowerCase().includes(val)));
         });
 
         input.addEventListener('input', () => {
+            const data = getList();
             const val = input.value.toLowerCase().trim();
-            if (val.length < 2) {
-                renderList(hotelList);
-                return;
-            }
-
-            const matches = hotelList.filter(h => {
-                if (searchBy === 'both') {
-                    return h.name.toLowerCase().includes(val) || h.address.toLowerCase().includes(val);
-                }
+            if (val.length < 2) { renderList(data); return; }
+            const matches = data.filter(h => {
+                if (searchBy === 'both') return h.name.toLowerCase().includes(val) || h.address.toLowerCase().includes(val);
                 return h.name.toLowerCase().includes(val);
             });
             renderList(matches);
@@ -1271,22 +1363,47 @@
     function selectHotel(index) {
         const hotel = hotelList[index];
         if (!hotel) return;
-        const nameInput = $('#deliveryName');
-        const addrInput = $('#deliveryAddress');
-
+        // Prefer route hotel fields if visible, else fall back to static delivery fields
+        const routeNameInput = $('#routeDeliveryName');
+        const routeAddrInput = $('#routeDeliveryAddress');
+        const nameInput = routeNameInput || $('#deliveryName');
+        const addrInput = routeAddrInput || $('#deliveryAddress');
         if (hotel._isOther) {
-            // "Khách sạn khác" — clear both fields and let user type
             if (nameInput) { nameInput.value = ''; nameInput.focus(); }
             if (addrInput) addrInput.value = '';
         } else {
             if (nameInput) nameInput.value = hotel.name;
             if (addrInput) addrInput.value = hotel.address;
         }
-
-        const list1 = $('#hotelAutocomplete');
-        const list2 = $('#addressAutocomplete');
+        const list1 = $('#routeHotelAC') || $('#hotelAutocomplete');
+        const list2 = $('#routeAddressAC') || $('#addressAutocomplete');
         if (list1) list1.classList.remove('open');
         if (list2) list2.classList.remove('open');
+    }
+
+    function selectHotelItem(hotel, inputSel, listSel) {
+        if (!hotel) return;
+        const isRouteField = inputSel === '#routeDeliveryName' || inputSel === '#routeDeliveryAddress';
+        const nameInput = isRouteField ? $('#routeDeliveryName') : $('#deliveryName');
+        const addrInput = isRouteField ? $('#routeDeliveryAddress') : $('#deliveryAddress');
+        const otherWrap = isRouteField ? $('#routeOtherHotelWrap') : null;
+        const otherInput = isRouteField ? $('#routeOtherHotelName') : null;
+
+        if (hotel._isOther) {
+            // Show extra input for custom hotel name
+            if (nameInput) nameInput.value = 'Khách sạn khác';
+            if (addrInput) addrInput.value = '';
+            if (otherWrap) otherWrap.style.display = 'block';
+            if (otherInput) { otherInput.value = ''; setTimeout(() => otherInput.focus(), 50); }
+        } else {
+            // Normal hotel selected — hide custom input
+            if (otherWrap) otherWrap.style.display = 'none';
+            if (otherInput) otherInput.value = '';
+            if (nameInput) nameInput.value = hotel.name;
+            if (addrInput) addrInput.value = hotel.address;
+        }
+        const acList = $(listSel);
+        if (acList) acList.classList.remove('open');
     }
 
     /* ============================================================
@@ -1303,16 +1420,38 @@
             return null;
         }
 
+        // Validate: date must be selected on the calendar
+        if (!selectedDate) {
+            showToast(t('toast_select_date') || 'Vui lòng chọn ngày trên lịch!');
+            // Scroll calendar into view
+            const cal = $('#bookingCalendar');
+            if (cal) cal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return null;
+        }
+
+        // Validate: clock time must be chosen (motorbikes & minibuses — jeep uses tour-time selector)
+        const needsClock = bookingVehicle && (bookingVehicle._category === 'motorbikes' || bookingVehicle._category === 'minibuses');
+        if (needsClock && !clockUserSelected) {
+            showToast(t('toast_select_time') || 'Vui lòng chọn giờ trên đồng hồ!');
+            const clockEl = $('.clock-picker');
+            if (clockEl) clockEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return null;
+        }
+
         // Validate: Jeep must have tour time selected
         if (bookingVehicle && bookingVehicle._category === 'jeeps' && !selectedTourTime) {
             showToast(t('toast_select_tour_time') || 'Vui lòng chọn mốc thời gian!');
             return null;
         }
 
-        // Validate: 7-seat minibus must have dropoff selected
+        // Validate: minibus must have both pickup AND dropoff selected
         if (bookingVehicle && bookingVehicle._category === 'minibuses') {
-            const dropoffSelect = $('#dropoffSelect');
-            if (dropoffSelect && !dropoffSelect.value) {
+            const mbPc = $('#pickupSelect'), mbDc = $('#dropoffSelect');
+            if (mbPc && !mbPc.value) {
+                showToast(t('toast_select_pickup') || 'Vui lòng chọn điểm đón!');
+                return null;
+            }
+            if (mbDc && !mbDc.value) {
                 showToast(t('toast_select_dropoff') || 'Vui lòng chọn điểm trả!');
                 return null;
             }
@@ -1349,20 +1488,23 @@
             }
         }
 
-        // Minibus pricing: capacity-aware dropoff overrides
+        // Minibus pricing: pickup→dropoff combined route key
         if (bookingVehicle && bookingVehicle._category === 'minibuses') {
-            const dropoffSel = $('#dropoffSelect');
-            const dropoffVal = dropoffSel ? dropoffSel.value : '';
-            const mbCap = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
-            const mbOverrides = mbCap.includes('16') ? {
-                'Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Xương Cá Ông': 1900000,
-                'Chùa Cổ Thạch': 2700000,
+            const mbP4 = $('#pickupSelect'), mbD4 = $('#dropoffSelect');
+            const mbRK4 = (mbP4 ? mbP4.value : '') + '→' + (mbD4 ? mbD4.value : '');
+            const mbC4 = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
+            const mbPx4 = mbC4.includes('16') ? {
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
+                'Mũi Né→Xương Cá Ông': 1900000,
+                'Mũi Né→Chùa Cổ Thạch': 2700000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
-                'Chùa Cổ Thạch': 1900000,
+                'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
-            const tripPrice = mbOverrides[dropoffVal] ?? bookingVehicle.price;
-            priceStr = `${formatPrice(tripPrice)}/${t('per_trip')}`;
+            priceStr = `${formatPrice(mbPx4[mbRK4] ?? bookingVehicle.price)}/${t('per_trip')}`;
         }
 
         // Jeep pricing: depends on tour type
@@ -1380,17 +1522,25 @@
             }
         }
 
-        // Hotel/address info
-        const hotelName = $('#deliveryName') ? $('#deliveryName').value.trim() : '';
-        const hotelAddress = $('#deliveryAddress') ? $('#deliveryAddress').value.trim() : '';
+        // Hotel/address info (route fields for minibus, static fields for others)
+        const _otherWrap = $('#routeOtherHotelWrap');
+        const _otherInput = $('#routeOtherHotelName');
+        const _routeName = $('#routeDeliveryName');
+        const _routeAddr = $('#routeDeliveryAddress');
+        // If "Khách sạn khác" is active, use the custom typed name; else use the route delivery field
+        const _customName = (_otherWrap && _otherWrap.style.display !== 'none' && _otherInput) ? _otherInput.value.trim() : '';
+        const hotelName = _customName || (_routeName ? _routeName.value.trim() : '') || ($('#deliveryName') ? $('#deliveryName').value.trim() : '');
+        const hotelAddress = (_routeAddr ? _routeAddr.value.trim() : '') || ($('#deliveryAddress') ? $('#deliveryAddress').value.trim() : '');
 
         // Route info (minibuses)
         let routeInfo = '';
         if (bookingVehicle && bookingVehicle._category === 'minibuses') {
+            const pickupSelect = $('#pickupSelect');
             const dropoffSelect = $('#dropoffSelect');
+            const pickup = pickupSelect ? pickupSelect.value : '';
             const dropoff = dropoffSelect ? dropoffSelect.value : '';
-            if (dropoff) {
-                routeInfo = `Mũi Né ➔ ${dropoff}`;
+            if (pickup && dropoff) {
+                routeInfo = `${pickup} \u27a1 ${dropoff}`;
             }
         }
 

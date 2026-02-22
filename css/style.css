@@ -2484,3 +2484,76 @@ select.form-control {
     letter-spacing: 0.05em;
     margin-bottom: 8px;
 }
+
+/* --- Pickup / Dropoff Swap Button --- */
+.route-swap-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    position: relative;
+}
+
+.route-swap-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--border-color, rgba(255, 255, 255, 0.1));
+}
+
+.route-swap-btn {
+    position: relative;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--gold, #c9a84c);
+    background: #fff;
+    color: var(--gold, #c9a84c);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 10px rgba(201, 168, 76, 0.25);
+}
+
+.route-swap-btn:hover {
+    background: var(--gold, #c9a84c);
+    color: #fff;
+    transform: scale(1.12);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.4);
+}
+
+@keyframes swapSpin {
+    from {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    to {
+        transform: rotate(180deg) scale(1);
+    }
+}
+
+.route-swap-btn.spinning {
+    animation: swapSpin 0.35s ease-out forwards;
+}
+
+/* --- Hotel Fields inside route picker (shown when pickup = Mũi Né / Nha Trang) --- */
+#routeHotelFields {
+    border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+    padding-top: 14px;
+}
+
+#routeHotelFields .form-group label.route-label {
+    margin-bottom: 6px;
+}
+
+#routeHotelFields .form-control {
+    width: 100%;
+}
