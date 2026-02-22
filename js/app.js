@@ -384,28 +384,34 @@
                 tripInfoBox.style.display = 'block';
                 $('#itineraryDisplay').innerHTML = '';
 
-                // Route: Điểm đón (fixed) + Điểm trả (dropdown)
                 const capacity = bookingVehicle.features.find(f => f.includes('seats')) || '';
+                const is16Seat = capacity.includes('16');
                 let dropoffOptions = '';
-                if (capacity.includes('16')) {
-                    dropoffOptions = `<option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>`;
+                if (is16Seat) {
+                    dropoffOptions = `
+                        <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
+                        <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
+                        <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
+                        <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
+                        <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
+                    `;
                 } else if (capacity.includes('7')) {
                     dropoffOptions = `
-                        <option value="" disabled selected>Chọn điểm trả...</option>
+                        <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
                         <option value="Nha Trang">Nha Trang</option>
-                        <option value="Tà Cú (Không bao gồm phí cáp treo)">Tà Cú (Không bao gồm phí cáp treo)</option>
-                        <option value="Xương Cá Ông">Xương Cá Ông</option>
-                        <option value="Chùa Cổ Thạch">Chùa Cổ Thạch</option>
+                        <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
+                        <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
+                        <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
                     `;
                 }
 
                 $('#routeDisplay').innerHTML = `
                     <div class="route-field">
-                        <label class="route-label">Điểm đón</label>
+                        <label class="route-label">${t('label_pickup_address') || 'Điểm đón'}</label>
                         <input type="text" class="form-control" value="Mũi Né" readonly style="background:var(--bg-secondary);cursor:default">
                     </div>
                     <div class="route-field" style="margin-top:10px">
-                        <label class="route-label">Điểm trả</label>
+                        <label class="route-label">${t('label_dropoff_address') || 'Điểm trả'}</label>
                         <select class="form-control" id="dropoffSelect">
                             ${dropoffOptions}
                         </select>
@@ -413,11 +419,23 @@
                     <div id="routeSummaryBox" style="display:none;margin-top:12px"></div>
                 `;
 
-                // Route summary for Tà Cú / Xương Cá Ông / Chùa Cổ Thạch (round-trip via Mũi Né)
+                // Route summary for all 7-seat dropoff options (+ 16-seat fixed)
                 const ROUTE_STOPS = {
-                    'Tà Cú (Không bao gồm phí cáp treo)': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Tà Cú', 'Mũi Né'],
-                    'Xương Cá Ông': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Mũi Né'],
-                    'Chùa Cổ Thạch': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Chùa Cổ Thạch', 'Mũi Né'],
+                    'Sân bay Tân Sơn Nhất (SGN)': [t('stop_muine'), t('stop_sgn')],
+                    'Nha Trang': [t('stop_muine'), t('stop_nhatrang')],
+                    'Tà Cú (Không bao gồm phí cáp treo)': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_ta_cu'), t('stop_muine')],
+                    'Xương Cá Ông': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_muine')],
+                    'Chùa Cổ Thạch': [t('stop_muine'), t('stop_chua_co_thach'), t('stop_muine')],
+                };
+
+                // Price overrides per dropoff, capacity-aware
+                const BASE_PRICE = bookingVehicle.price || 1690000;
+                const DROPOFF_PRICES = is16Seat ? {
+                    'Tà Cú (Không bao gồm phí cáp treo)': 1900000,
+                    'Xương Cá Ông': 1900000,
+                    'Chùa Cổ Thạch': 2700000,
+                } : {
+                    'Chùa Cổ Thạch': 1900000,
                 };
 
                 const dropoffSel = $('#dropoffSelect');
@@ -428,20 +446,34 @@
                     if (!stops) { routeSummaryBox.style.display = 'none'; return; }
                     routeSummaryBox.style.display = 'block';
                     const last = stops.length - 1;
+                    const isRoundTrip = stops[0] === stops[last];
+                    const tripPrice = DROPOFF_PRICES[val] ?? BASE_PRICE;
                     routeSummaryBox.innerHTML = `
                         <div class="route-summary">
                             ${stops.map((s, i) => {
                         let cls = 'route-stop';
                         if (i === 0) cls += ' route-stop--start';
                         else if (i === last) cls += ' route-stop--return';
+                        else if (isRoundTrip && i === last - 1) cls += ' route-stop--dest';
                         else cls += ' route-stop--mid';
                         return `<span class="${cls}">${s}</span>${i < last ? '<span class="route-arrow">→</span>' : ''}`;
                     }).join('')}
+                        </div>
+                        <div class="route-price-badge">
+                            <i class="fa-solid fa-tag"></i>
+                            ${formatPrice(tripPrice)} <small>/ ${t('per_trip') || 'chuyến'}</small>
                         </div>`;
                 }
 
                 if (dropoffSel) {
-                    dropoffSel.addEventListener('change', () => renderRouteSummary(dropoffSel.value));
+                    dropoffSel.addEventListener('change', () => {
+                        renderRouteSummary(dropoffSel.value);
+                        updateBookingPrice();
+                    });
+                    // Auto-show on open (for 16-seat fixed option or pre-selected value)
+                    if (dropoffSel.value) {
+                        renderRouteSummary(dropoffSel.value);
+                    }
                 }
             }
             // Show Hotel Name + Address Fields for Transfer
@@ -484,13 +516,37 @@
             // No longer used
             return;
         } else {
-            // Show itinerary for sunrise/sunset
+            // Show route summary for sunrise/sunset using pill breadcrumb UI
             if (tripInfoBox) tripInfoBox.style.display = 'block';
             if (itinDisplay) {
-                if (time === 'sunrise') {
-                    itinDisplay.innerHTML = `<div class="itinerary-box"><strong>${t('time_sunrise')}</strong><p>${t('itin_sunrise')}</p></div>`;
-                } else if (time === 'sunset') {
-                    itinDisplay.innerHTML = `<div class="itinerary-box"><strong>${t('time_sunset')}</strong><p>${t('itin_sunset')}</p></div>`;
+                const JEEP_ROUTES = {
+                    sunrise: [
+                        { label: t('stop_hotel'), cls: 'route-stop route-stop--start' },
+                        { label: t('stop_whitedunes'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_reddunes'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_fishingvillage'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_fairystream'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_hotel'), cls: 'route-stop route-stop--return' },
+                    ],
+                    sunset: [
+                        { label: t('stop_hotel'), cls: 'route-stop route-stop--start' },
+                        { label: t('stop_fairystream'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_fishingvillage'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_whitedunes'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_reddunes'), cls: 'route-stop route-stop--dest' },
+                        { label: t('stop_hotel'), cls: 'route-stop route-stop--return' },
+                    ],
+                };
+                const stops = JEEP_ROUTES[time];
+                if (stops) {
+                    const timeLabel = time === 'sunrise' ? t('time_sunrise') : t('time_sunset');
+                    itinDisplay.innerHTML = `
+                        <div class="route-time-label">${timeLabel}</div>
+                        <div class="route-summary">
+                            ${stops.map((s, i) =>
+                        `<span class="${s.cls}">${s.label}</span>${i < stops.length - 1 ? '<span class="route-arrow">→</span>' : ''}`
+                    ).join('')}
+                        </div>`;
                 }
             }
         }
@@ -775,9 +831,21 @@
                 `;
             }
         } else if (category === 'minibuses') {
+            // Dynamic price: capacity-aware overrides
+            const dropoffSel = $('#dropoffSelect');
+            const selectedDropoff = dropoffSel ? dropoffSel.value : '';
+            const cap = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
+            const overrides = cap.includes('16') ? {
+                'Tà Cú (Không bao gồm phí cáp treo)': 1900000,
+                'Xương Cá Ông': 1900000,
+                'Chùa Cổ Thạch': 2700000,
+            } : {
+                'Chùa Cổ Thạch': 1900000,
+            };
+            const tripPrice = overrides[selectedDropoff] ?? bookingVehicle.price;
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
-                <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}</div>
+                <div class="price-summary-amount">${formatPrice(tripPrice)}</div>
                 <div class="price-summary-detail">${t('per_trip')}</div>
             `;
         }
@@ -1281,6 +1349,22 @@
             }
         }
 
+        // Minibus pricing: capacity-aware dropoff overrides
+        if (bookingVehicle && bookingVehicle._category === 'minibuses') {
+            const dropoffSel = $('#dropoffSelect');
+            const dropoffVal = dropoffSel ? dropoffSel.value : '';
+            const mbCap = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
+            const mbOverrides = mbCap.includes('16') ? {
+                'Tà Cú (Không bao gồm phí cáp treo)': 1900000,
+                'Xương Cá Ông': 1900000,
+                'Chùa Cổ Thạch': 2700000,
+            } : {
+                'Chùa Cổ Thạch': 1900000,
+            };
+            const tripPrice = mbOverrides[dropoffVal] ?? bookingVehicle.price;
+            priceStr = `${formatPrice(tripPrice)}/${t('per_trip')}`;
+        }
+
         // Jeep pricing: depends on tour type
         let tourTypeLabel = '';
         let peopleCount = 0;
@@ -1309,6 +1393,7 @@
                 routeInfo = `Mũi Né ➔ ${dropoff}`;
             }
         }
+
 
         // Dropoff & flight (minibuses)
         const dropoffAddress = $('#dropoffAddress') ? $('#dropoffAddress').value.trim() : '';
