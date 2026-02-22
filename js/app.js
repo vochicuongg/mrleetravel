@@ -410,7 +410,35 @@
                             ${dropoffOptions}
                         </select>
                     </div>
+                    <div id="routeSummaryBox" style="display:none;margin-top:12px"></div>
                 `;
+
+                // Route summary for Tà Cú / Xương Cá Ông
+                const ROUTE_STOPS = {
+                    'Tà Cú (Không bao gồm phí cáp treo)': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Tà Cú'],
+                    'Xương Cá Ông': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông'],
+                    'Chùa Cổ Thạch': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Chùa Cổ Thạch'],
+                };
+
+                const dropoffSel = $('#dropoffSelect');
+                const routeSummaryBox = $('#routeSummaryBox');
+
+                function renderRouteSummary(val) {
+                    const stops = ROUTE_STOPS[val];
+                    if (!stops) { routeSummaryBox.style.display = 'none'; return; }
+                    routeSummaryBox.style.display = 'block';
+                    routeSummaryBox.innerHTML = `
+                        <div class="route-summary">
+                            ${stops.map((s, i) => `
+                                <span class="route-stop${i === stops.length - 1 ? ' route-stop--end' : i === 0 ? ' route-stop--start' : ''}">${s}</span>
+                                ${i < stops.length - 1 ? '<span class="route-arrow">→</span>' : ''}
+                            `).join('')}
+                        </div>`;
+                }
+
+                if (dropoffSel) {
+                    dropoffSel.addEventListener('change', () => renderRouteSummary(dropoffSel.value));
+                }
             }
             // Show Hotel Name + Address Fields for Transfer
             if (deliveryFields) deliveryFields.style.display = 'block';

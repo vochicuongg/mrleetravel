@@ -2345,3 +2345,45 @@ select.form-control {
     color: var(--text-muted);
     margin-left: 1px;
 }
+
+/* --- Route Summary (Minibus 7-seat) --- */
+.route-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 14px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    animation: slideDown 0.25s ease;
+}
+
+.route-stop {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.route-stop--start {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+}
+
+.route-stop--end {
+    color: #fff;
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.route-arrow {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
