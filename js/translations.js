@@ -207,6 +207,7 @@ const translations = {
     msg_flight: 'Số chuyến bay',
     msg_hotel_name: 'Tên Khách sạn/Resort',
     msg_hotel_address: 'Địa chỉ',
+    toast_zalo_copied: '📋 Tin nhắn đã sao chép! Dán vào Zalo và gửi cho Mr. Lee.',
   },
 
   en: {
@@ -392,6 +393,7 @@ const translations = {
     msg_flight: 'Flight number',
     msg_hotel_name: 'Hotel/Resort name',
     msg_hotel_address: 'Address',
+    toast_zalo_copied: '📋 Message copied! Paste it in Zalo and send to Mr. Lee.',
   },
 
   ru: {
@@ -575,6 +577,7 @@ const translations = {
     msg_flight: 'Номер рейса',
     msg_hotel_name: 'Название отеля/курорта',
     msg_hotel_address: 'Адрес',
+    toast_zalo_copied: '📋 Сообщение скопировано! Вставьте его в Zalo и отправьте Mr. Lee.',
   },
 
   zh: {
@@ -758,6 +761,7 @@ const translations = {
     msg_flight: '航班号',
     msg_hotel_name: '酒店/度假村名称',
     msg_hotel_address: '地址',
+    toast_zalo_copied: '📋 消息已复制！请粘贴到 Zalo 并发送给 Mr. Lee。',
   },
 
   kr: {
@@ -941,6 +945,7 @@ const translations = {
     msg_flight: '항공편명',
     msg_hotel_name: '호텔/리조트 이름',
     msg_hotel_address: '주소',
+    toast_zalo_copied: '📋 메시지가 복사되었습니다! Zalo에 붙여넣고 Mr. Lee에게 보내세요.',
   },
 
   de: {
@@ -1124,5 +1129,6 @@ const translations = {
     msg_flight: 'Flugnummer',
     msg_hotel_name: 'Hotel-/Resortname',
     msg_hotel_address: 'Adresse',
+    toast_zalo_copied: '📋 Nachricht kopiert! In Zalo einfügen und an Mr. Lee senden.',
   }
 };

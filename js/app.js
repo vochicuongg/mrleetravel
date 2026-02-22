@@ -1367,11 +1367,19 @@
     function submitZalo() {
         const data = getBookingData();
         if (!data) return;
-        const msg = encodeURIComponent(buildMessage(data));
-        window.open(`https://zalo.me/84338311432`, '_blank');
-        sendToTelegram(data);
-        closeBooking();
-        showToast(t('toast_success'));
+        const rawMsg = buildMessage(data);
+        // Zalo doesn't support pre-filled URL text — copy to clipboard instead
+        navigator.clipboard.writeText(rawMsg).then(() => {
+            sendToTelegram(data);
+            closeBooking();
+            showToast(t('toast_zalo_copied') || '📋 Tin nhắn đã được sao chép! Mở Zalo và dán để gửi.');
+            setTimeout(() => window.open(`https://zalo.me/84338311432`, '_blank'), 800);
+        }).catch(() => {
+            // Fallback if clipboard API unavailable
+            sendToTelegram(data);
+            closeBooking();
+            window.open(`https://zalo.me/84338311432`, '_blank');
+        });
     }
 
     /* --- Telegram Bot Direct API --- */
