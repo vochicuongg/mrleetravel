@@ -413,11 +413,11 @@
                     <div id="routeSummaryBox" style="display:none;margin-top:12px"></div>
                 `;
 
-                // Route summary for Tà Cú / Xương Cá Ông
+                // Route summary for Tà Cú / Xương Cá Ông / Chùa Cổ Thạch (round-trip via Mũi Né)
                 const ROUTE_STOPS = {
-                    'Tà Cú (Không bao gồm phí cáp treo)': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Tà Cú'],
-                    'Xương Cá Ông': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông'],
-                    'Chùa Cổ Thạch': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Chùa Cổ Thạch'],
+                    'Tà Cú (Không bao gồm phí cáp treo)': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Tà Cú', 'Mũi Né'],
+                    'Xương Cá Ông': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Mũi Né'],
+                    'Chùa Cổ Thạch': ['Mũi Né', 'Tháp Chàm', 'Xương Cá Ông', 'Chùa Cổ Thạch', 'Mũi Né'],
                 };
 
                 const dropoffSel = $('#dropoffSelect');
@@ -427,12 +427,16 @@
                     const stops = ROUTE_STOPS[val];
                     if (!stops) { routeSummaryBox.style.display = 'none'; return; }
                     routeSummaryBox.style.display = 'block';
+                    const last = stops.length - 1;
                     routeSummaryBox.innerHTML = `
                         <div class="route-summary">
-                            ${stops.map((s, i) => `
-                                <span class="route-stop${i === stops.length - 1 ? ' route-stop--end' : i === 0 ? ' route-stop--start' : ''}">${s}</span>
-                                ${i < stops.length - 1 ? '<span class="route-arrow">→</span>' : ''}
-                            `).join('')}
+                            ${stops.map((s, i) => {
+                        let cls = 'route-stop';
+                        if (i === 0) cls += ' route-stop--start';
+                        else if (i === last) cls += ' route-stop--return';
+                        else cls += ' route-stop--mid';
+                        return `<span class="${cls}">${s}</span>${i < last ? '<span class="route-arrow">→</span>' : ''}`;
+                    }).join('')}
                         </div>`;
                 }
 

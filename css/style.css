@@ -2375,10 +2375,21 @@ select.form-control {
     border-color: var(--text-muted);
 }
 
+.route-stop--mid {
+    color: var(--text-secondary);
+}
+
 .route-stop--end {
+    /* kept for back-compat */
     color: #fff;
     background: var(--gold);
     border-color: var(--gold);
+}
+
+.route-stop--return {
+    color: #fff;
+    background: var(--accent, #0ea5e9);
+    border-color: var(--accent, #0ea5e9);
 }
 
 .route-arrow {
