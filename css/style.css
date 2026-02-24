@@ -1379,9 +1379,12 @@ select.form-control {
 }
 
 .clock-face {
-    width: 250px;
-    height: 250px;
-    touch-action: none;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    /* clip to circle — corners no longer block scroll */
+    overflow: hidden;
+    display: block;
 }
 
 .clock-ring {

@@ -1189,6 +1189,11 @@
         }
 
         function onDragStart(e) {
+            // Hit-test: only drag if touch starts inside the clock circle (r ≤ 85 SVG units).
+            // Corners of the rectangular SVG are outside the circle and should scroll normally.
+            getAngleFromEvent(e); // populates lastDragDist
+            if (lastDragDist > 85) return; // outside circle → let scroll happen
+
             e.preventDefault();
             isDragging = true;
             picker.classList.add('dragging');
@@ -1263,10 +1268,12 @@
         document.addEventListener('mousemove', onDragMove);
         document.addEventListener('mouseup', onDragEnd);
 
-        // Touch events
+        // Touch events — bound to svg so scroll works outside the clock circle.
+        // Browser guarantees touchmove/touchend for a pointer are always delivered
+        // to the element where touchstart fired, even if the finger moves outside.
         svg.addEventListener('touchstart', onDragStart, { passive: false });
-        document.addEventListener('touchmove', onDragMove, { passive: false });
-        document.addEventListener('touchend', onDragEnd);
+        svg.addEventListener('touchmove', onDragMove, { passive: false });
+        svg.addEventListener('touchend', onDragEnd);
 
         // Click on number to select
         const numbersG = $('#clockNumbers');
