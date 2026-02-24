@@ -1346,6 +1346,20 @@ select.form-control {
 }
 
 /* ---------- Analog Clock Picker ---------- */
+/* Label above clock picker — matches .form-group label style */
+.clock-picker-label {
+    display: block;
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-align: left;
+    padding: 0 2px;
+}
+
 .clock-picker {
     display: flex;
     flex-direction: column;
@@ -1365,8 +1379,8 @@ select.form-control {
 }
 
 .clock-face {
-    width: 170px;
-    height: 170px;
+    width: 250px;
+    height: 250px;
     touch-action: none;
 }
 
@@ -1399,6 +1413,36 @@ select.form-control {
     opacity: 0.3;
     pointer-events: none;
     cursor: default;
+}
+
+/* Two-ring 24h clock (transfer vehicles) */
+.clock-number-outer {
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.clock-number-inner {
+    font-size: 8.5px;
+    fill: var(--gold);
+    opacity: 0.85;
+}
+
+.clock-number-inner.active {
+    opacity: 1;
+    fill: var(--gold);
+}
+
+/* Motorbike inner ring (13-21) — dark like outer, just smaller */
+.clock-number-moto-inner {
+    font-size: 8.5px;
+    fill: var(--text-secondary);
+    opacity: 0.75;
+}
+
+.clock-number-moto-inner.active {
+    opacity: 1;
+    fill: var(--gold);
+    font-weight: 700;
 }
 
 .clock-tick {
@@ -1662,6 +1706,86 @@ select.form-control {
     font-size: 0.9rem;
     margin-bottom: 4px;
 }
+
+/* Holiday surcharge badge */
+.holiday-surcharge-badge {
+    display: none;
+    background: linear-gradient(135deg, #ff6b00, #e8a000);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(232, 160, 0, .35);
+    animation: holidayPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes holidayPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 2px 8px rgba(232, 160, 0, .35);
+    }
+
+    50% {
+        box-shadow: 0 4px 18px rgba(232, 160, 0, .65);
+    }
+}
+
+.holiday-x-note {
+    font-size: 0.75em;
+    font-weight: 700;
+    color: #e8a000;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+/* Base price (crossed out) shown next to surcharged price */
+.price-base-strike {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 0.72em;
+    font-weight: 500;
+    margin-right: 2px;
+}
+
+/* Holiday note line below the price detail */
+.price-holiday-note {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #e8a000;
+    letter-spacing: 0.01em;
+}
+
+/* Phone / form field validation error */
+@keyframes shakeInput {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-6px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+.input-error {
+    border-color: #e85555 !important;
+    box-shadow: 0 0 0 3px rgba(232, 85, 85, 0.25) !important;
+    animation: shakeInput 0.4s ease;
+}
+
 
 .rental-price-line {
     font-size: 0.95rem;

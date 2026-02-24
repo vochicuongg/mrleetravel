@@ -284,3 +284,40 @@ const nhaTrangHotelList = [
     { name: 'A&EM Hotel Nha Trang', address: '4 Lê Lợi, Lộc Thọ, Nha Trang' },
     { name: 'Khách sạn khác', address: '', _isOther: true }
 ];
+
+/* ============================================================
+   Holiday Date Ranges — Vietnamese public holidays
+   Format: { from: 'YYYY-MM-DD', to: 'YYYY-MM-DD', name: '...' }
+   ============================================================ */
+const holidayRanges = [
+    // Tết Dương lịch (1/1) — +25% bắt đầu từ 27/12 năm trước
+    { from: '2024-12-27', to: '2025-01-01', name: 'Tết Dương lịch' },
+    { from: '2025-12-27', to: '2026-01-01', name: 'Tết Dương lịch' },
+    { from: '2026-12-27', to: '2027-01-01', name: 'Tết Dương lịch' },
+    { from: '2027-12-27', to: '2028-01-01', name: 'Tết Dương lịch' },
+
+    // Tết Nguyên Đán — +25% từ 5 ngày trước ngày đầu Tết đến hết Tết
+    { from: '2025-01-23', to: '2025-02-02', name: 'Tết Nguyên Đán 2025' },
+    { from: '2026-02-11', to: '2026-02-21', name: 'Tết Nguyên Đán 2026' },
+    { from: '2027-02-01', to: '2027-02-11', name: 'Tết Nguyên Đán 2027' },
+    { from: '2028-01-20', to: '2028-01-30', name: 'Tết Nguyên Đán 2028' },
+
+    // Giỗ Tổ Hùng Vương (10/3 âm lịch) — +25% từ 5 ngày trước
+    { from: '2025-04-02', to: '2025-04-07', name: 'Giỗ Tổ Hùng Vương' },
+    { from: '2026-04-26', to: '2026-05-01', name: 'Giỗ Tổ Hùng Vương & Giải phóng & Lao động' }, // gộp theo yêu cầu
+    { from: '2027-04-09', to: '2027-04-14', name: 'Giỗ Tổ Hùng Vương' },
+    { from: '2028-03-28', to: '2028-04-02', name: 'Giỗ Tổ Hùng Vương' },
+
+    // Giải phóng 30/4 & Lao động 1/5 — +25% từ 25/4 đến 1/5
+    { from: '2025-04-25', to: '2025-05-01', name: 'Giải phóng & Lao động' },
+    // 2026: đã gộp vào dải 26/4–1/5 ở trên
+    { from: '2027-04-25', to: '2027-05-01', name: 'Giải phóng & Lao động' },
+    { from: '2028-04-25', to: '2028-05-01', name: 'Giải phóng & Lao động' },
+
+    // Quốc khánh 2/9 — +25% từ 28/8 đến 2/9
+    { from: '2025-08-28', to: '2025-09-02', name: 'Quốc khánh' },
+    { from: '2026-08-28', to: '2026-09-02', name: 'Quốc khánh' },
+    { from: '2027-08-28', to: '2027-09-02', name: 'Quốc khánh' },
+    { from: '2028-08-28', to: '2028-09-02', name: 'Quốc khánh' },
+];
+

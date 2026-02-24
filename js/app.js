@@ -100,6 +100,107 @@
         return new Intl.NumberFormat('vi-VN').format(k) + 'K';
     }
 
+    /**
+     * Validates a phone number string.
+     * Accepts: digits-only (Vietnamese assumed) or +[country_code][number].
+     * Returns { valid: Boolean, message: String|null }
+     */
+    function validatePhone(raw) {
+        const str = raw.trim();
+        if (!str) return { valid: false, message: t('toast_phone_required') || 'Vui lòng nhập số điện thoại.' };
+
+        // --- International format: starts with + ---
+        if (str.startsWith('+')) {
+            const digits = str.slice(1).replace(/\s|-/g, '');
+            if (!/^\d+$/.test(digits)) return { valid: false, message: t('toast_phone_invalid') || 'Số điện thoại không hợp lệ.' };
+
+            // Vietnam: +84 + 9 digits
+            if (digits.startsWith('84')) {
+                const local = digits.slice(2);
+                if (local.length !== 9) return { valid: false, message: t('toast_phone_vn_length') || 'Số Việt Nam cần 9 chữ số sau +84.' };
+                return { valid: true, message: null };
+            }
+            // Russia: +7 + 10 digits
+            if (digits.startsWith('7')) {
+                const local = digits.slice(1);
+                if (local.length !== 10) return { valid: false, message: t('toast_phone_invalid') || 'Số Nga (+7) cần 10 chữ số sau mã vùng.' };
+                return { valid: true, message: null };
+            }
+            // China: +86 + 11 digits
+            if (digits.startsWith('86')) {
+                const local = digits.slice(2);
+                if (local.length !== 11) return { valid: false, message: t('toast_phone_invalid') || 'Số Trung Quốc (+86) cần 11 chữ số.' };
+                return { valid: true, message: null };
+            }
+            // South Korea: +82 + 9–11 digits
+            if (digits.startsWith('82')) {
+                const local = digits.slice(2);
+                if (local.length < 9 || local.length > 11) return { valid: false, message: t('toast_phone_invalid') || 'Số Hàn Quốc (+82) cần 9–11 chữ số.' };
+                return { valid: true, message: null };
+            }
+            // Germany: +49 + 10–12 digits
+            if (digits.startsWith('49')) {
+                const local = digits.slice(2);
+                if (local.length < 10 || local.length > 12) return { valid: false, message: t('toast_phone_invalid') || 'Số Đức (+49) cần 10–12 chữ số.' };
+                return { valid: true, message: null };
+            }
+            // Other international: ITU allows 7–15 digits total
+            if (digits.length < 7 || digits.length > 15) return { valid: false, message: t('toast_phone_invalid') || 'Số điện thoại quốc tế không hợp lệ.' };
+            return { valid: true, message: null };
+        }
+
+        // --- Local Vietnamese format: starts with 0, exactly 10 digits ---
+        const digitsOnly = str.replace(/\s|-/g, '');
+        if (!/^\d+$/.test(digitsOnly)) return { valid: false, message: t('toast_phone_invalid') || 'Chỉ nhập số hoặc định dạng +mã_vùng.' };
+        if (!digitsOnly.startsWith('0')) return { valid: false, message: t('toast_phone_vn_zero') || 'Số nội địa Việt Nam phải bắt đầu bằng 0.' };
+        if (digitsOnly.length !== 10) return { valid: false, message: t('toast_phone_vn_length10') || 'Số Việt Nam phải đủ 10 chữ số.' };
+        return { valid: true, message: null };
+    }
+
+
+    /**
+     * Returns 1.25 if `dateToCheck` falls within any holidayRanges entry, else 1.0.
+     * @param {Date|null} dateToCheck
+     */
+    function getHolidayMultiplier(dateToCheck) {
+        if (!dateToCheck || !Array.isArray(holidayRanges)) return 1.0;
+        // Normalise to midnight local time for clean date comparison
+        const d = new Date(dateToCheck);
+        d.setHours(0, 0, 0, 0);
+        for (const range of holidayRanges) {
+            const from = new Date(range.from + 'T00:00:00');
+            const to = new Date(range.to + 'T00:00:00');
+            if (d >= from && d <= to) return 1.25;
+        }
+        return 1.0;
+    }
+
+    /** Show/hide the holiday surcharge badge above the price summary block. */
+    function updateHolidayBadge() {
+        let badge = $('#holidaySurchargeBadge');
+        if (!badge) {
+            // Create once and insert before bookingPriceDisplay
+            const priceDisplay = $('#bookingPriceDisplay');
+            if (!priceDisplay) return;
+            badge = document.createElement('div');
+            badge.id = 'holidaySurchargeBadge';
+            badge.className = 'holiday-surcharge-badge';
+            priceDisplay.parentNode.insertBefore(badge, priceDisplay);
+        }
+        const multiplier = getHolidayMultiplier(selectedDate);
+        if (multiplier > 1.0) {
+            const activeRange = holidayRanges.find(r => {
+                const d = new Date(selectedDate); d.setHours(0, 0, 0, 0);
+                return d >= new Date(r.from + 'T00:00:00') && d <= new Date(r.to + 'T00:00:00');
+            });
+            badge.textContent = `${t('holiday_surcharge') || '🎉 Phụ phí ngày Lễ +25%'}${activeRange ? ' — ' + activeRange.name : ''}`;
+            badge.style.display = '';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+
     /* Feature icon mapping for product detail popup */
     const featureIcons = {
         feat_automatic: 'fa-solid fa-gear',
@@ -313,6 +414,22 @@
         switchClockMode('hour');
         $('#bookingNotes').value = '';
 
+        // Live phone input: allow only digits, +, spaces, hyphens; strip the rest
+        const phoneEl = $('#bookingPhone');
+        if (phoneEl && !phoneEl._phoneSanitizerAttached) {
+            phoneEl._phoneSanitizerAttached = true;
+            phoneEl.addEventListener('input', () => {
+                const cur = phoneEl.value;
+                // Allow: digits, +, space, hyphen. + only valid at start.
+                let sanitized = cur.replace(/[^\d\s\-+]/g, '');
+                // Force + only at position 0
+                sanitized = sanitized.replace(/(?!^)\+/g, '');
+                if (sanitized !== cur) phoneEl.value = sanitized;
+                phoneEl.classList.remove('input-error');
+            });
+        }
+
+
         // Show/hide rental duration & promo (Motorbikes only)
         const rentalGroup = $('#rentalDurationGroup');
         const promoBanner = $('#promoBanner');
@@ -431,7 +548,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="route-label">\u0110\u1ecba ch\u1ec9 giao xe</label>
+                        <label class="route-label">${t('label_delivery_address') || 'Địa Chỉ Khách Sạn/Resort'}</label>
                         <div class="autocomplete-wrapper">
                             <input type="text" class="form-control" id="routeDeliveryAddress"
                                 placeholder="Nh\u1eadp \u0111\u1ecba ch\u1ec9 kh\u00e1ch s\u1ea1n/Resort" autocomplete="off">
@@ -769,6 +886,8 @@
         renderClockFace();
         updateClockHand();
         updateReturnDate();
+        // Recalculate price with holiday multiplier whenever date changes
+        updateRentalPrice();
 
         // Show clock picker when date is selected (not for Jeeps - they use tour time)
         const clockPicker = $('#clockPicker');
@@ -854,21 +973,23 @@
         if (days > 90) days = 90;
         if (daysInput) daysInput.value = days;
 
+        const hm = getHolidayMultiplier(selectedDate);
         const originalPrice = bookingVehicle.price;
         const discountPrice = getDiscountedPrice(bookingVehicle, days);
-        const total = discountPrice * days;
+        const surcharged = Math.round(discountPrice * hm);
+        const total = surcharged * days;
 
         if (discountPrice < originalPrice) {
             display.innerHTML =
                 `<div class="rental-discount-badge">🎉 ${t('discount_label')}</div>` +
                 `<div class="rental-price-line">` +
                 `<span class="rental-price-original">${formatPrice(originalPrice)}</span> → ` +
-                `<span class="rental-price-new">${formatPrice(discountPrice)}/${t('per_day')}</span>` +
+                `<span class="rental-price-new">${formatPrice(surcharged)}/${t('per_day')}</span>` +
                 `</div>` +
                 `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}</strong> (${days} ${t('days_unit')})</div>`;
         } else {
             display.innerHTML =
-                `<div class="rental-price-line">${formatPrice(originalPrice)}/${t('per_day')}</div>` +
+                `<div class="rental-price-line">${formatPrice(surcharged)}/${t('per_day')}</div>` +
                 `<div class="rental-total">${t('total_label')}: <strong>${formatPrice(total)}</strong> (${days} ${t('days_unit')})</div>`;
         }
 
@@ -876,6 +997,7 @@
         updateBookingPrice();
         updateReturnDate();
     }
+
 
     function updateReturnDate() {
         const display = $('#returnDateDisplay');
@@ -901,36 +1023,57 @@
         if (!display || !bookingVehicle) return;
 
         const category = bookingVehicle._category;
+        const hm = getHolidayMultiplier(selectedDate);
+        const isHoliday = hm > 1.0;
+        const holidayNoteLine = isHoliday
+            ? `<div class="price-holiday-note">${t('holiday_surcharge') || 'Phụ phí ngày Lễ'}</div>`
+            : '';
         let priceHtml = '';
 
         if (category === 'motorbikes') {
             const daysInput = $('#rentalDays');
             let days = parseInt(daysInput ? daysInput.value : 1) || 1;
             const discountPrice = getDiscountedPrice(bookingVehicle, days);
-            const total = discountPrice * days;
+            const surcharged = Math.round(discountPrice * hm);
+            const total = surcharged * days;
+            const detailLine = isHoliday
+                ? `${formatPrice(discountPrice)} + 25% × ${days} ${t('days_unit')}`
+                : `${formatPrice(discountPrice)} × ${days} ${t('days_unit')}`;
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
                 <div class="price-summary-amount">${formatPrice(total)}</div>
-                <div class="price-summary-detail">${formatPrice(discountPrice)} × ${days} ${t('days_unit')}</div>
+                <div class="price-summary-detail">${detailLine}</div>
+                ${holidayNoteLine}
             `;
         } else if (category === 'jeeps') {
             if (selectedTourType === 'group') {
                 const people = parseInt($('#groupPeopleCount')?.value || 2) || 2;
-                const total = people * GROUP_PRICE_PER_PERSON;
+                const basePPP = GROUP_PRICE_PER_PERSON;
+                const surchargedPPP = Math.round(basePPP * hm);
+                const total = people * surchargedPPP;
+                const detailLine = isHoliday
+                    ? `${formatPrice(basePPP)} + 25% × ${people} ${t('people_unit')}`
+                    : `${formatPrice(basePPP)} × ${people} ${t('people_unit')}`;
                 priceHtml = `
                     <div class="price-summary-label">${t('total_label')}</div>
                     <div class="price-summary-amount">${formatPrice(total)}</div>
-                    <div class="price-summary-detail">${formatPrice(GROUP_PRICE_PER_PERSON)} × ${people} ${t('people_unit')}</div>
+                    <div class="price-summary-detail">${detailLine}</div>
+                    ${holidayNoteLine}
                 `;
             } else {
+                const basePrice = bookingVehicle.price;
+                const surchargedPrice = Math.round(basePrice * hm);
+                const detailLine = isHoliday
+                    ? `${formatPrice(basePrice)} + 25% / ${t('per_tour')}`
+                    : t('per_tour');
                 priceHtml = `
                     <div class="price-summary-label">${t('total_label')}</div>
-                    <div class="price-summary-amount">${formatPrice(bookingVehicle.price)}</div>
-                    <div class="price-summary-detail">${t('per_tour')}</div>
+                    <div class="price-summary-amount">${formatPrice(surchargedPrice)}</div>
+                    <div class="price-summary-detail">${detailLine}</div>
+                    ${holidayNoteLine}
                 `;
             }
         } else if (category === 'minibuses') {
-            // Dynamic price: pickup→dropoff combined route key
             const mbP = $('#pickupSelect'), mbD = $('#dropoffSelect');
             const mbRK = (mbP ? mbP.value : '') + '→' + (mbD ? mbD.value : '');
             const mbC = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
@@ -945,16 +1088,23 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
-            const tripPrice = mbPx[mbRK] ?? bookingVehicle.price;
+            const baseTrip = mbPx[mbRK] ?? bookingVehicle.price;
+            const surchargedTrip = Math.round(baseTrip * hm);
+            const detailLine = isHoliday
+                ? `${formatPrice(baseTrip)} + 25% / ${t('per_trip')}`
+                : t('per_trip');
             priceHtml = `
                 <div class="price-summary-label">${t('total_label')}</div>
-                <div class="price-summary-amount">${formatPrice(tripPrice)}</div>
-                <div class="price-summary-detail">${t('per_trip')}</div>
+                <div class="price-summary-amount">${formatPrice(surchargedTrip)}</div>
+                <div class="price-summary-detail">${detailLine}</div>
+                ${holidayNoteLine}
             `;
         }
 
         display.innerHTML = priceHtml;
+        updateHolidayBadge();
     }
+
 
     function adjustDays(delta) {
         const input = $('#rentalDays');
@@ -1000,11 +1150,16 @@
         // Drag interaction
         let isDragging = false;
 
+        let lastDragDist = 80; // remember last drag distance to determine ring
+
         function getAngleFromEvent(e) {
             const rect = svg.getBoundingClientRect();
             const touch = e.touches ? e.touches[0] : e;
             const x = touch.clientX - rect.left - rect.width / 2;
             const y = touch.clientY - rect.top - rect.height / 2;
+            // Scale from px to SVG units (viewBox 200x200)
+            const svgScale = 100 / (rect.width / 2);
+            lastDragDist = Math.sqrt(x * x + y * y) * svgScale;
             let angle = Math.atan2(y, x) * 180 / Math.PI + 90;
             if (angle < 0) angle += 360;
             return angle;
@@ -1012,11 +1167,19 @@
 
         function snapValue(angle) {
             if (clockMode === 'hour') {
-                // 16 positions (6-21), each 22.5 degrees
-                const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-                let idx = Math.round(angle / 22.5) % 16;
-                if (idx < 0) idx += 16;
-                return hourValues[idx];
+                const isMoto = bookingVehicle && bookingVehicle._category === 'motorbikes';
+                if (isMoto) {
+                    // 16 positions (6-21), each 22.5 degrees
+                    const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+                    let idx = Math.round(angle / 22.5) % 16;
+                    if (idx < 0) idx += 16;
+                    return hourValues[idx];
+                } else {
+                    // Two-ring: outer (r>55) = 00-11, inner (r<=55) = 12-23, each 30 degrees
+                    let idx = Math.round(angle / 30) % 12;
+                    if (idx < 0) idx += 12;
+                    return lastDragDist > 55 ? idx : idx + 12;
+                }
             } else {
                 // 12 positions (0,5,10...55), each 30 degrees
                 let idx = Math.round(angle / 30);
@@ -1079,7 +1242,15 @@
 
             // Auto-switch from hour to minute after drag ends
             if (wasDragging && clockMode === 'hour') {
-                setTimeout(() => switchClockMode('minute'), 250);
+                const isMoto = bookingVehicle && bookingVehicle._category === 'motorbikes';
+                if (isMoto && selectedClockHour === 21) {
+                    // Motorbike last hour — skip minutes, lock at :00
+                    selectedClockMinute = 0;
+                    clockUserSelected = true;
+                    setTimeout(() => showClockConfirmation(), 250);
+                } else {
+                    setTimeout(() => switchClockMode('minute'), 250);
+                }
             }
             // Show confirmation when minute drag ends
             if (wasDragging && clockMode === 'minute') {
@@ -1108,7 +1279,16 @@
                 if (clockMode === 'hour') {
                     selectedClockHour = val;
                     updateClockHand();
-                    setTimeout(() => switchClockMode('minute'), 250);
+                    const isMoto = bookingVehicle && bookingVehicle._category === 'motorbikes';
+                    if (isMoto && val === 21) {
+                        // Motorbike last hour — skip minute selection, lock at :00
+                        selectedClockMinute = 0;
+                        updateClockHand();
+                        clockUserSelected = true;
+                        setTimeout(() => showClockConfirmation(), 250);
+                    } else {
+                        setTimeout(() => switchClockMode('minute'), 250);
+                    }
                 } else {
                     selectedClockMinute = val;
                     updateClockHand();
@@ -1121,7 +1301,12 @@
         const hourDisplay = $('#clockHourDisplay');
         const minDisplay = $('#clockMinDisplay');
         if (hourDisplay) hourDisplay.addEventListener('click', () => switchClockMode('hour'));
-        if (minDisplay) minDisplay.addEventListener('click', () => switchClockMode('minute'));
+        if (minDisplay) minDisplay.addEventListener('click', () => {
+            // Block switching to minute mode when hour=21 on motorbike form
+            const isMoto = bookingVehicle && bookingVehicle._category === 'motorbikes';
+            if (isMoto && selectedClockHour === 21) return;
+            switchClockMode('minute');
+        });
     }
 
     function showClockConfirmation() {
@@ -1166,8 +1351,7 @@
         if (ticksG) ticksG.innerHTML = '';
 
         if (clockMode === 'hour') {
-            // 16 hour numbers (6-21) at 22.5-degree intervals
-            const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+            const isMoto = bookingVehicle && bookingVehicle._category === 'motorbikes';
 
             // Determine which hours are past (disabled) when today is selected
             let disabledUpTo = -1;
@@ -1182,20 +1366,55 @@
                 }
             }
 
-            for (let i = 0; i < 16; i++) {
-                const h = hourValues[i];
-                const isPast = h < disabledUpTo;
-                const angle = (i * 22.5 - 90) * Math.PI / 180;
-                const x = cx + numR * Math.cos(angle);
-                const y = cy + numR * Math.sin(angle);
-                const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                txt.setAttribute('x', x);
-                txt.setAttribute('y', y);
-                txt.setAttribute('class', 'clock-number' + (isPast ? ' disabled' : ''));
-                txt.setAttribute('data-value', h);
-                if (isPast) txt.setAttribute('data-disabled', 'true');
-                txt.textContent = h;
-                numbersG.appendChild(txt);
+            if (isMoto) {
+                // Motorbike: 16 numbers (6-21) at 22.5° on single ring
+                const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+                for (let i = 0; i < 16; i++) {
+                    const h = hourValues[i];
+                    const isPast = h < disabledUpTo;
+                    const angle = (i * 22.5 - 90) * Math.PI / 180;
+                    const x = cx + 66 * Math.cos(angle);
+                    const y = cy + 66 * Math.sin(angle);
+                    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    txt.setAttribute('x', x); txt.setAttribute('y', y);
+                    txt.setAttribute('class', 'clock-number' + (isPast ? ' disabled' : ''));
+                    txt.setAttribute('data-value', h);
+                    if (isPast) txt.setAttribute('data-disabled', 'true');
+                    txt.textContent = h;
+                    numbersG.appendChild(txt);
+                }
+            } else {
+                // Transfer: two-ring layout — outer (r=66): 00-11, inner (r=44): 12-23
+                // Both use standard 12-position clock (30° each)
+                for (let i = 0; i < 12; i++) {
+                    const angle = (i * 30 - 90) * Math.PI / 180;
+
+                    // Outer ring: 00-11
+                    const hOut = i; // 0..11
+                    const isPastOut = hOut < disabledUpTo;
+                    const xOut = cx + 66 * Math.cos(angle);
+                    const yOut = cy + 66 * Math.sin(angle);
+                    const txtOut = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    txtOut.setAttribute('x', xOut); txtOut.setAttribute('y', yOut);
+                    txtOut.setAttribute('class', 'clock-number clock-number-outer' + (isPastOut ? ' disabled' : ''));
+                    txtOut.setAttribute('data-value', hOut);
+                    if (isPastOut) txtOut.setAttribute('data-disabled', 'true');
+                    txtOut.textContent = String(hOut).padStart(2, '0');
+                    numbersG.appendChild(txtOut);
+
+                    // Inner ring: 12-23
+                    const hIn = i + 12; // 12..23
+                    const isPastIn = hIn < disabledUpTo;
+                    const xIn = cx + 44 * Math.cos(angle);
+                    const yIn = cy + 44 * Math.sin(angle);
+                    const txtIn = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    txtIn.setAttribute('x', xIn); txtIn.setAttribute('y', yIn);
+                    txtIn.setAttribute('class', 'clock-number clock-number-inner' + (isPastIn ? ' disabled' : ''));
+                    txtIn.setAttribute('data-value', hIn);
+                    if (isPastIn) txtIn.setAttribute('data-disabled', 'true');
+                    txtIn.textContent = String(hIn).padStart(2, '0');
+                    numbersG.appendChild(txtIn);
+                }
             }
         } else {
             // 12 minute labels: 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 00
@@ -1264,13 +1483,22 @@
         const knob = $('#clockKnob');
         if (!hand) return;
 
-        const cx = 100, cy = 100, handR = 70;
+        const cx = 100, cy = 100;
         let angleDeg;
+        let handR = 70; // default (motorbike / minute mode)
 
         if (clockMode === 'hour') {
-            const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-            const idx = hourValues.indexOf(selectedClockHour);
-            angleDeg = idx >= 0 ? idx * 22.5 : 0;
+            const isMoto = bookingVehicle && bookingVehicle._category === 'motorbikes';
+            if (isMoto) {
+                const hourValues = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+                const idx = hourValues.indexOf(selectedClockHour);
+                angleDeg = idx >= 0 ? idx * 22.5 : 0;
+            } else {
+                // Two-ring: outer (0-11) at r=66, inner (12-23) at r=44
+                angleDeg = (selectedClockHour % 12) * 30;
+                // Hand length matches the ring the selected hour lives on
+                handR = selectedClockHour >= 12 ? 44 : 66;
+            }
         } else {
             angleDeg = selectedClockMinute * 6;
         }
@@ -1285,6 +1513,7 @@
             knob.setAttribute('cx', x2);
             knob.setAttribute('cy', y2);
         }
+
 
         // Update display text
         const hourDisplay = $('#clockHourDisplay');
@@ -1415,10 +1644,23 @@
         const clockTime = `${String(selectedClockHour).padStart(2, '0')}:${String(selectedClockMinute).padStart(2, '0')}`;
         const notes = $('#bookingNotes').value.trim();
 
-        if (!name || !phone) {
-            showToast(t('toast_error'));
+        if (!name) {
+            showToast(t('toast_error') || 'Vui lòng điền đầy đủ thông tin.');
+            $('#bookingName').focus();
             return null;
         }
+        const phoneCheck = validatePhone(phone);
+        if (!phoneCheck.valid) {
+            showToast(phoneCheck.message);
+            const phoneEl = $('#bookingPhone');
+            if (phoneEl) {
+                phoneEl.classList.add('input-error');
+                phoneEl.focus();
+                setTimeout(() => phoneEl.classList.remove('input-error'), 2500);
+            }
+            return null;
+        }
+
 
         // Validate: date must be selected on the calendar
         if (!selectedDate) {
@@ -1470,17 +1712,20 @@
             : '';
 
         // Rental days & pricing for motorbikes
+        const _hm = getHolidayMultiplier(selectedDate);
+        const _hmSuffix = _hm > 1.0 ? ` [${t('holiday_surcharge') || 'Phụ phí Lễ +25%'}]` : '';
         let rentalDays = 1;
         let returnDateStr = '';
-        let priceStr = bookingVehicle ? `${formatPrice(bookingVehicle.price)}` : '';
+        let priceStr = bookingVehicle ? `${formatPrice(Math.round(bookingVehicle.price * _hm))}` : '';
         if (bookingVehicle && bookingVehicle._category === 'motorbikes') {
             const daysInput = $('#rentalDays');
             rentalDays = parseInt(daysInput ? daysInput.value : 1) || 1;
             const discounted = getDiscountedPrice(bookingVehicle, rentalDays);
-            const total = discounted * rentalDays;
+            const surcharged = Math.round(discounted * _hm);
+            const total = surcharged * rentalDays;
             priceStr = discounted < bookingVehicle.price
-                ? `${formatPrice(discounted)}/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)} (${t('discount_label')})`
-                : `${formatPrice(bookingVehicle.price)}/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}`;
+                ? `${formatPrice(surcharged)}/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)} (${t('discount_label')}${_hmSuffix})`
+                : `${formatPrice(surcharged)}/${t('per_day')} × ${rentalDays} ${t('days_unit')} = ${formatPrice(total)}${_hmSuffix}`;
             if (selectedDate) {
                 const returnDate = new Date(selectedDate);
                 returnDate.setDate(returnDate.getDate() + rentalDays);
@@ -1504,7 +1749,8 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
-            priceStr = `${formatPrice(mbPx4[mbRK4] ?? bookingVehicle.price)}/${t('per_trip')}`;
+            const mbBase = mbPx4[mbRK4] ?? bookingVehicle.price;
+            priceStr = `${formatPrice(Math.round(mbBase * _hm))}/${t('per_trip')}${_hmSuffix}`;
         }
 
         // Jeep pricing: depends on tour type
@@ -1514,11 +1760,12 @@
             const peopleInput = $('#groupPeopleCount');
             peopleCount = parseInt(peopleInput ? peopleInput.value : 1) || 1;
             if (selectedTourType === 'group') {
+                const surchargedPPP = Math.round(180000 * _hm);
                 tourTypeLabel = t('tour_type_group') || 'Tour Ghép';
-                priceStr = `${formatPrice(peopleCount * 180000)} (${formatPrice(180000)} × ${peopleCount} ${t('people_unit') || 'người'})`;
+                priceStr = `${formatPrice(peopleCount * surchargedPPP)} (${formatPrice(surchargedPPP)} × ${peopleCount} ${t('people_unit') || 'người'})${_hmSuffix}`;
             } else {
                 tourTypeLabel = t('tour_type_private') || 'Tour riêng tư';
-                priceStr = formatPrice(bookingVehicle.price);
+                priceStr = `${formatPrice(Math.round(bookingVehicle.price * _hm))}${_hmSuffix}`;
             }
         }
 
