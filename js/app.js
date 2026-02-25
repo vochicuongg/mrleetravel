@@ -645,8 +645,13 @@
                 const newPickup = pickupSel.value;
                 const isAirport = newPickup === 'Sân bay Tân Sơn Nhất (SGN)';
                 const isNhaTrang = newPickup === 'Nha Trang';
+                const isPhanRang = newPickup === 'Biển Phan Rang';
                 Array.from(dropoffSel.options).forEach(opt => {
-                    const restricted = (isAirport || isNhaTrang) && tourOnly.includes(opt.value);
+                    let restricted = (isAirport || isNhaTrang) && tourOnly.includes(opt.value);
+                    // Biển Phan Rang: ẩn Nha Trang + Tà Cú + Xương Cá Ông + Chùa Cổ Thạch
+                    if (isPhanRang && (opt.value === 'Nha Trang' || tourOnly.includes(opt.value))) restricted = true;
+                    // Ngược lại: khi đón Nha Trang cũng ẩn Biển Phan Rang
+                    if (isNhaTrang && opt.value === 'Biển Phan Rang') restricted = true;
                     opt.hidden = restricted; opt.disabled = restricted;
                 });
                 if (dropoffSel.value === newPickup) {
