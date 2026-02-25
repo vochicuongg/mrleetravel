@@ -285,6 +285,24 @@ const nhaTrangHotelList = [
     { name: 'Khách sạn khác', address: '', _isOther: true }
 ];
 
+/* Hotel & Resort list for autocomplete (Biển Phan Rang / Ninh Thuận) */
+const phanRangHotelList = [
+    { name: 'Amanoi Resort', address: 'Vĩnh Hy, Vĩnh Hải, Ninh Hải, Ninh Thuận' },
+    { name: 'Ninh Chu Bay Resort', address: 'Ninh Chữ, Ninh Hải, Ninh Thuận' },
+    { name: 'The Coast Ninh Thuan', address: 'Đường Yên Ninh, Ninh Chữ, Phan Rang' },
+    { name: 'Lucky Beach Resort Ninh Thuan', address: 'Ninh Chữ, Ninh Hải, Ninh Thuận' },
+    { name: 'Seahorse Resort & Spa', address: 'Ninh Chữ, Phan Rang, Ninh Thuận' },
+    { name: 'Bình Tiên Resort', address: 'Thôn Bình Tiên, Công Hải, Thuận Bắc, Ninh Thuận' },
+    { name: 'Vĩnh Hy Bay Resort', address: 'Vĩnh Hy, Vĩnh Hải, Ninh Thuận' },
+    { name: 'Anna Hotel Phan Rang', address: '1 Thống Nhất, Đài Sơn, Phan Rang-Tháp Chàm' },
+    { name: 'Long Thuan Hotel', address: '23 Nguyễn Thái Học, Đô Vinh, Phan Rang-Tháp Chàm' },
+    { name: 'Ninh Thuan Hotel', address: '1 Nguyễn Đình Chiểu, Phước Mỹ, Phan Rang-Tháp Chàm' },
+    { name: 'H2O Phan Rang Hotel', address: 'Đường 16/4, Phan Rang-Tháp Chàm, Ninh Thuận' },
+    { name: 'Hùng Vương Hotel Phan Rang', address: '11 Hùng Vương, Đô Vinh, Phan Rang-Tháp Chàm' },
+    { name: 'Seaview Phan Rang Hotel', address: 'Ninh Chữ, Ninh Hải, Ninh Thuận' },
+    { name: 'Khách sạn khác', address: '', _isOther: true }
+];
+
 /* ============================================================
    Holiday Date Ranges — Vietnamese public holidays
    Format: { from: 'YYYY-MM-DD', to: 'YYYY-MM-DD', name: '...' }

@@ -509,12 +509,14 @@
                 <option value="Mũi Né">Mũi Né</option>
                 <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
                 <option value="Nha Trang">Nha Trang</option>
+                <option value="Biển Phan Rang">${t('stop_phan_rang') || 'Biển Phan Rang'}</option>
             `;
             const dropoffOptions = `
                 <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
                 <option value="Mũi Né">Mũi Né</option>
                 <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
                 <option value="Nha Trang">Nha Trang</option>
+                <option value="Biển Phan Rang">${t('stop_phan_rang') || 'Biển Phan Rang'}</option>
                 <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
                 <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
                 <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
@@ -561,22 +563,34 @@
             const ROUTE_STOPS = {
                 'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': [t('stop_muine'), t('stop_sgn')],
                 'Mũi Né→Nha Trang': [t('stop_muine'), t('stop_nhatrang')],
+                'Mũi Né→Biển Phan Rang': [t('stop_muine'), t('stop_phan_rang')],
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_ta_cu'), t('stop_muine')],
                 'Mũi Né→Xương Cá Ông': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_muine')],
                 'Mũi Né→Chùa Cổ Thạch': [t('stop_muine'), t('stop_chua_co_thach'), t('stop_muine')],
                 'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': [t('stop_sgn'), t('stop_muine')],
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': [t('stop_sgn'), t('stop_nhatrang')],
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': [t('stop_sgn'), t('stop_phan_rang')],
                 'Nha Trang→Mũi Né': [t('stop_nhatrang'), t('stop_muine')],
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_nhatrang'), t('stop_sgn')],
+                'Biển Phan Rang→Mũi Né': [t('stop_phan_rang'), t('stop_muine')],
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_phan_rang'), t('stop_sgn')],
             };
             const BASE_PRICE = bookingVehicle.price || 1690000;
             const ROUTE_PRICES = is16Seat ? {
+                'Mũi Né→Biển Phan Rang': 2600000,
+                'Biển Phan Rang→Mũi Né': 2600000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
                 'Mũi Né→Xương Cá Ông': 1900000,
                 'Mũi Né→Chùa Cổ Thạch': 2700000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
+                'Mũi Né→Biển Phan Rang': 1690000,
+                'Biển Phan Rang→Mũi Né': 1690000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
                 'Mũi Né→Chùa Cổ Thạch': 1900000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
@@ -690,7 +704,9 @@
             // Wire up hotel autocomplete — getter resolves list dynamically by pickup
             const routeHotelGetter = () => {
                 const pv = pickupSel ? pickupSel.value : '';
-                return pv === 'Nha Trang' ? nhaTrangHotelList : hotelList;
+                if (pv === 'Nha Trang') return nhaTrangHotelList;
+                if (pv === 'Biển Phan Rang') return phanRangHotelList;
+                return hotelList;
             };
             setupHotelAutocomplete('#routeDeliveryName', '#routeHotelAC', 'name', routeHotelGetter);
             setupHotelAutocomplete('#routeDeliveryAddress', '#routeAddressAC', 'both', routeHotelGetter);
@@ -1078,12 +1094,20 @@
             const mbRK = (mbP ? mbP.value : '') + '→' + (mbD ? mbD.value : '');
             const mbC = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
             const mbPx = mbC.includes('16') ? {
+                'Mũi Né→Biển Phan Rang': 2600000,
+                'Biển Phan Rang→Mũi Né': 2600000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
                 'Mũi Né→Xương Cá Ông': 1900000,
                 'Mũi Né→Chùa Cổ Thạch': 2700000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
+                'Mũi Né→Biển Phan Rang': 1690000,
+                'Biển Phan Rang→Mũi Né': 1690000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
                 'Mũi Né→Chùa Cổ Thạch': 1900000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
@@ -1704,6 +1728,21 @@
                 showToast(t('toast_select_dropoff') || 'Vui lòng chọn điểm trả!');
                 return null;
             }
+            // Validate: hotel name required when pickup is NOT the airport
+            const mbPickup = mbPc ? mbPc.value : '';
+            const AIRPORT = 'Sân bay Tân Sơn Nhất (SGN)';
+            if (mbPickup && mbPickup !== AIRPORT) {
+                const _otherWrapV = $('#routeOtherHotelWrap');
+                const _otherInputV = $('#routeOtherHotelName');
+                const _routeNameV = $('#routeDeliveryName');
+                const customNameV = (_otherWrapV && _otherWrapV.style.display !== 'none' && _otherInputV) ? _otherInputV.value.trim() : '';
+                const hotelNameV = customNameV || (_routeNameV ? _routeNameV.value.trim() : '');
+                if (!hotelNameV) {
+                    showToast(t('toast_hotel_required') || 'Vui lòng nhập Tên Khách Sạn/Resort!');
+                    if (_routeNameV) _routeNameV.focus();
+                    return null;
+                }
+            }
         }
 
         // Delivery info
@@ -1746,12 +1785,20 @@
             const mbRK4 = (mbP4 ? mbP4.value : '') + '→' + (mbD4 ? mbD4.value : '');
             const mbC4 = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
             const mbPx4 = mbC4.includes('16') ? {
+                'Mũi Né→Biển Phan Rang': 2600000,
+                'Biển Phan Rang→Mũi Né': 2600000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
                 'Mũi Né→Xương Cá Ông': 1900000,
                 'Mũi Né→Chùa Cổ Thạch': 2700000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
+                'Mũi Né→Biển Phan Rang': 1690000,
+                'Biển Phan Rang→Mũi Né': 1690000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
                 'Mũi Né→Chùa Cổ Thạch': 1900000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
@@ -1848,14 +1895,15 @@
 
         if (data.category === 'minibuses') {
             // Minibus customer message
+            const isAirportPickup = data.routeInfo && data.routeInfo.startsWith('Sân bay Tân Sơn Nhất (SGN)');
             return [
                 t('msg_greeting_minibus') || 'Xin chào Mr. Lee, tôi muốn đặt xe transfer và đây là thông tin của tôi:',
                 `* *${t('msg_name')}:* ${data.name}`,
                 `* *${t('msg_phone')}:* ${data.phone}`,
                 `* *${t('msg_vehicle')}:* ${data.vehicle}`,
                 data.routeInfo ? `* *${t('msg_route') || 'Lộ trình'}:* ${data.routeInfo}` : '',
-                data.hotelName ? `* *${t('msg_hotel_name') || 'Tên Khách sạn/Resort'}:* ${data.hotelName}` : '',
-                data.hotelAddress ? `* *${t('msg_hotel_address') || 'Địa chỉ'}:* ${data.hotelAddress}` : '',
+                !isAirportPickup && data.hotelName ? `* *${t('msg_hotel_name') || 'Tên Khách sạn/Resort'}:* ${data.hotelName}` : '',
+                !isAirportPickup && data.hotelAddress ? `* *${t('msg_hotel_address') || 'Địa chỉ'}:* ${data.hotelAddress}` : '',
                 `* *${t('msg_date')}:* ${data.date}`,
                 `* *${t('msg_time')}:* ${data.time}`,
                 data.notes ? `* *${t('msg_notes')}:* ${data.notes}` : ''
@@ -1935,7 +1983,10 @@
             ].filter(Boolean).join('\n');
         } else if (data.category === 'minibuses') {
             // Minibus/Transfer format
-            const pickupAddr = [data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || 'Chưa cung cấp';
+            const isAirportPickup = data.routeInfo && data.routeInfo.startsWith('Sân bay Tân Sơn Nhất (SGN)');
+            const pickupAddr = !isAirportPickup
+                ? ([data.hotelName, data.hotelAddress].filter(Boolean).join(' — ') || 'Chưa cung cấp')
+                : null;
             message = [
                 `🚀 <b>ĐƠN ĐẶT XE TRANSFER</b>`,
                 `---------------------`,
@@ -1946,7 +1997,7 @@
                 data.routeInfo ? `🗺️ <b>Lộ trình:</b> ${data.routeInfo}` : '',
                 `📅 <b>Ngày đón:</b> ${data.date}`,
                 `⏰ <b>Giờ đón:</b> ${data.time}`,
-                `📍 <b>Điểm đón:</b> ${pickupAddr}`,
+                pickupAddr ? `📍 <b>Điểm đón:</b> ${pickupAddr}` : '',
                 data.notes ? `📝 <b>Ghi chú:</b> ${data.notes}` : '',
                 `---------------------`,
                 `🕐 <b>Thời gian tạo đơn:</b> ${timestamp}`
