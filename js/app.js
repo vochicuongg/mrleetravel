@@ -577,6 +577,10 @@
             };
             const BASE_PRICE = bookingVehicle.price || 1690000;
             const ROUTE_PRICES = is16Seat ? {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
+                'Mũi Né→Nha Trang': 2650000,
+                'Nha Trang→Mũi Né': 2650000,
                 'Mũi Né→Biển Phan Rang': 2600000,
                 'Biển Phan Rang→Mũi Né': 2600000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
@@ -587,6 +591,10 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
+                'Mũi Né→Nha Trang': 1750000,
+                'Nha Trang→Mũi Né': 1750000,
                 'Mũi Né→Biển Phan Rang': 1690000,
                 'Biển Phan Rang→Mũi Né': 1690000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
@@ -1099,6 +1107,10 @@
             const mbRK = (mbP ? mbP.value : '') + '→' + (mbD ? mbD.value : '');
             const mbC = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
             const mbPx = mbC.includes('16') ? {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
+                'Mũi Né→Nha Trang': 2650000,
+                'Nha Trang→Mũi Né': 2650000,
                 'Mũi Né→Biển Phan Rang': 2600000,
                 'Biển Phan Rang→Mũi Né': 2600000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
@@ -1109,6 +1121,10 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
+                'Mũi Né→Nha Trang': 1750000,
+                'Nha Trang→Mũi Né': 1750000,
                 'Mũi Né→Biển Phan Rang': 1690000,
                 'Biển Phan Rang→Mũi Né': 1690000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
@@ -1790,6 +1806,10 @@
             const mbRK4 = (mbP4 ? mbP4.value : '') + '→' + (mbD4 ? mbD4.value : '');
             const mbC4 = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
             const mbPx4 = mbC4.includes('16') ? {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
+                'Mũi Né→Nha Trang': 2650000,
+                'Nha Trang→Mũi Né': 2650000,
                 'Mũi Né→Biển Phan Rang': 2600000,
                 'Biển Phan Rang→Mũi Né': 2600000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
@@ -1800,6 +1820,10 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
+                'Mũi Né→Nha Trang': 1750000,
+                'Nha Trang→Mũi Né': 1750000,
                 'Mũi Né→Biển Phan Rang': 1690000,
                 'Biển Phan Rang→Mũi Né': 1690000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
