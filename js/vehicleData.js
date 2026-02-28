@@ -166,7 +166,7 @@ const vehicleData = {
             nameKey: 'Toyota Fortuner',
             type: 'transfer',
             badgeKey: 'feat_private',
-            price: 1690000,
+            price: 1750000,
             priceUnit: 'per_trip',
             currency: 'VND',
             image: 'assets/images/products/minibus/toyota-fortuner.webp',
