@@ -575,14 +575,14 @@
                 'Biển Phan Rang→Mũi Né': [t('stop_phan_rang'), t('stop_muine')],
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_phan_rang'), t('stop_sgn')],
             };
-            const BASE_PRICE = bookingVehicle.price || 1690000;
+            const BASE_PRICE = bookingVehicle.price || 1750000;
             const ROUTE_PRICES = is16Seat ? {
                 'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
                 'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
                 'Mũi Né→Nha Trang': 2650000,
                 'Nha Trang→Mũi Né': 2650000,
-                'Mũi Né→Biển Phan Rang': 2600000,
-                'Biển Phan Rang→Mũi Né': 2600000,
+                'Mũi Né→Biển Phan Rang': 2650000,
+                'Biển Phan Rang→Mũi Né': 2650000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
@@ -595,11 +595,11 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
                 'Mũi Né→Nha Trang': 1750000,
                 'Nha Trang→Mũi Né': 1750000,
-                'Mũi Né→Biển Phan Rang': 1690000,
-                'Biển Phan Rang→Mũi Né': 1690000,
+                'Mũi Né→Biển Phan Rang': 1750000,
+                'Biển Phan Rang→Mũi Né': 1750000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
-                'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Mũi Né→Chùa Cổ Thạch': 1750000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
