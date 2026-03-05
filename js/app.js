@@ -512,14 +512,14 @@
                 <option value="Biển Phan Rang">${t('stop_phan_rang') || 'Biển Phan Rang'}</option>
             `;
             const dropoffOptions = `
-                <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm trả...'}</option>
+                <option value="" disabled selected>${t('placeholder_choose_dropoff') || 'Chọn điểm đến...'}</option>
                 <option value="Mũi Né">Mũi Né</option>
                 <option value="Sân bay Tân Sơn Nhất (SGN)">Sân bay Tân Sơn Nhất (SGN)</option>
                 <option value="Nha Trang">Nha Trang</option>
                 <option value="Biển Phan Rang">${t('stop_phan_rang') || 'Biển Phan Rang'}</option>
-                <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('dropoff_ta_cu') || 'Tà Cú (Không bao gồm phí cáp treo)'}</option>
-                <option value="Xương Cá Ông">${t('dropoff_xuong_ca_ong') || 'Xương Cá Ông'}</option>
-                <option value="Chùa Cổ Thạch">${t('dropoff_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
+                <option value="Tà Cú (Không bao gồm phí cáp treo)">${t('stop_ta_cu') || 'Tà Cú'} (Không bao gồm phí cáp treo)</option>
+                <option value="Chùa Cổ Thạch">${t('stop_chua_co_thach') || 'Chùa Cổ Thạch'}</option>
+                <option value="Kê Gà">${t('stop_kega') || 'Kê Gà'}</option>
             `;
 
             $('#routeDisplay').innerHTML = `
@@ -565,7 +565,6 @@
                 'Mũi Né→Nha Trang': [t('stop_muine'), t('stop_nhatrang')],
                 'Mũi Né→Biển Phan Rang': [t('stop_muine'), t('stop_phan_rang')],
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_ta_cu'), t('stop_muine')],
-                'Mũi Né→Xương Cá Ông': [t('stop_muine'), t('stop_thap_cham'), t('stop_xuong_ca_ong'), t('stop_muine')],
                 'Mũi Né→Chùa Cổ Thạch': [t('stop_muine'), t('stop_chua_co_thach'), t('stop_muine')],
                 'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': [t('stop_sgn'), t('stop_muine')],
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': [t('stop_sgn'), t('stop_nhatrang')],
@@ -574,6 +573,7 @@
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_nhatrang'), t('stop_sgn')],
                 'Biển Phan Rang→Mũi Né': [t('stop_phan_rang'), t('stop_muine')],
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_phan_rang'), t('stop_sgn')],
+                'Mũi Né→Kê Gà': [t('stop_muine'), t('stop_kega'), t('stop_muine')],
             };
             const BASE_PRICE = bookingVehicle.price || 1750000;
             const ROUTE_PRICES = is16Seat ? {
@@ -586,8 +586,8 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Mũi Né→Xương Cá Ông': 1900000,
                 'Mũi Né→Chùa Cổ Thạch': 2700000,
+                'Mũi Né→Kê Gà': 1900000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
@@ -599,7 +599,9 @@
                 'Biển Phan Rang→Mũi Né': 1750000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
-                'Mũi Né→Chùa Cổ Thạch': 1750000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1200000,
+                'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Mũi Né→Kê Gà': 1200000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
@@ -646,7 +648,7 @@
 
             let prevPickupVal = '';
             let prevDropoffVal = '';
-            const tourOnly = ['Tà Cú (Không bao gồm phí cáp treo)', 'Xương Cá Ông', 'Chùa Cổ Thạch'];
+            const tourOnly = ['Tà Cú (Không bao gồm phí cáp treo)', 'Chùa Cổ Thạch', 'Kê Gà'];
 
             function filterDropoff() {
                 if (!pickupSel || !dropoffSel) return;
@@ -1116,8 +1118,8 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Mũi Né→Xương Cá Ông': 1900000,
                 'Mũi Né→Chùa Cổ Thạch': 2700000,
+                'Mũi Né→Kê Gà': 1900000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
@@ -1129,7 +1131,9 @@
                 'Biển Phan Rang→Mũi Né': 1750000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1200000,
                 'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Mũi Né→Kê Gà': 1200000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
@@ -1815,8 +1819,8 @@
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
                 'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Mũi Né→Xương Cá Ông': 1900000,
                 'Mũi Né→Chùa Cổ Thạch': 2700000,
+                'Mũi Né→Kê Gà': 1900000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
             } : {
@@ -1828,7 +1832,9 @@
                 'Biển Phan Rang→Mũi Né': 1750000,
                 'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1200000,
                 'Mũi Né→Chùa Cổ Thạch': 1900000,
+                'Mũi Né→Kê Gà': 1200000,
                 'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
                 'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
             };
