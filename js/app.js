@@ -20,7 +20,7 @@
     let bookingVehicle = null;
     let selectedTourTime = null;
     let selectedTourType = 'private'; // 'private' | 'group'
-    const GROUP_PRICE_PER_PERSON = 280000;
+    const GROUP_PRICE_PER_PERSON = 180000;
     let selectedDeliveryMethod = 'pickup';
     let selectedClockHour = 8;
     let selectedClockMinute = 0;
@@ -238,7 +238,7 @@
           <div class="vehicle-card-footer">
             <div class="vehicle-card-price">
               ${category === 'jeeps'
-                ? `<span class="jeep-price-block"><span class="jeep-price-private">${formatPrice(v.price)}<small>/${t('per_tour')}</small></span><span class="jeep-price-sep">·</span><span class="jeep-price-group">280K<small>/${t('people_unit')}</small></span></span>`
+                ? `<span class="jeep-price-block"><span class="jeep-price-private">${formatPrice(v.price)}<small>/${t('per_tour')}</small></span><span class="jeep-price-sep">·</span><span class="jeep-price-group">180K<small>/${t('people_unit')}</small></span></span>`
                 : v.price > 0 ? `${formatPrice(v.price)} <small>/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
             </div>
             <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); app.openBooking('${v.id}')">
@@ -1849,7 +1849,7 @@
             const peopleInput = $('#groupPeopleCount');
             peopleCount = parseInt(peopleInput ? peopleInput.value : 1) || 1;
             if (selectedTourType === 'group') {
-                const surchargedPPP = Math.round(280000 * _hm);
+                const surchargedPPP = Math.round(180000 * _hm);
                 tourTypeLabel = t('tour_type_group') || 'Tour Ghép';
                 priceStr = `${formatPrice(peopleCount * surchargedPPP)} (${formatPrice(surchargedPPP)} × ${peopleCount} ${t('people_unit') || 'người'})${_hmSuffix}`;
             } else {
