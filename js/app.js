@@ -20,7 +20,7 @@
     let bookingVehicle = null;
     let selectedTourTime = null;
     let selectedTourType = 'private'; // 'private' | 'group'
-    const GROUP_PRICE_PER_PERSON = 180000;
+    const GROUP_PRICE_PER_PERSON = 280000;
     let selectedDeliveryMethod = 'pickup';
     let selectedClockHour = 8;
     let selectedClockMinute = 0;
@@ -238,7 +238,7 @@
           <div class="vehicle-card-footer">
             <div class="vehicle-card-price">
               ${category === 'jeeps'
-                ? `<span class="jeep-price-block"><span class="jeep-price-private">${formatPrice(v.price)}<small>/${t('per_tour')}</small></span><span class="jeep-price-sep">·</span><span class="jeep-price-group">180K<small>/${t('people_unit')}</small></span></span>`
+                ? `<span class="jeep-price-block"><span class="jeep-price-private">${formatPrice(v.price)}<small>/${t('per_tour')}</small></span><span class="jeep-price-sep">·</span><span class="jeep-price-group">280K<small>/${t('people_unit')}</small></span></span>`
                 : v.price > 0 ? `${formatPrice(v.price)} <small>/${t(v.priceUnit)}</small>` : `<span class="contact-price">${t('contact_us')}</span>`}
             </div>
             <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); app.openBooking('${v.id}')">
@@ -575,35 +575,35 @@
                 'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': [t('stop_phan_rang'), t('stop_sgn')],
                 'Mũi Né→Kê Gà': [t('stop_muine'), t('stop_kega'), t('stop_muine')],
             };
-            const BASE_PRICE = bookingVehicle.price || 1750000;
+            const BASE_PRICE = bookingVehicle.price || 1850000;
             const ROUTE_PRICES = is16Seat ? {
-                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
-                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
-                'Mũi Né→Nha Trang': 2650000,
-                'Nha Trang→Mũi Né': 2650000,
-                'Mũi Né→Biển Phan Rang': 2650000,
-                'Biển Phan Rang→Mũi Né': 2650000,
-                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
-                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
-                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Mũi Né→Chùa Cổ Thạch': 2700000,
-                'Mũi Né→Kê Gà': 1900000,
-                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
-                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2750000,
+                'Mũi Né→Nha Trang': 2750000,
+                'Nha Trang→Mũi Né': 2750000,
+                'Mũi Né→Biển Phan Rang': 2750000,
+                'Biển Phan Rang→Mũi Né': 2750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5300000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5300000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 2000000,
+                'Mũi Né→Chùa Cổ Thạch': 2800000,
+                'Mũi Né→Kê Gà': 2000000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5300000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5300000,
             } : {
-                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1750000,
-                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
-                'Mũi Né→Nha Trang': 1750000,
-                'Nha Trang→Mũi Né': 1750000,
-                'Mũi Né→Biển Phan Rang': 1750000,
-                'Biển Phan Rang→Mũi Né': 1750000,
-                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
-                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
-                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1200000,
-                'Mũi Né→Chùa Cổ Thạch': 1900000,
-                'Mũi Né→Kê Gà': 1200000,
-                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
-                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1850000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1850000,
+                'Mũi Né→Nha Trang': 1850000,
+                'Nha Trang→Mũi Né': 1850000,
+                'Mũi Né→Biển Phan Rang': 1850000,
+                'Biển Phan Rang→Mũi Né': 1850000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3480000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3480000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1300000,
+                'Mũi Né→Chùa Cổ Thạch': 2000000,
+                'Mũi Né→Kê Gà': 1300000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3480000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3480000,
             };
 
             const pickupSel = $('#pickupSelect');
@@ -1109,33 +1109,33 @@
             const mbRK = (mbP ? mbP.value : '') + '→' + (mbD ? mbD.value : '');
             const mbC = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
             const mbPx = mbC.includes('16') ? {
-                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
-                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
-                'Mũi Né→Nha Trang': 2650000,
-                'Nha Trang→Mũi Né': 2650000,
-                'Mũi Né→Biển Phan Rang': 2650000,
-                'Biển Phan Rang→Mũi Né': 2650000,
-                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
-                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
-                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Mũi Né→Chùa Cổ Thạch': 2700000,
-                'Mũi Né→Kê Gà': 1900000,
-                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
-                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2750000,
+                'Mũi Né→Nha Trang': 2750000,
+                'Nha Trang→Mũi Né': 2750000,
+                'Mũi Né→Biển Phan Rang': 2750000,
+                'Biển Phan Rang→Mũi Né': 2750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5300000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5300000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 2000000,
+                'Mũi Né→Chùa Cổ Thạch': 2800000,
+                'Mũi Né→Kê Gà': 2000000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5300000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5300000,
             } : {
-                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1750000,
-                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
-                'Mũi Né→Nha Trang': 1750000,
-                'Nha Trang→Mũi Né': 1750000,
-                'Mũi Né→Biển Phan Rang': 1750000,
-                'Biển Phan Rang→Mũi Né': 1750000,
-                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
-                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
-                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1200000,
-                'Mũi Né→Chùa Cổ Thạch': 1900000,
-                'Mũi Né→Kê Gà': 1200000,
-                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
-                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1850000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1850000,
+                'Mũi Né→Nha Trang': 1850000,
+                'Nha Trang→Mũi Né': 1850000,
+                'Mũi Né→Biển Phan Rang': 1850000,
+                'Biển Phan Rang→Mũi Né': 1850000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3480000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3480000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1300000,
+                'Mũi Né→Chùa Cổ Thạch': 2000000,
+                'Mũi Né→Kê Gà': 1300000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3480000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3480000,
             };
             const baseTrip = mbPx[mbRK] ?? bookingVehicle.price;
             const surchargedTrip = Math.round(baseTrip * hm);
@@ -1810,33 +1810,33 @@
             const mbRK4 = (mbP4 ? mbP4.value : '') + '→' + (mbD4 ? mbD4.value : '');
             const mbC4 = bookingVehicle.features ? (bookingVehicle.features.find(f => f.includes('seats')) || '') : '';
             const mbPx4 = mbC4.includes('16') ? {
-                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2650000,
-                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2650000,
-                'Mũi Né→Nha Trang': 2650000,
-                'Nha Trang→Mũi Né': 2650000,
-                'Mũi Né→Biển Phan Rang': 2650000,
-                'Biển Phan Rang→Mũi Né': 2650000,
-                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5200000,
-                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
-                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1900000,
-                'Mũi Né→Chùa Cổ Thạch': 2700000,
-                'Mũi Né→Kê Gà': 1900000,
-                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5200000,
-                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5200000,
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 2750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 2750000,
+                'Mũi Né→Nha Trang': 2750000,
+                'Nha Trang→Mũi Né': 2750000,
+                'Mũi Né→Biển Phan Rang': 2750000,
+                'Biển Phan Rang→Mũi Né': 2750000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 5300000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 5300000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 2000000,
+                'Mũi Né→Chùa Cổ Thạch': 2800000,
+                'Mũi Né→Kê Gà': 2000000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 5300000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 5300000,
             } : {
-                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1750000,
-                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1750000,
-                'Mũi Né→Nha Trang': 1750000,
-                'Nha Trang→Mũi Né': 1750000,
-                'Mũi Né→Biển Phan Rang': 1750000,
-                'Biển Phan Rang→Mũi Né': 1750000,
-                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3380000,
-                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
-                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1200000,
-                'Mũi Né→Chùa Cổ Thạch': 1900000,
-                'Mũi Né→Kê Gà': 1200000,
-                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3380000,
-                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3380000,
+                'Mũi Né→Sân bay Tân Sơn Nhất (SGN)': 1850000,
+                'Sân bay Tân Sơn Nhất (SGN)→Mũi Né': 1850000,
+                'Mũi Né→Nha Trang': 1850000,
+                'Nha Trang→Mũi Né': 1850000,
+                'Mũi Né→Biển Phan Rang': 1850000,
+                'Biển Phan Rang→Mũi Né': 1850000,
+                'Sân bay Tân Sơn Nhất (SGN)→Biển Phan Rang': 3480000,
+                'Biển Phan Rang→Sân bay Tân Sơn Nhất (SGN)': 3480000,
+                'Mũi Né→Tà Cú (Không bao gồm phí cáp treo)': 1300000,
+                'Mũi Né→Chùa Cổ Thạch': 2000000,
+                'Mũi Né→Kê Gà': 1300000,
+                'Sân bay Tân Sơn Nhất (SGN)→Nha Trang': 3480000,
+                'Nha Trang→Sân bay Tân Sơn Nhất (SGN)': 3480000,
             };
             const mbBase = mbPx4[mbRK4] ?? bookingVehicle.price;
             priceStr = `${formatPrice(Math.round(mbBase * _hm))}/${t('per_trip')}${_hmSuffix}`;
@@ -1849,7 +1849,7 @@
             const peopleInput = $('#groupPeopleCount');
             peopleCount = parseInt(peopleInput ? peopleInput.value : 1) || 1;
             if (selectedTourType === 'group') {
-                const surchargedPPP = Math.round(180000 * _hm);
+                const surchargedPPP = Math.round(280000 * _hm);
                 tourTypeLabel = t('tour_type_group') || 'Tour Ghép';
                 priceStr = `${formatPrice(peopleCount * surchargedPPP)} (${formatPrice(surchargedPPP)} × ${peopleCount} ${t('people_unit') || 'người'})${_hmSuffix}`;
             } else {
